@@ -290,7 +290,7 @@
   }
   .proj:hover { transform:translateY(-5px); box-shadow:0 10px 40px rgba(255,45,155,.22); border-color:var(--pink); }
   .proj-header {
-    height:100px; display:flex; align-items:center; justify-content:space-between;
+    height:80px; display:flex; align-items:center; justify-content:space-between;
     padding:1rem 1.4rem; position:relative; overflow:hidden;
   }
   .ph-c1 { background:linear-gradient(135deg,#1a0833,#2d1060); }
@@ -303,7 +303,10 @@
     content:''; position:absolute; inset:0;
     background:linear-gradient(135deg,rgba(155,48,255,.12),rgba(255,45,155,.1));
   }
-  .proj-icon { font-size:2rem; position:relative; z-index:1; }
+  .proj-label {
+    font-family:'Orbitron',monospace; font-size:.8rem; font-weight:700;
+    color:var(--lavender); position:relative; z-index:1; letter-spacing:.05em;
+  }
   .proj-featured {
     font-family:'Space Mono',monospace; font-size:.58rem;
     color:var(--pink); letter-spacing:.12em; text-transform:uppercase;
@@ -351,24 +354,13 @@
   .edu-list { display:flex; flex-direction:column; gap:1.2rem; }
   .edu-card {
     background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:1.4rem 1.6rem; display:grid; grid-template-columns:auto 1fr; gap:1rem;
+    padding:1.4rem 1.6rem;
     transition:border-color .2s, box-shadow .2s;
   }
   .edu-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); }
-  .edu-icon { font-size:1.8rem; }
   .edu-degree { font-family:'Orbitron',monospace; font-size:.85rem; color:var(--lavender); font-weight:700; }
   .edu-school { font-size:.85rem; color:var(--muted); margin:.3rem 0; }
-  .edu-meta { font-family:'Space Mono',monospace; font-size:.68rem; color:var(--pink); }
-
-  .exp-card {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:1.5rem 1.6rem;
-    transition:border-color .2s, box-shadow .2s;
-  }
-  .exp-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); }
-  .exp-role { font-family:'Orbitron',monospace; font-size:.9rem; color:var(--lavender); font-weight:700; }
-  .exp-org  { font-size:.88rem; color:var(--muted); margin:.35rem 0; }
-  .exp-desc { font-size:.86rem; color:var(--muted); line-height:1.75; margin-top:.75rem; }
+  .edu-meta { font-family:'Space Mono',monospace; font-size:.68rem; color:var(--pink); margin-top:.4rem; }
 
   .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
   @media(max-width:720px){.contact-grid{grid-template-columns:1fr;}}
@@ -386,7 +378,8 @@
     width:30px; height:30px; border-radius:4px;
     background:var(--bg3); border:1px solid var(--border);
     display:flex; align-items:center; justify-content:center;
-    font-size:.85rem; flex-shrink:0;
+    font-size:.7rem; font-family:'Space Mono',monospace;
+    color:var(--lavender); flex-shrink:0; font-weight:700;
   }
   .contact-form { display:flex; flex-direction:column; gap:1rem; }
   .f-label { font-family:'Space Mono',monospace; font-size:.65rem; color:var(--pink); letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:.35rem; }
@@ -567,10 +560,10 @@
   <div class="projects-grid">
     <div class="proj reveal">
       <div class="proj-header ph-c1">
+        <span class="proj-label">Cyber-Arena</span>
         <span class="proj-featured">Team Lead</span>
       </div>
       <div class="proj-body">
-        <h3 class="proj-name">Cyber-Arena</h3>
         <p class="proj-desc">Autonomous cybersecurity simulation where Red &amp; Blue DQN agents learn to attack and defend a full enterprise network — 8 PCs, 5 VLANs, live telemetry, honeypots, and firewall management.</p>
         <p class="proj-stack">GNS3 · Deep Q-Network · Telegraf → InfluxDB → Grafana · Ansible · ZeroTier</p>
         <div class="proj-links">
@@ -581,9 +574,9 @@
 
     <div class="proj reveal">
       <div class="proj-header ph-c2">
+        <span class="proj-label">Ransomware Simulation</span>
       </div>
       <div class="proj-body">
-        <h3 class="proj-name">Ransomware Simulation</h3>
         <p class="proj-desc">Simulated ransomware behaviour and built a full endpoint monitoring pipeline using an ELK stack to detect, alert, and visualise attack patterns in real time.</p>
         <p class="proj-stack">Sysmon · Winlogbeat · Suricata · Elasticsearch · Kibana</p>
         <div class="proj-links">
@@ -594,9 +587,9 @@
 
     <div class="proj reveal">
       <div class="proj-header ph-c3">
+        <span class="proj-label">Serverless Simulator</span>
       </div>
       <div class="proj-body">
-        <h3 class="proj-name">Serverless Function Simulator</h3>
         <p class="proj-desc">Custom Python FaaS runtime with HTTP, SQS, and cron triggers, cold start simulation (350ms), warm container pooling, and full telemetry aggregation (p50 latency, cold-start rates).</p>
         <p class="proj-stack">Python · FastAPI · LocalStack · JSON logging</p>
         <div class="proj-links">
@@ -607,9 +600,9 @@
 
     <div class="proj reveal">
       <div class="proj-header ph-c4">
+        <span class="proj-label">Pink Diary</span>
       </div>
       <div class="proj-body">
-        <h3 class="proj-name">Pink Diary</h3>
         <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI — built with React, Vite, and Tailwind CSS.</p>
         <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
         <div class="proj-links">
@@ -620,9 +613,9 @@
 
     <div class="proj reveal">
       <div class="proj-header ph-c5">
+        <span class="proj-label">LTE-2G Downgrade Attack</span>
       </div>
       <div class="proj-body">
-        <h3 class="proj-name">LTE-2G Downgrade Attack</h3>
         <p class="proj-desc">Educational simulation of an LTE to 2G downgrade attack demonstrating IMSI catcher vulnerabilities and SS7 protocol weaknesses for security research.</p>
         <p class="proj-stack">Network Security · Protocol Analysis · Python</p>
         <div class="proj-links">
@@ -633,9 +626,9 @@
 
     <div class="proj reveal">
       <div class="proj-header ph-c6">
+        <span class="proj-label">AI — NLP &amp; Vision</span>
       </div>
       <div class="proj-body">
-        <h3 class="proj-name">AI Projects — NLP &amp; Vision</h3>
         <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
         <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
         <div class="proj-links">
@@ -676,36 +669,24 @@
   <h2 class="section-title">Education</h2>
   <div class="edu-list">
     <div class="edu-card reveal">
-      <div class="edu-icon">🎓</div>
-      <div>
-        <p class="edu-degree">Cybersecurity Engineering (5th Year)</p>
-        <p class="edu-school">École Supérieure d'Informatique, Sidi Bel Abbès, Algeria</p>
-        <p class="edu-meta">2022 – Expected 2027</p>
-      </div>
+      <p class="edu-degree">Cybersecurity Engineering (5th Year)</p>
+      <p class="edu-school">École Supérieure d'Informatique, Sidi Bel Abbès, Algeria</p>
+      <p class="edu-meta">2022 – Expected 2027</p>
     </div>
     <div class="edu-card reveal">
-      <div class="edu-icon">📐</div>
-      <div>
-        <p class="edu-degree">Baccalaureate in Mathematics</p>
-        <p class="edu-school">Algeria</p>
-        <p class="edu-meta">2022 · Average: 16.41 / 20</p>
-      </div>
+      <p class="edu-degree">Baccalaureate in Mathematics</p>
+      <p class="edu-school">Algeria</p>
+      <p class="edu-meta">2022 · Average: 16.41 / 20</p>
     </div>
     <div class="edu-card reveal">
-      <div class="edu-icon">🔬</div>
-      <div>
-        <p class="edu-degree">Baccalaureate in Sciences</p>
-        <p class="edu-school">Algeria</p>
-        <p class="edu-meta">2021 · Average: 16.2 / 20</p>
-      </div>
+      <p class="edu-degree">Baccalaureate in Sciences</p>
+      <p class="edu-school">Algeria</p>
+      <p class="edu-meta">2021 · Average: 16.2 / 20</p>
     </div>
     <div class="edu-card reveal">
-      <div class="edu-icon">💼</div>
-      <div>
-        <p class="edu-degree">Internship — Algérie Télécom</p>
-        <p class="edu-school">Network fundamentals, security, system administration, telecom infrastructure</p>
-        <p class="edu-meta">Professional Training</p>
-      </div>
+      <p class="edu-degree">Internship — Algérie Télécom</p>
+      <p class="edu-school">Network fundamentals, security, system administration, telecom infrastructure</p>
+      <p class="edu-meta">Professional Training</p>
     </div>
   </div>
 </section>
@@ -720,22 +701,22 @@
       <p>Available for internships, research collaboration, and freelance work in cybersecurity, AI, and full-stack development. Based in Oran, Algeria — open to remote opportunities worldwide.</p>
       <div class="socials">
         <a class="social-row" href="mailto:sk.brahmi@esi-sba.dz">
-          <span class="s-ico">✉</span> sk.brahmi@esi-sba.dz
+          <span class="s-ico">@</span> sk.brahmi@esi-sba.dz
         </a>
         <a class="social-row" href="tel:+213540656280">
-          <span class="s-ico">📞</span> +213 540 656 280
+          <span class="s-ico">tel</span> +213 540 656 280
         </a>
         <a class="social-row" href="https://github.com/sarahbrahmi06" target="_blank">
-          <span class="s-ico">⬡</span> github.com/sarahbrahmi06
+          <span class="s-ico">gh</span> github.com/sarahbrahmi06
         </a>
         <a class="social-row" href="https://www.linkedin.com/in/brahmi-sarah-kaouther-953409255" target="_blank">
           <span class="s-ico">in</span> Brahmi Sarah Kaouther
         </a>
         <a class="social-row" href="https://www.instagram.com/sarah_brahmi06" target="_blank">
-          <span class="s-ico">◉</span> @sarah_brahmi06
+          <span class="s-ico">ig</span> @sarah_brahmi06
         </a>
         <a class="social-row" href="https://www.facebook.com/share/18cLDiTtgd/" target="_blank">
-          <span class="s-ico">f</span> Facebook
+          <span class="s-ico">fb</span> Facebook
         </a>
       </div>
     </div>
