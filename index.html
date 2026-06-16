@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Brahmi Sarah Kaouther — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg:       #09060f;
+    --bg2:      #100c1c;
+    --bg3:      #1a1330;
+    --violet:   #9b30ff;
+    --pink:     #ff2d9b;
+    --rose:     #ff7ac6;
+    --lavender: #d4a8ff;
+    --text:     #ede8f8;
+    --muted:    #7a6e9a;
+    --border:   rgba(155,48,255,0.3);
+    --glow-v:   0 0 24px rgba(155,48,255,0.45);
+    --glow-p:   0 0 24px rgba(255,45,155,0.45);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ambient grid */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(155,48,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(155,48,255,0.035) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* scanline */
+  .scanline {
+    position: fixed; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,45,155,0.5), transparent);
+    z-index: 999; pointer-events: none;
+    animation: scan 10s linear infinite;
+  }
+  @keyframes scan { from { top: -2px; } to { top: 100vh; } }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(9,6,15,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    padding: .9rem 2.5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Orbitron', monospace; font-size: .8rem; font-weight: 900;
+    background: linear-gradient(90deg, var(--violet), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: .15em;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace; font-size: .7rem;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: .1em; text-transform: uppercase; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--rose); }
+  .nav-cta {
+    font-family: 'Space Mono', monospace; font-size: .7rem;
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    color: #fff; border: none; padding: .5rem 1.2rem; border-radius: 3px;
+    cursor: pointer; text-decoration: none; letter-spacing: .08em;
+    transition: box-shadow .2s;
+  }
+  .nav-cta:hover { box-shadow: 0 0 20px rgba(255,45,155,0.5); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center; padding: 7rem 2rem 4rem;
+    position: relative; z-index: 2;
+  }
+  .hero-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; height: 600px; pointer-events: none;
+    background: radial-gradient(ellipse,
+      rgba(155,48,255,0.13) 0%,
+      rgba(255,45,155,0.07) 45%,
+      transparent 70%);
+    animation: breathe 5s ease-in-out infinite;
+  }
+  @keyframes breathe {
+    0%,100% { transform: translate(-50%,-50%) scale(1); opacity:.7; }
+    50%      { transform: translate(-50%,-50%) scale(1.1); opacity:1; }
+  }
+
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace; font-size: .68rem;
+    color: var(--pink); letter-spacing: .3em; text-transform: uppercase;
+    margin-bottom: 1.4rem;
+    opacity: 0; animation: rise .6s .2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(2.2rem, 6.5vw, 5rem);
+    font-weight: 900; line-height: 1.08;
+    position: relative; display: inline-block;
+    background: linear-gradient(135deg, var(--lavender) 10%, var(--pink) 55%, var(--violet) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    opacity: 0; animation: rise .7s .4s forwards;
+  }
+  .hero-name::before, .hero-name::after {
+    content: attr(data-text);
+    position: absolute; inset: 0;
+    background: inherit; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-name::before { animation: glitch-a 4s infinite; clip-path: polygon(0 20%,100% 20%,100% 40%,0 40%); }
+  .hero-name::after  { animation: glitch-b 4s infinite; clip-path: polygon(0 62%,100% 62%,100% 78%,0 78%); }
+  @keyframes glitch-a {
+    0%,88%,100% { transform:none; opacity:0; }
+    90% { transform:translateX(-4px); opacity:.75; }
+    92% { transform:translateX(3px);  opacity:.5; }
+    94% { transform:none; opacity:0; }
+  }
+  @keyframes glitch-b {
+    0%,88%,100% { transform:none; opacity:0; }
+    89% { transform:translateX(5px); opacity:.6; }
+    91% { transform:translateX(-2px); opacity:.4; }
+    93% { transform:none; opacity:0; }
+  }
+
+  .hero-title {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(.85rem, 2vw, 1.05rem);
+    color: var(--muted); margin-top: 1.1rem;
+    opacity: 0; animation: rise .6s .6s forwards;
+  }
+  .hero-title .hi { color: var(--lavender); }
+
+  .cursor { display:inline-block; width:2px; height:.95em; background:var(--pink); margin-left:3px; animation:blink .7s infinite; vertical-align:middle; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  .hero-desc {
+    max-width: 580px; color: var(--muted); font-size: .95rem;
+    margin-top: 1.8rem; line-height: 1.8;
+    opacity: 0; animation: rise .6s .8s forwards;
+  }
+
+  .hero-cta {
+    display: flex; gap: 1rem; margin-top: 2.6rem;
+    flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: rise .6s 1s forwards;
+  }
+  .btn {
+    font-family: 'Space Mono', monospace; font-size: .76rem;
+    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    padding: .8rem 2rem; border-radius: 3px; cursor: pointer;
+    text-decoration: none; display: inline-block;
+    transition: transform .15s, box-shadow .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-grad {
+    background: linear-gradient(135deg, var(--violet), var(--pink));
+    color:#fff; border:none; box-shadow: 0 0 22px rgba(155,48,255,.45);
+  }
+  .btn-grad:hover { box-shadow: 0 0 38px rgba(255,45,155,.6); }
+  .btn-ghost {
+    background: transparent; border: 1px solid var(--violet); color: var(--lavender);
+    box-shadow: inset 0 0 10px rgba(155,48,255,.08);
+  }
+  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 20px rgba(255,45,155,.2); }
+
+  @keyframes rise {
+    from { opacity:0; transform: translateY(20px); }
+    to   { opacity:1; transform: none; }
+  }
+
+  /* SECTION COMMONS */
+  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; position: relative; z-index: 2; }
+  .section-label {
+    font-family: 'Space Mono', monospace; font-size: .66rem;
+    color: var(--pink); letter-spacing: .25em; text-transform: uppercase; margin-bottom: .5rem;
+  }
+  .section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700;
+    background: linear-gradient(90deg, var(--lavender), var(--pink));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 3rem;
+  }
+  .hr { height:1px; background:linear-gradient(90deg,transparent,var(--violet),var(--pink),transparent); opacity:.3; max-width:1100px; margin:0 auto; }
+
+  /* ABOUT */
+  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+  @media(max-width:720px){.about-grid{grid-template-columns:1fr;}}
+  .about-body p { color:var(--muted); line-height:1.85; margin-bottom:1rem; font-size:.95rem; }
+  .about-body p b { color:var(--lavender); }
+  .about-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
+  .badge {
+    font-family:'Space Mono',monospace; font-size:.65rem;
+    padding:.28rem .75rem; border-radius:20px;
+    background:rgba(155,48,255,.1); border:1px solid rgba(155,48,255,.3);
+    color:var(--lavender);
+  }
+
+  /* TERMINAL */
+  .terminal {
+    background:var(--bg2); border:1px solid var(--border);
+    border-radius:6px; overflow:hidden;
+    box-shadow: var(--glow-v);
+    position:relative;
+  }
+  .terminal::before,.terminal::after {
+    content:''; position:absolute; width:10px; height:10px; border-style:solid;
+  }
+  .terminal::before { top:0; left:0; border-color:var(--pink); border-width:2px 0 0 2px; }
+  .terminal::after  { bottom:0; right:0; border-color:var(--pink); border-width:0 2px 2px 0; }
+  .t-bar {
+    background:var(--bg3); padding:.55rem 1rem;
+    display:flex; align-items:center; gap:.45rem;
+    border-bottom:1px solid var(--border);
+  }
+  .t-dot { width:9px; height:9px; border-radius:50%; }
+  .t-r{background:#ff5f5f;} .t-y{background:#ffbe2e;} .t-g{background:#2eff8f;}
+  .t-host { font-family:'Space Mono',monospace; font-size:.62rem; color:var(--muted); margin-left:auto; }
+  .t-body { padding:1.2rem 1.5rem; font-family:'Space Mono',monospace; font-size:.75rem; line-height:2; }
+  .tc-prompt { color:var(--pink); }
+  .tc-key    { color:var(--lavender); }
+  .tc-val    { color:var(--text); }
+  .tc-dim    { color:var(--muted); }
+  .tc-green  { color:#2eff8f; }
+
+  /* SKILLS */
+  .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(255px,1fr)); gap:1.2rem; }
+  .skill-card {
+    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+    padding:1.4rem; position:relative; overflow:hidden;
+    transition:border-color .2s, box-shadow .2s, transform .2s;
+  }
+  .skill-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--violet),var(--pink)); opacity:0; transition:opacity .2s;
+  }
+  .skill-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); transform:translateY(-3px); }
+  .skill-card:hover::before { opacity:1; }
+  .sk-cat {
+    font-family:'Space Mono',monospace; font-size:.62rem;
+    color:var(--pink); letter-spacing:.15em; text-transform:uppercase; margin-bottom:.85rem;
+  }
+  .tags { display:flex; flex-wrap:wrap; gap:.4rem; }
+  .tag {
+    font-family:'Space Mono',monospace; font-size:.66rem;
+    padding:.22rem .6rem; border-radius:3px;
+    background:rgba(155,48,255,.1); border:1px solid rgba(155,48,255,.25);
+    color:var(--lavender); transition:background .2s, border-color .2s, color .2s;
+  }
+  .skill-card:hover .tag { background:rgba(255,45,155,.08); border-color:rgba(255,45,155,.3); color:var(--rose); }
+
+  /* PROJECTS */
+  .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.5rem; }
+  .proj {
+    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+    overflow:hidden; display:flex; flex-direction:column;
+    transition:transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .proj:hover { transform:translateY(-5px); box-shadow:0 10px 40px rgba(255,45,155,.22); border-color:var(--pink); }
+  .proj-header {
+    height:110px; display:flex; align-items:center; justify-content:space-between;
+    padding:1.2rem 1.4rem; position:relative; overflow:hidden;
+  }
+  .ph-c1 { background:linear-gradient(135deg,#1a0833,#2d1060); }
+  .ph-c2 { background:linear-gradient(135deg,#2d0820,#1a0833); }
+  .ph-c3 { background:linear-gradient(135deg,#0e0525,#2d1060); }
+  .ph-c4 { background:linear-gradient(135deg,#200828,#0e0525); }
+  .ph-c5 { background:linear-gradient(135deg,#12032e,#1a0820); }
+  .ph-c6 { background:linear-gradient(135deg,#1a0333,#2a0b1e); }
+  .proj-header::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(135deg,rgba(155,48,255,.12),rgba(255,45,155,.1));
+  }
+  .proj-icon { font-size:2.2rem; position:relative; z-index:1; }
+  .proj-featured {
+    font-family:'Space Mono',monospace; font-size:.58rem;
+    color:var(--pink); letter-spacing:.12em; text-transform:uppercase;
+    border:1px solid var(--pink); border-radius:2px; padding:.2rem .5rem;
+    position:relative; z-index:1;
+  }
+  .proj-body { padding:1.3rem 1.4rem; flex:1; display:flex; flex-direction:column; }
+  .proj-name {
+    font-family:'Orbitron',monospace; font-size:.85rem; font-weight:700;
+    color:var(--lavender); margin-bottom:.5rem; line-height:1.3;
+  }
+  .proj-desc { font-size:.85rem; color:var(--muted); flex:1; line-height:1.7; margin-bottom:1rem; }
+  .proj-stack { font-family:'Space Mono',monospace; font-size:.65rem; color:var(--violet); margin-bottom:1.1rem; }
+  .proj-links { display:flex; gap:.7rem; }
+  .pl {
+    font-family:'Space Mono',monospace; font-size:.68rem;
+    padding:.42rem 1rem; border-radius:3px; text-decoration:none;
+    letter-spacing:.06em; transition:transform .15s, box-shadow .2s;
+  }
+  .pl:hover { transform:translateY(-1px); }
+  .pl-gh { background:transparent; border:1px solid var(--violet); color:var(--lavender); }
+  .pl-gh:hover { border-color:var(--lavender); box-shadow:0 0 12px rgba(155,48,255,.35); }
+  .pl-demo { background:linear-gradient(135deg,var(--violet),var(--pink)); color:#fff; border:none; }
+  .pl-demo:hover { box-shadow:0 0 18px rgba(255,45,155,.5); }
+
+  /* EDUCATION */
+  .edu-list { display:flex; flex-direction:column; gap:1.2rem; }
+  .edu-card {
+    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+    padding:1.4rem 1.6rem; display:grid; grid-template-columns:auto 1fr; gap:1rem;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .edu-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); }
+  .edu-icon { font-size:1.8rem; }
+  .edu-degree { font-family:'Orbitron',monospace; font-size:.85rem; color:var(--lavender); font-weight:700; }
+  .edu-school { font-size:.85rem; color:var(--muted); margin:.3rem 0; }
+  .edu-meta { font-family:'Space Mono',monospace; font-size:.68rem; color:var(--pink); }
+
+  /* EXPERIENCE */
+  .exp-card {
+    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+    padding:1.5rem 1.6rem;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .exp-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); }
+  .exp-role { font-family:'Orbitron',monospace; font-size:.9rem; color:var(--lavender); font-weight:700; }
+  .exp-org  { font-size:.88rem; color:var(--muted); margin:.35rem 0; }
+  .exp-desc { font-size:.86rem; color:var(--muted); line-height:1.75; margin-top:.75rem; }
+
+  /* CONTACT */
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
+  @media(max-width:720px){.contact-grid{grid-template-columns:1fr;}}
+  .contact-intro p { color:var(--muted); line-height:1.8; margin-bottom:1.5rem; font-size:.95rem; }
+  .socials { display:flex; flex-direction:column; gap:.6rem; }
+  .social-row {
+    display:flex; align-items:center; gap:.8rem;
+    font-family:'Space Mono',monospace; font-size:.76rem;
+    color:var(--muted); text-decoration:none; padding:.55rem .8rem;
+    border-radius:4px; border:1px solid transparent;
+    transition:color .2s, border-color .2s, background .2s;
+  }
+  .social-row:hover { color:var(--rose); border-color:var(--border); background:rgba(155,48,255,.06); }
+  .s-ico {
+    width:30px; height:30px; border-radius:4px;
+    background:var(--bg3); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.85rem; flex-shrink:0;
+  }
+  .contact-form { display:flex; flex-direction:column; gap:1rem; }
+  .f-label { font-family:'Space Mono',monospace; font-size:.65rem; color:var(--pink); letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:.35rem; }
+  .f-input, .f-textarea {
+    width:100%; background:var(--bg2); border:1px solid var(--border);
+    color:var(--text); font-family:'Inter',sans-serif; font-size:.9rem;
+    padding:.75rem 1rem; border-radius:4px; outline:none;
+    transition:border-color .2s, box-shadow .2s;
+  }
+  .f-input:focus, .f-textarea:focus { border-color:var(--violet); box-shadow:0 0 14px rgba(155,48,255,.22); }
+  .f-textarea { resize:vertical; min-height:120px; }
+
+  /* FOOTER */
+  footer {
+    position:relative; z-index:2; text-align:center; padding:2.5rem 2rem;
+    border-top:1px solid var(--border);
+    font-family:'Space Mono',monospace; font-size:.68rem; color:var(--muted);
+  }
+  footer span { color:var(--pink); }
+
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:linear-gradient(var(--violet),var(--pink)); border-radius:2px; }
+
+  /* reveal */
+  .reveal { opacity:0; transform:translateY(24px); transition:opacity .55s, transform .55s; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  @media(max-width:720px){
+    .nav-links { display:none; }
+    .projects-grid { grid-template-columns:1fr; }
+    .skills-grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SARAH.EXE</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="sarah_cv.pdf" download>Download CV</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <p class="hero-eyebrow">// cybersecurity &amp; AI engineer</p>
+  <h1 class="hero-name" data-text="Brahmi Sarah Kaouther">Brahmi Sarah Kaouther</h1>
+  <p class="hero-title">
+    <span class="hi" id="typed-role">Cybersecurity Engineer</span><span class="cursor"></span>
+  </p>
+  <p class="hero-desc">
+    5th-year Cybersecurity Engineering student building at the intersection of
+    <b style="color:var(--lavender)">threat intelligence</b>,
+    <b style="color:var(--rose)">AI/ML</b>, and
+    <b style="color:var(--lavender)">full-stack development</b>.
+    Based in Oran, Algeria — engineering smart, secure solutions.
+  </p>
+  <div class="hero-cta">
+    <a class="btn btn-grad" href="#projects">View Projects</a>
+    <a class="btn btn-ghost" href="#contact">Get in Touch</a>
+  </div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <p class="section-label">who am i</p>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-body reveal">
+      <p>I'm a <b>5th-year Cybersecurity Engineering student</b> at École Supérieure d'Informatique, Sidi Bel Abbès — graduating 2027. I combine deep security knowledge with AI research and cross-platform development to build systems that are both powerful and resilient.</p>
+      <p>My work spans autonomous attack-defence simulations with <b>reinforcement learning</b>, NLP with BERT, medical image segmentation, and secure full-stack applications. I believe the best engineers understand both how to build systems and how to break them.</p>
+      <p>Outside the terminal I lead community initiatives: president-track at Alphabit Club, DevFest organiser, and active mentor in cybersecurity workshops.</p>
+      <div class="about-badges">
+        <span class="badge">Oran, Algeria</span>
+        <span class="badge">Open to internships</span>
+        <span class="badge">Cybersecurity · AI · UI/UX</span>
+        <span class="badge">Expected grad: 2027</span>
+      </div>
+    </div>
+
+    <div class="terminal reveal">
+      <div class="t-bar">
+        <span class="t-dot t-r"></span><span class="t-dot t-y"></span><span class="t-dot t-g"></span>
+        <span class="t-host">sarah@esi-sba ~</span>
+      </div>
+      <div class="t-body">
+        <div><span class="tc-prompt">❯ </span><span class="tc-key">whoami</span></div>
+        <div><span class="tc-green">brahmi_sarah_kaouther</span></div>
+        <br>
+        <div><span class="tc-prompt">❯ </span><span class="tc-key">cat</span> <span class="tc-val">identity.json</span></div>
+        <div><span class="tc-dim">{</span></div>
+        <div>&nbsp;&nbsp;<span class="tc-key">"role"</span>: <span class="tc-val">"Cybersecurity Eng. Student"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="tc-key">"school"</span>: <span class="tc-val">"ESI Sidi Bel Abbès"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="tc-key">"year"</span>: <span class="tc-val">"5th / Engineering"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="tc-key">"focus"</span>: <span class="tc-val">"Security · AI · Dev"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="tc-key">"bac_sci"</span>: <span class="tc-val">"16.2 / 20"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="tc-key">"bac_maths"</span>: <span class="tc-val">"16.41 / 20"</span></div>
+        <div><span class="tc-dim">}</span></div>
+        <br>
+        <div><span class="tc-prompt">❯ </span><span class="tc-dim">// STATUS: ONLINE ▮</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- SKILLS -->
+<div class="section-wrap" id="skills">
+  <p class="section-label">capabilities</p>
+  <h2 class="section-title">Skills &amp; Tools</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <p class="sk-cat">Cybersecurity</p>
+      <div class="tags">
+        <span class="tag">Kali Linux</span><span class="tag">Metasploit</span><span class="tag">Burp Suite</span>
+        <span class="tag">Wireshark</span><span class="tag">Nmap</span><span class="tag">Suricata</span>
+        <span class="tag">Hydra</span><span class="tag">Autopsy</span><span class="tag">Volatility</span>
+        <span class="tag">ModSecurity</span><span class="tag">Zeek</span><span class="tag">tcpdump</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="sk-cat">SIEM / Monitoring</p>
+      <div class="tags">
+        <span class="tag">Sysmon</span><span class="tag">Winlogbeat</span><span class="tag">Elasticsearch</span>
+        <span class="tag">Kibana</span><span class="tag">Telegraf</span><span class="tag">InfluxDB</span>
+        <span class="tag">Grafana</span><span class="tag">Prometheus</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="sk-cat">AI &amp; Machine Learning</p>
+      <div class="tags">
+        <span class="tag">Python</span><span class="tag">BERT</span><span class="tag">UNET</span>
+        <span class="tag">EfficientNet-B3</span><span class="tag">OpenCV</span><span class="tag">Deep Q-Network</span>
+        <span class="tag">NLP</span><span class="tag">Haar Cascade</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="sk-cat">Frontend &amp; Mobile</p>
+      <div class="tags">
+        <span class="tag">React.js</span><span class="tag">Flutter</span><span class="tag">Dart</span>
+        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+        <span class="tag">Tailwind CSS</span><span class="tag">Figma</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="sk-cat">Backend &amp; Databases</p>
+      <div class="tags">
+        <span class="tag">FastAPI</span><span class="tag">MySQL</span><span class="tag">MongoDB</span>
+        <span class="tag">Cassandra</span><span class="tag">Neo4j</span><span class="tag">Firebase</span>
+        <span class="tag">OLAP</span><span class="tag">NoSQL</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <p class="sk-cat">DevOps &amp; Cloud</p>
+      <div class="tags">
+        <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Git</span>
+        <span class="tag">Jenkins</span><span class="tag">Ansible</span><span class="tag">LocalStack</span>
+        <span class="tag">GNS3</span><span class="tag">ZeroTier</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- PROJECTS -->
+<div class="section-wrap" id="projects">
+  <p class="section-label">recent work</p>
+  <h2 class="section-title">Projects</h2>
+  <div class="projects-grid">
+
+    <div class="proj reveal">
+      <div class="proj-header ph-c1">
+        <span class="proj-icon">🛡️</span>
+        <span class="proj-featured">Team Lead</span>
+      </div>
+      <div class="proj-body">
+        <h3 class="proj-name">Cyber-Arena</h3>
+        <p class="proj-desc">Autonomous cybersecurity simulation where Red &amp; Blue DQN agents learn to attack and defend a full enterprise network — 8 PCs, 5 VLANs, live telemetry, honeypots, and firewall management.</p>
+        <p class="proj-stack">GNS3 · Deep Q-Network · Telegraf → InfluxDB → Grafana · Ansible · ZeroTier</p>
+        <div class="proj-links">
+          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/rl-cybersec" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-header ph-c2">
+        <span class="proj-icon">🔒</span>
+      </div>
+      <div class="proj-body">
+        <h3 class="proj-name">Ransomware Simulation</h3>
+        <p class="proj-desc">Simulated ransomware behaviour and built a full endpoint monitoring pipeline using an ELK stack to detect, alert, and visualise attack patterns in real time.</p>
+        <p class="proj-stack">Sysmon · Winlogbeat · Suricata · Elasticsearch · Kibana</p>
+        <div class="proj-links">
+          <a class="pl pl-gh" href="#" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-header ph-c3">
+        <span class="proj-icon">☁️</span>
+      </div>
+      <div class="proj-body">
+        <h3 class="proj-name">Serverless Function Simulator</h3>
+        <p class="proj-desc">Custom Python FaaS runtime with HTTP, SQS, and cron triggers, cold start simulation (350ms), warm container pooling, and full telemetry aggregation (p50 latency, cold-start rates).</p>
+        <p class="proj-stack">Python · FastAPI · LocalStack · JSON logging</p>
+        <div class="proj-links">
+          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/serverless-function-simulator" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-header ph-c4">
+        <span class="proj-icon">📓</span>
+      </div>
+      <div class="proj-body">
+        <h3 class="proj-name">Pink Diary</h3>
+        <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI — built with React, Vite, and Tailwind CSS.</p>
+        <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
+        <div class="proj-links">
+          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/pink_diary" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-header ph-c5">
+        <span class="proj-icon">📡</span>
+      </div>
+      <div class="proj-body">
+        <h3 class="proj-name">LTE-2G Downgrade Attack</h3>
+        <p class="proj-desc">Educational simulation of an LTE to 2G downgrade attack demonstrating IMSI catcher vulnerabilities and SS7 protocol weaknesses for security research.</p>
+        <p class="proj-stack">Network Security · Protocol Analysis · Python</p>
+        <div class="proj-links">
+          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/LTE-2G-Downgrade-Attack" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj reveal">
+      <div class="proj-header ph-c6">
+        <span class="proj-icon">🧠</span>
+      </div>
+      <div class="proj-body">
+        <h3 class="proj-name">AI Projects — NLP &amp; Vision</h3>
+        <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
+        <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
+        <div class="proj-links">
+          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06" target="_blank">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- EDUCATION -->
+<div class="section-wrap" id="education">
+  <p class="section-label">background</p>
+  <h2 class="section-title">Education</h2>
+  <div class="edu-list">
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <p class="edu-degree">Cybersecurity Engineering (5th Year)</p>
+        <p class="edu-school">École Supérieure d'Informatique, Sidi Bel Abbès, Algeria</p>
+        <p class="edu-meta">2022 – Expected 2027</p>
+      </div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-icon">📐</div>
+      <div>
+        <p class="edu-degree">Baccalaureate in Mathematics</p>
+        <p class="edu-school">Algeria</p>
+        <p class="edu-meta">2022 · Average: 16.41 / 20</p>
+      </div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-icon">🔬</div>
+      <div>
+        <p class="edu-degree">Baccalaureate in Sciences</p>
+        <p class="edu-school">Algeria</p>
+        <p class="edu-meta">2021 · Average: 16.2 / 20</p>
+      </div>
+    </div>
+    <div class="edu-card reveal" style="margin-top:.5rem">
+      <div class="edu-icon">💼</div>
+      <div>
+        <p class="edu-degree">Internship — Algérie Télécom</p>
+        <p class="edu-school">Network fundamentals, security, system administration, telecom infrastructure</p>
+        <p class="edu-meta">Professional Training</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- CONTACT -->
+<div class="section-wrap" id="contact">
+  <p class="section-label">get in touch</p>
+  <h2 class="section-title">Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-intro reveal">
+      <p>Available for internships, research collaboration, and freelance work in cybersecurity, AI, and full-stack development. Based in Oran, Algeria — open to remote opportunities worldwide.</p>
+      <div class="socials">
+        <a class="social-row" href="mailto:sk.brahmi@esi-sba.dz">
+          <span class="s-ico">✉</span> sk.brahmi@esi-sba.dz
+        </a>
+        <a class="social-row" href="tel:+213540656280">
+          <span class="s-ico">📞</span> +213 540 656 280
+        </a>
+        <a class="social-row" href="https://github.com/sarahbrahmi06" target="_blank">
+          <span class="s-ico">⬡</span> github.com/sarahbrahmi06
+        </a>
+        <a class="social-row" href="https://www.linkedin.com/in/brahmi-sarah-kaouther-953409255" target="_blank">
+          <span class="s-ico">in</span> Brahmi Sarah Kaouther
+        </a>
+        <a class="social-row" href="https://www.instagram.com/sarah_brahmi06" target="_blank">
+          <span class="s-ico">◉</span> @sarah_brahmi06
+        </a>
+        <a class="social-row" href="https://www.facebook.com/share/18cLDiTtgd/" target="_blank">
+          <span class="s-ico">f</span> Facebook
+        </a>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="return false;">
+      <div>
+        <label class="f-label">Name</label>
+        <input class="f-input" type="text" placeholder="Your name" />
+      </div>
+      <div>
+        <label class="f-label">Email</label>
+        <input class="f-input" type="email" placeholder="your@email.com" />
+      </div>
+      <div>
+        <label class="f-label">Message</label>
+        <textarea class="f-textarea" placeholder="Tell me about your project or opportunity…"></textarea>
+      </div>
+      <button class="btn btn-grad" style="align-self:flex-start">Send Message →</button>
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with 💜 by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
+</footer>
+
+<script>
+  // typed animation
+  const roles = ['Cybersecurity Engineer','AI & ML Researcher','Full-Stack Developer','Ethical Hacker','UI/UX Designer'];
+  let ri=0, ci=0, del=false;
+  const el = document.getElementById('typed-role');
+  function type(){
+    const w = roles[ri];
+    if(!del){ el.textContent=w.slice(0,++ci); if(ci===w.length){del=true;setTimeout(type,1700);return;} }
+    else{ el.textContent=w.slice(0,--ci); if(ci===0){del=false;ri=(ri+1)%roles.length;} }
+    setTimeout(type, del?50:90);
+  }
+  setTimeout(type,1300);
+
+  // scroll reveal
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
