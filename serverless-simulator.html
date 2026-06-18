@@ -584,7 +584,7 @@
             <div class="badge">★ Cloud & Fog Computing</div>
             <h1>Serverless Function Simulation</h1>
             <p class="subtitle">Building a Custom FaaS Runtime from Scratch</p>
-            <p class="meta">By <span>Cloud &amp; Fog Computing Team</span> · June 2026 · 5 min read</p>
+            <p class="meta">By <span>Brahmi Sarah Kaouther</span> · May 2026 · 5 min read</p>
         </div>
 
         <div class="blog-body">
@@ -597,10 +597,10 @@
             <!-- Introduction -->
             <h2>Introduction</h2>
             <p>
-                When we hear "serverless," the immediate reaction is often confusion—of course there are servers involved! But as our recent project demonstrates, the name captures a fundamental shift in how we think about infrastructure. The cloud provider handles everything; developers just write code.
+                When we hear "serverless," the immediate reaction is often confusion; of course there are servers involved! But as our recent project demonstrates, the name captures a fundamental shift in how we think about infrastructure. The cloud provider handles everything; developers just write code.
             </p>
             <p>
-                Our team set out to build a <strong>custom Function-as-a-Service (FaaS) runtime</strong> that simulates real serverless behavior, complete with cold starts, warm container pools, and comprehensive telemetry. The results? Eye-opening insights into what makes serverless tick—and where the bottlenecks hide.
+                Our team set out to build a <strong>custom Function-as-a-Service (FaaS) runtime</strong> that simulates real serverless behavior, complete with cold starts, warm container pools, and comprehensive telemetry. The results? Eye-opening insights into what makes serverless tick, and where the bottlenecks hide.
             </p>
 
             <!-- Architecture -->
@@ -636,7 +636,7 @@
             <p>Each component plays a critical role:</p>
             <ul>
                 <li><strong>FastAPI Gateway</strong> routes incoming events (HTTP POST requests, SQS messages) to registered function handlers</li>
-                <li><strong>The FaaS Runtime</strong> manages the entire function lifecycle—from container provisioning to execution</li>
+                <li><strong>The FaaS Runtime</strong> manages the entire function lifecycle, from container provisioning to execution</li>
                 <li><strong>A Warm Container Pool</strong> caches active handlers, eliminating cold start overhead on subsequent invocations</li>
             </ul>
             <p>The beauty? This mirrors what major cloud providers do, but in a lightweight Python package you can run locally.</p>
@@ -670,7 +670,7 @@
             </table>
 
             <p>
-                That is not a typo—<strong>350 milliseconds</strong> of pure overhead on the first invocation. The runtime had to spin up a new container, load dependencies, initialize the handler, and only then execute our business logic.
+                That is not a typo <strong>350 milliseconds</strong> of pure overhead on the first invocation. The runtime had to spin up a new container, load dependencies, initialize the handler, and only then execute our business logic.
             </p>
             <p>
                 On the second call? Zero. The cached handler in <code>_warm_pool</code> executed immediately.
@@ -713,7 +713,7 @@
                 <li><strong>Cold Start Rate:</strong> 50% (1 of 2 invocations)</li>
             </ul>
             <p>
-                The memory consistency is reassuring—no leaks, no drift. The latency figures confirm our function logic is efficient, with the bottleneck squarely in container provisioning.
+                The memory consistency is reassurin, no leaks, no drift. The latency figures confirm our function logic is efficient, with the bottleneck squarely in container provisioning.
             </p>
 
             <!-- SQS -->
@@ -739,7 +739,7 @@
             </div>
 
             <p>
-                Functions trigger asynchronously on message arrival—the caller does not wait. This decoupling allows:
+                Functions trigger asynchronously on message arrival, the caller does not wait. This decoupling allows:
             </p>
             <ul>
                 <li>Independent scaling of producers and consumers</li>
@@ -770,7 +770,7 @@
 
             <h3>4. SQS Decoupling Unlocks Scale</h3>
             <p>
-                Fire-and-forget messaging allows functions to process backlogs independently—a core pattern in production serverless architectures.
+                Fire-and-forget messaging allows functions to process backlogs independently, a core pattern in production serverless architectures.
             </p>
 
             <!-- Tech Stack -->
@@ -877,7 +877,7 @@
             <!-- Final Thoughts -->
             <h2>Final Thoughts</h2>
             <p>
-                Serverless computing is not magic—it is clever engineering. Our simulation demystifies the mechanics:
+                Serverless computing is not magic, it is clever engineering. Our simulation demystifies the mechanics:
             </p>
             <ol>
                 <li><strong>Cold starts</strong> happen when containers are freshly provisioned</li>
@@ -889,7 +889,7 @@
                 The numbers tell the story: 350ms cold start, 0ms warm. The difference is container reuse, and that is the secret sauce of FaaS platforms.
             </p>
             <p>
-                Whether you are building on AWS Lambda, Google Cloud Functions, or rolling your own runtime, understanding these dynamics is crucial. Our project proves you can build a production-grade simulation yourself—and the insights are invaluable.
+                Whether you are building on AWS Lambda, Google Cloud Functions, or rolling your own runtime, understanding these dynamics is crucial. Our project proves you can build a production-grade simulation yourself, and the insights are invaluable.
             </p>
 
             <div class="highlight-box">
@@ -907,7 +907,6 @@
 
         <div class="blog-footer">
             <a href="index.html#projects" class="btn btn-ghost">← Back to Projects</a>
-            <a href="cyber-arena.html" class="btn btn-ghost">View Cyber-Arena →</a>
             <a href="https://github.com/sarahbrahmi06/serverless-function-simulator" class="btn btn-grad" target="_blank">View on GitHub →</a>
         </div>
     </article>
