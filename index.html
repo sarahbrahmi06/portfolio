@@ -1832,9 +1832,10 @@
             emailjs.send(
                 'service_vudzz6p',
                 'template_7lut34x', {
-                    from_name: document.getElementById('user_name').value,
-                    from_email: document.getElementById('user_email').value,
-                    message: document.getElementById('user_message').value,
+                   name: document.getElementById('user_name').value,      // ← changed from from_name
+        email: document.getElementById('user_email').value,    // ← changed from from_email
+        message: document.getElementById('user_message').value,
+        time: new Date().toLocaleString()  
                 }
             ).then(() => {
                 alert('✅ Message sent successfully! I\'ll get back to you soon.');
