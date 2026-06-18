@@ -70,7 +70,6 @@
             }
         }
 
-        /* ── NAV ── */
         nav {
             position: fixed;
             top: 0;
@@ -135,7 +134,6 @@
             box-shadow: 0 0 20px rgba(255, 45, 155, 0.5);
         }
 
-        /* ── BLOG CONTENT ── */
         .blog-wrap {
             max-width: 900px;
             margin: 0 auto;
@@ -244,7 +242,6 @@
             color: var(--pink);
         }
 
-        /* ── TERMINAL STYLE ── */
         .terminal {
             background: var(--bg2);
             border: 1px solid var(--border);
@@ -334,9 +331,6 @@
         .tc-yellow {
             color: #ffbe2e;
         }
-        .tc-white {
-            color: #ffffff;
-        }
         .t-caption {
             font-family: 'Space Mono', monospace;
             font-size: .7rem;
@@ -347,18 +341,18 @@
             font-style: italic;
         }
 
-        .blog-body .screenshot-img {
+        .screenshot-img {
             margin: 2rem 0;
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid var(--border);
         }
-        .blog-body .screenshot-img img {
+        .screenshot-img img {
             width: 100%;
             height: auto;
             display: block;
         }
-        .blog-body .screenshot-img .caption {
+        .screenshot-img .caption {
             background: var(--bg2);
             padding: .8rem 1.2rem;
             font-family: 'Space Mono', monospace;
@@ -369,7 +363,7 @@
             border-top: 1px solid var(--border);
         }
 
-        .blog-body .results-table {
+        .results-table {
             width: 100%;
             border-collapse: collapse;
             margin: 2rem 0;
@@ -378,14 +372,14 @@
             overflow: hidden;
         }
 
-        .blog-body .results-table th,
-        .blog-body .results-table td {
+        .results-table th,
+        .results-table td {
             padding: .8rem 1.2rem;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
 
-        .blog-body .results-table th {
+        .results-table th {
             background: var(--bg3);
             color: var(--lavender);
             font-family: 'Space Mono', monospace;
@@ -394,16 +388,16 @@
             text-transform: uppercase;
         }
 
-        .blog-body .results-table td {
+        .results-table td {
             color: var(--muted);
             font-size: .9rem;
         }
 
-        .blog-body .results-table tr:last-child td {
+        .results-table tr:last-child td {
             border-bottom: none;
         }
 
-        .blog-body .results-table .value {
+        .results-table .value {
             color: var(--text);
             font-family: 'Space Mono', monospace;
         }
@@ -508,14 +502,18 @@
             .blog-body .highlight-box {
                 padding: 1rem 1.2rem;
             }
-            .blog-body .results-table th,
-            .blog-body .results-table td {
+            .results-table th,
+            .results-table td {
                 padding: .6rem .8rem;
                 font-size: .8rem;
             }
             .t-body {
                 font-size: .65rem;
                 padding: 0.8rem 1rem;
+            }
+            .screenshot-img .caption {
+                font-size: .6rem;
+                padding: .6rem .8rem;
             }
         }
 
@@ -641,7 +639,6 @@
                 All five attacks succeeded. This confirmed our attack surface was valid and gave us concrete metrics to measure the RL agents' performance against.
             </p>
 
-            <!-- ─── TERMINAL: Hydra SSH Brute Force ─── -->
             <div class="terminal">
                 <div class="t-bar">
                     <span class="t-dot t-r"></span>
@@ -689,7 +686,6 @@
                 <div class="caption">Screenshot 8: A detailed look at the RL loop. The agents observe the network state, execute actions (e.g., attacks/defenses), and receive rewards based on their success.</div>
             </div>
 
-            <!-- ─── TERMINAL: Agent Training Log ─── -->
             <div class="terminal">
                 <div class="t-bar">
                     <span class="t-dot t-r"></span>
