@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ransomware Simulation — WormLocker 2.0 Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #09060f;
+            --bg2: #100c1c;
+            --bg3: #1a1330;
+            --violet: #9b30ff;
+            --pink: #ff2d9b;
+            --rose: #ff7ac6;
+            --lavender: #d4a8ff;
+            --text: #ede8f8;
+            --muted: #7a6e9a;
+            --border: rgba(155, 48, 255, 0.3);
+            --glow-v: 0 0 24px rgba(155, 48, 255, 0.45);
+            --glow-p: 0 0 24px rgba(255, 45, 155, 0.45);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: linear-gradient(rgba(155, 48, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(155, 48, 255, 0.035) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(9, 6, 15, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: .9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: .8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--violet), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: .15em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.4rem;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            transition: color .2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            color: var(--rose);
+        }
+        .nav-cta {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border: none;
+            padding: .45rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: .08em;
+            transition: box-shadow .2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-cta:hover {
+            box-shadow: 0 0 20px rgba(255, 45, 155, 0.5);
+        }
+
+        .blog-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .blog-header .badge {
+            font-family: 'Space Mono', monospace;
+            font-size: .65rem;
+            color: var(--pink);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            border: 1px solid var(--pink);
+            padding: .3rem .8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--lavender) 10%, var(--pink) 55%, var(--violet) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .blog-header .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: var(--muted);
+        }
+
+        .blog-header .meta {
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+            color: var(--muted);
+            margin-top: 1rem;
+        }
+
+        .blog-header .meta span {
+            color: var(--lavender);
+        }
+
+        .blog-body h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem;
+            color: var(--lavender);
+            margin: 3rem 0 1.2rem;
+            line-height: 1.3;
+        }
+
+        .blog-body h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: var(--rose);
+            margin: 2rem 0 0.8rem;
+        }
+
+        .blog-body h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: .95rem;
+            color: var(--lavender);
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .blog-body p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.9;
+        }
+
+        .blog-body strong {
+            color: var(--lavender);
+        }
+
+        .blog-body ul,
+        .blog-body ol {
+            color: var(--muted);
+            margin: 1rem 0 1.5rem 1.5rem;
+            line-height: 1.9;
+        }
+
+        .blog-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-body .highlight-box {
+            background: var(--bg2);
+            border-left: 3px solid var(--pink);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .blog-body .highlight-box p {
+            margin-bottom: 0;
+            color: var(--text);
+        }
+
+        .blog-body .highlight-box strong {
+            color: var(--pink);
+        }
+
+        .blog-body .highlight-box ul {
+            margin: 0.5rem 0 0 1.5rem;
+            color: var(--text);
+        }
+
+        .terminal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--glow-v);
+            position: relative;
+            margin: 2rem 0;
+        }
+        .terminal::before,
+        .terminal::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-style: solid;
+        }
+        .terminal::before {
+            top: 0;
+            left: 0;
+            border-color: var(--pink);
+            border-width: 2px 0 0 2px;
+        }
+        .terminal::after {
+            bottom: 0;
+            right: 0;
+            border-color: var(--pink);
+            border-width: 0 2px 2px 0;
+        }
+        .t-bar {
+            background: var(--bg3);
+            padding: .55rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .t-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .t-r {
+            background: #ff5f5f;
+        }
+        .t-y {
+            background: #ffbe2e;
+        }
+        .t-g {
+            background: #2eff8f;
+        }
+        .t-host {
+            font-family: 'Space Mono', monospace;
+            font-size: .62rem;
+            color: var(--muted);
+            margin-left: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .t-body {
+            padding: 1.2rem 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+            line-height: 2;
+            overflow-x: auto;
+        }
+        .tc-prompt {
+            color: var(--pink);
+        }
+        .tc-key {
+            color: var(--lavender);
+        }
+        .tc-val {
+            color: var(--text);
+        }
+        .tc-dim {
+            color: var(--muted);
+        }
+        .tc-green {
+            color: #2eff8f;
+        }
+        .tc-red {
+            color: #ff5f5f;
+        }
+        .tc-yellow {
+            color: #ffbe2e;
+        }
+        .tc-white {
+            color: #ffffff;
+        }
+
+        .screenshot-img {
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .screenshot-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .screenshot-img .caption {
+            background: var(--bg2);
+            padding: .8rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .7rem;
+            color: var(--muted);
+            text-align: center;
+            font-style: italic;
+            border-top: 1px solid var(--border);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: .8rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .results-table th {
+            background: var(--bg3);
+            color: var(--lavender);
+            font-family: 'Space Mono', monospace;
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .results-table td {
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .results-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .results-table .value {
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .mitre-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mitre-table th,
+        .mitre-table td {
+            padding: .8rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mitre-table th {
+            background: var(--bg3);
+            color: var(--lavender);
+            font-family: 'Space Mono', monospace;
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .mitre-table td {
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        .mitre-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mitre-table .tech {
+            color: var(--lavender);
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+        }
+
+        .blog-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .blog-footer .btn {
+            font-family: 'Space Mono', monospace;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .8rem 2rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform .15s, box-shadow .2s;
+        }
+
+        .blog-footer .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .blog-footer .btn-grad {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border: none;
+            box-shadow: 0 0 22px rgba(155, 48, 255, .45);
+        }
+
+        .blog-footer .btn-grad:hover {
+            box-shadow: 0 0 38px rgba(255, 45, 155, .6);
+        }
+
+        .blog-footer .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--violet);
+            color: var(--lavender);
+            box-shadow: inset 0 0 10px rgba(155, 48, 255, .08);
+        }
+
+        .blog-footer .btn-ghost:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 20px rgba(255, 45, 155, .2);
+        }
+
+        .team-section {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+        }
+
+        .team-section h4 {
+            color: var(--lavender);
+            font-family: 'Orbitron', monospace;
+            font-size: .9rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+        }
+
+        .team-section li {
+            color: var(--muted);
+            font-size: .9rem;
+            padding: 0.3rem 0;
+            border-bottom: 1px solid rgba(155, 48, 255, 0.05);
+        }
+
+        .team-section li strong {
+            color: var(--lavender);
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-top: 1px solid var(--border);
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--muted);
+            margin-top: 2rem;
+        }
+        footer span {
+            color: var(--pink);
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--violet), var(--pink));
+            border-radius: 2px;
+        }
+
+        @media (max-width: 680px) {
+            nav {
+                padding: .8rem 1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .blog-wrap {
+                padding: 6rem 1rem 3rem;
+            }
+            .blog-header h1 {
+                font-size: 1.6rem;
+            }
+            .blog-body h2 {
+                font-size: 1.3rem;
+            }
+            .blog-body h3 {
+                font-size: 1rem;
+            }
+            .blog-body .highlight-box {
+                padding: 1rem 1.2rem;
+            }
+            .results-table th,
+            .results-table td {
+                padding: .6rem .8rem;
+                font-size: .8rem;
+            }
+            .mitre-table th,
+            .mitre-table td {
+                padding: .6rem .8rem;
+                font-size: .75rem;
+            }
+            .t-body {
+                font-size: .65rem;
+                padding: 0.8rem 1rem;
+            }
+            .screenshot-img .caption {
+                font-size: .6rem;
+                padding: .6rem .8rem;
+            }
+            .team-section ul {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .blog-wrap {
+                padding: 5rem 0.8rem 2rem;
+            }
+            .blog-header h1 {
+                font-size: 1.3rem;
+            }
+            .blog-body p {
+                font-size: .9rem;
+            }
+            .t-body {
+                font-size: .6rem;
+                padding: 0.6rem 0.8rem;
+                line-height: 1.8;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">SARAH.EXE</div>
+        <ul class="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#featured-project">Featured</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <a class="nav-cta" href="index.html">← Back to Portfolio</a>
+    </nav>
+
+    <article class="blog-wrap">
+        <div class="blog-header">
+            <div class="badge">★ Malware Analysis</div>
+            <h1>WormLocker 2.0 Ransomware: A Comprehensive Analysis Journey</h1>
+            <p class="subtitle">An Inside Look at Advanced Malware Analysis, Digital Forensics, and Incident Response</p>
+            <p class="meta">By <span>BRAHMI Sarah Kaouther</span> · June 2026 · 8 min read</p>
+        </div>
+
+        <div class="blog-body">
+
+            <!-- TL;DR -->
+            <div class="highlight-box">
+                <p><strong>TL;DR:</strong> We analyzed WormLocker 2.0 using static, dynamic, and forensic methods. Found critical OPSEC failures (embedded PDB paths) that revealed the developer's alias <strong>"Worm"</strong>. Decryption key discovered: <strong>LUC QPV BTR</strong>. Full incident response completed in <strong>17 minutes 38 seconds</strong>.</p>
+            </div>
+
+            <!-- Introduction -->
+            <h2>Introduction</h2>
+            <p>
+                In the ever-evolving landscape of cybersecurity threats, ransomware remains one of the most persistent and damaging attack vectors. Recently, our team at ESI-SBA's Cybersecurity Department undertook a comprehensive analysis of <strong>WormLocker 2.0</strong>, a sophisticated ransomware variant that first emerged in 2020 but continues to serve as an excellent case study for understanding modern malware techniques.
+            </p>
+            <p>
+                This blog post chronicles our three-pronged approach to analyzing this threat, combining <strong>static and dynamic malware analysis</strong>, <strong>digital forensics</strong>, and <strong>incident response</strong> methodologies.
+            </p>
+
+            <!-- The Threat -->
+            <h2>The Threat: WormLocker 2.0</h2>
+            <p>
+                WormLocker 2.0 is a .NET-based ransomware toolkit that demonstrates intermediate-to-advanced sophistication. Unlike conventional ransomware that simply encrypts files, this malware implements <strong>system-level sabotage</strong> techniques that set it apart from typical threats.
+            </p>
+
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Attribute</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>File Type</td>
+                        <td class="value">PE32 executable (.NET assembly)</td>
+                    </tr>
+                    <tr>
+                        <td>Framework</td>
+                        <td class="value">.NET Framework 4.0</td>
+                    </tr>
+                    <tr>
+                        <td>File Size</td>
+                        <td class="value">322.50 KB</td>
+                    </tr>
+                    <tr>
+                        <td>SHA256</td>
+                        <td class="value" style="font-size:0.75rem; word-break:break-all;">d4c83205cf6f3098ab6a757312525f4d14a57a819306eeea5c0d022b00b38cf3</td>
+                    </tr>
+                    <tr>
+                        <td>Target</td>
+                        <td class="value">Windows 10 systems</td>
+                    </tr>
+                    <tr>
+                        <td>Ransom Amount</td>
+                        <td class="value">50 EUR (Paysafecard)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Phase 1 -->
+            <h2>Phase 1: Static Malware Analysis</h2>
+            <p>
+                Our first phase involved examining the malware without executing it—a crucial step for understanding its capabilities safely.
+            </p>
+
+            <h3>Unpacking the Binary</h3>
+            <p>
+                Initial entropy analysis showed a score of <strong>7.33/8.0</strong>, suggesting possible packing. However, further investigation revealed:
+            </p>
+            <ul>
+                <li><strong>No UPX packing</strong> detected</li>
+                <li><strong>No specific packer signatures</strong> matched</li>
+                <li><strong>Full .NET metadata readability</strong></li>
+                <li><strong>Successful IL code decompilation</strong></li>
+            </ul>
+            <p>
+                The elevated entropy was traced to <strong>embedded multimedia resources</strong> (lock screen images and audio files) rather than code obfuscation—a classic red herring!
+            </p>
+
+            <h3>Critical Discoveries</h3>
+            <p>The string analysis yielded several alarming findings:</p>
+
+            <h4>1. Privilege Escalation Command:</h4>
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">analysis@lab ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">strings</span> WormLocker2.0.exe <span class="tc-dim">|</span> grep <span class="tc-val">"takeown"</span></div>
+                    <div class="tc-red">cmd.exe /k takeown /f C:\Windows\System32 && icacls C:\Windows\System32 /grant "%username%:F"</div>
+                </div>
+            </div>
+            <p style="font-style: italic; color: var(--muted); font-family: 'Space Mono', monospace; font-size: .75rem; text-align: center; margin-top: 0.5rem;">This command chain takes ownership of the System32 directory and grants full control to the current user—enabling replacement of critical Windows components.</p>
+
+            <h4>2. System Component Replacement:</h4>
+            <ul>
+                <li><code>C:\Windows\System32\LogonUIinf.exe</code> (Fake login - primary)</li>
+                <li><code>C:\Windows\System32\LogonUItrue.exe</code> (Fake login - backup)</li>
+                <li><code>C:\Windows\System32\ransom_voice.vbs</code> (Audio ransom)</li>
+            </ul>
+
+            <h4>3. Registry Modifications:</h4>
+            <ul>
+                <li><code>DisableTaskMgr = 1</code> (Task Manager disabled)</li>
+                <li>Winlogon registry modifications for persistence</li>
+            </ul>
+
+            <h3>The OPSEC Failure That Told All</h3>
+            <p>
+                Perhaps the most revealing find was the embedded <strong>PDB (Program Database) paths</strong>:
+            </p>
+
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">analysis@lab ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">strings</span> WormLocker2.0.exe <span class="tc-dim">|</span> grep <span class="tc-val">".pdb"</span></div>
+                    <div class="tc-dim">C:\Users\Worm\source\repos\WormLocker2.0\WormLocker2.0\obj\Debug\WormLocker2.0.pdb</div>
+                    <div class="tc-dim">C:\Users\Worm\source\repos\wormlogon\wormlogon\obj\Debug\wormlogon.pdb</div>
+                    <div class="tc-dim">C:\Users\Worm\source\repos\SysWOW64\SysWOW64\obj\Debug\Automatic_convertor_rff_to_mp4.pdb</div>
+                </div>
+            </div>
+            <p style="font-style: italic; color: var(--muted); font-family: 'Space Mono', monospace; font-size: .75rem; text-align: center; margin-top: 0.5rem;">This critical operational security failure revealed the developer's alias "Worm" and development environment details.</p>
+
+            <p>This critical operational security failure revealed:</p>
+            <ul>
+                <li><strong>Developer Alias:</strong> "Worm"</li>
+                <li><strong>Development Environment:</strong> Visual Studio</li>
+                <li><strong>Build Configuration:</strong> Debug (amateur mistake)</li>
+                <li><strong>Related Projects:</strong> wormlogon (credential theft), SysWOW64 (system impersonation)</li>
+            </ul>
+
+            <!-- Phase 2 -->
+            <h2>Phase 2: Dynamic Analysis &amp; Monitoring</h2>
+            <p>
+                With static analysis complete, we executed the malware in a controlled, isolated environment while monitoring its behavior.
+            </p>
+
+            <h3>The Monitoring Infrastructure</h3>
+            <p>
+                We deployed a comprehensive monitoring stack:
+            </p>
+            <ul>
+                <li><strong>Sysmon</strong> for system-level event logging</li>
+                <li><strong>Winlogbeat</strong> for log forwarding</li>
+                <li><strong>Elasticsearch</strong> for centralized storage</li>
+                <li><strong>Kibana</strong> for visualization</li>
+            </ul>
+
+            <h4>Critical Event IDs Tracked:</h4>
+            <ul>
+                <li><strong>Event ID 1:</strong> Process creation</li>
+                <li><strong>Event ID 3:</strong> Network connections</li>
+                <li><strong>Event ID 11:</strong> File creation activities</li>
+            </ul>
+
+            <h3>Attack Timeline</h3>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="value">T+0:00</td>
+                        <td>Malware execution initiated</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:05</td>
+                        <td>Privilege escalation via takeown/icacls</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:08</td>
+                        <td>System32 ownership taken</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:12</td>
+                        <td>Fake login components deployed</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:15</td>
+                        <td>Registry modifications applied</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:20</td>
+                        <td>File encryption begins (AES/Rijndael)</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:30</td>
+                        <td>Lock screen displayed with countdown</td>
+                    </tr>
+                    <tr>
+                        <td class="value">T+0:45</td>
+                        <td>Forced system restart</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Key Behavioral Observations</h3>
+            <ul>
+                <li><strong>No network activity detected</strong> (no C2 communications)</li>
+                <li><strong>Mass file encryption</strong> without changing file extensions</li>
+                <li><strong>Memory protection disabling</strong> (PAGE_EXECUTE_READWRITE regions)</li>
+                <li><strong>VBScript execution</strong> for audio ransom playback</li>
+            </ul>
+
+            <!-- Phase 3 -->
+            <h2>Phase 3: Digital Forensics Investigation</h2>
+            <p>
+                Following execution, we conducted thorough forensic analysis using Volatility 3 and Autopsy.
+            </p>
+
+            <h3>Memory Forensics (Volatility 3)</h3>
+            <p><strong>Image Information:</strong></p>
+            <ul>
+                <li><strong>Operating System:</strong> Windows 10 x64</li>
+                <li><strong>Kernel Version:</strong> 10.0.19041</li>
+                <li><strong>Memory Dump Size:</strong> 6.6 GB</li>
+            </ul>
+
+            <h4>Suspicious Processes Identified:</h4>
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">forensics@lab ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">volatility</span> -f memory.dmp <span class="tc-val">windows.pstree</span></div>
+                    <div class="tc-green">WormLocker2.0.exe (PID: 528)</div>
+                    <div class="tc-dim">└── cmd.exe (takeown/icacls execution)</div>
+                    <div class="tc-dim">└── wscript.exe (ransom_voice.vbs)</div>
+                </div>
+            </div>
+            <p style="font-style: italic; color: var(--muted); font-family: 'Space Mono', monospace; font-size: .75rem; text-align: center; margin-top: 0.5rem;">Malicious process tree showing the parent-child relationships during execution.</p>
+
+            <h4>Malicious Code in Memory:</h4>
+            <p>
+                The <code>windows.malfind</code> plugin detected suspicious memory regions with:
+            </p>
+            <ul>
+                <li><code>PAGE_EXECUTE_READWRITE</code> permissions</li>
+                <li>Disabled memory protection</li>
+                <li>Suspicious hexdumps matching malware instructions</li>
+            </ul>
+
+            <h3>Disk Forensics (Autopsy)</h3>
+            <h4>Malicious Files Located:</h4>
+            <ul>
+                <li><code>C:\Windows\System32\LogonUI.exe</code> (modified/hijacked)</li>
+                <li><code>C:\Windows\System32\wscredit.exe</code></li>
+                <li><code>C:\Windows\System32\ransom_voice.vbs</code></li>
+            </ul>
+
+            <h4>File Integrity Evidence:</h4>
+            <ul>
+                <li><code>LogonUI.exe</code> was modified at <strong>2025-11-17 16:32:10 UTC</strong></li>
+                <li>The PDB path within the modified file confirmed developer attribution</li>
+                <li>User files (<code>passwords.txt</code>, <code>credit_card_info.txt</code>) were encrypted without extension changes</li>
+            </ul>
+
+            <!-- Phase 4 -->
+            <h2>Phase 4: Incident Response</h2>
+            <p>
+                Our incident response team executed a structured response following the SANS Incident Response framework.
+            </p>
+
+            <h3>Containment</h3>
+            <ol>
+                <li><strong>Network Isolation:</strong> VM immediately disconnected</li>
+                <li><strong>System State Preservation:</strong> Memory and disk images captured</li>
+            </ol>
+
+            <h3>Eradication</h3>
+            <h4>Manual Removal Commands:</h4>
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">response@lab ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">del</span> <span class="tc-val">C:\Windows\System32\LogonUIinf.exe</span></div>
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">del</span> <span class="tc-val">C:\Windows\System32\LogonUItrue.exe</span></div>
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">del</span> <span class="tc-val">C:\Windows\System32\ransom_voice.vbs</span></div>
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">copy</span> <span class="tc-val">D:\Windows\System32\LogonUI.exe C:\Windows\System32\</span></div>
+                </div>
+            </div>
+
+            <h4>Registry Remediation:</h4>
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">response@lab ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">reg add</span> <span class="tc-val">"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v DisableTaskMgr /t REG_DWORD /d 0 /f</span></div>
+                    <div><span class="tc-prompt">$</span> <span class="tc-key">reg add</span> <span class="tc-val">"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v Shell /t REG_SZ /d explorer.exe /f</span></div>
+                </div>
+            </div>
+
+            <h3>Recovery</h3>
+            <ul>
+                <li><strong>Total Downtime:</strong> <span class="tc-green">17 minutes 38 seconds</span></li>
+                <li><strong>Method:</strong> Snapshot restoration</li>
+                <li><strong>Validation:</strong> System integrity check, network monitoring, functionality testing</li>
+            </ul>
+
+            <!-- MITRE ATT&CK -->
+            <h2>MITRE ATT&amp;CK Mapping</h2>
+            <table class="mitre-table">
+                <thead>
+                    <tr>
+                        <th>Tactic</th>
+                        <th>Technique</th>
+                        <th>Evidence</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Execution</strong></td>
+                        <td class="tech">T1204.002 - User Execution</td>
+                        <td>User double-clicks malware</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Privilege Escalation</strong></td>
+                        <td class="tech">T1134 - Access Token Manipulation</td>
+                        <td>takeown/icacls commands</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Persistence</strong></td>
+                        <td class="tech">T1547.001 - Registry Run Keys</td>
+                        <td>Run key modifications</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Persistence</strong></td>
+                        <td class="tech">T1547.004 - Winlogon Helper DLL</td>
+                        <td>Winlogon registry modification</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Defense Evasion</strong></td>
+                        <td class="tech">T1112 - Modify Registry</td>
+                        <td>DisableTaskMgr</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Defense Evasion</strong></td>
+                        <td class="tech">T1222 - File Permissions Modification</td>
+                        <td>icacls on System32</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Impact</strong></td>
+                        <td class="tech">T1486 - Data Encrypted for Impact</td>
+                        <td>AES file encryption</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Impact</strong></td>
+                        <td class="tech">T1491 - Defacement</td>
+                        <td>Lock screen replacement</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Detection Rules -->
+            <h2>Detection &amp; Prevention Strategies</h2>
+
+            <h3>Endpoint Detection Rules</h3>
+
+            <h4>EDR Rule: System32 Privilege Escalation</h4>
+            <ul>
+                <li><strong>Trigger:</strong> Process executes "takeown" AND "icacls" targeting <code>C:\Windows\System32</code></li>
+                <li><strong>Action:</strong> Kill process tree, isolate host, CRITICAL alert</li>
+                <li><strong>Confidence:</strong> High</li>
+            </ul>
+
+            <h4>EDR Rule: Mass File Encryption Pattern</h4>
+            <ul>
+                <li><strong>Trigger:</strong> Process modifies >100 files in <5 minutes with entropy increase detected</li>
+                <li><strong>Action:</strong> Suspend process, isolate host, alert SOC</li>
+                <li><strong>Confidence:</strong> High</li>
+            </ul>
+
+            <h3>Prevention Controls</h3>
+            <ul>
+                <li><strong>Application Whitelisting:</strong> Block unsigned .NET executables from user directories</li>
+                <li><strong>Privilege Management:</strong> Enforce principle of least privilege</li>
+                <li><strong>File Integrity Monitoring:</strong> Monitor System32 for unauthorized modifications</li>
+            </ul>
+
+            <!-- Team -->
+            <h2>About the Team</h2>
+            <div class="team-section">
+                <h4>Cybersecurity Department @ ESI-SBA</h4>
+                <ul>
+                    <li><strong>MADENE Meriem</strong> — Lead DFIR Analyst</li>
+                    <li><strong>MOSTEFAOUI Manel</strong> — Malware Analysis Lead</li>
+                    <li><strong>BRAHMI Sarah Kaouther</strong> — SIEM &amp; Monitoring Lead</li>
+                    <li><strong>Instructor:</strong> MR BENDELLA Mohamed</li>
+                </ul>
+            </div>
+
+            <h2>Conclusion</h2>
+            <p>
+                WormLocker 2.0 serves as an excellent case study in modern ransomware analysis. While the malware demonstrates sophisticated Windows internals knowledge and multi-component coordination, operational security failures—particularly the embedded PDB paths—provided critical attribution intelligence.
+            </p>
+            <p>
+                This project underscores the importance of:
+            </p>
+            <ol>
+                <li><strong>Comprehensive analysis methodology</strong> combining static, dynamic, and forensic approaches</li>
+                <li><strong>Proactive monitoring infrastructure</strong> for early detection</li>
+                <li><strong>Structured incident response</strong> for containment, eradication, and recovery</li>
+                <li><strong>Threat intelligence sharing</strong> to protect the broader community</li>
+            </ol>
+            <p>
+                The decryption key discovered during analysis (<strong class="tc-green">LUC QPV BTR</strong>) was validated as working, highlighting that even sophisticated malware can have critical cryptographic weaknesses.
+            </p>
+
+            <div class="highlight-box">
+                <p><strong>Key Metrics:</strong></p>
+                <ul>
+                    <li>⏱️ Total Analysis Time: <strong>45 minutes</strong></li>
+                    <li>🔑 Decryption Key Found: <strong>LUC QPV BTR</strong></li>
+                    <li>🛡️ Incident Response Time: <strong>17m 38s</strong></li>
+                    <li>📊 MITRE Techniques Identified: <strong>8</strong></li>
+                </ul>
+            </div>
+
+            <h2>Threat Intelligence Sharing</h2>
+            <p>
+                In accordance with responsible disclosure practices, we have:
+            </p>
+            <ul>
+                <li>Submitted samples to VirusTotal, Malware Bazaar, and Hybrid Analysis</li>
+                <li>Shared IOCs with sector-specific ISACs</li>
+                <li>Reported abuse to Gmail (wormlocker789@gmail.com)</li>
+                <li>Reported to Paysafecard fraud department</li>
+            </ul>
+
+            <h2>Disclaimer</h2>
+            <p style="font-size: .9rem; color: var(--muted); font-style: italic;">
+                This analysis was conducted in a fully controlled, isolated environment for educational purposes only. All ethical guidelines were followed, and no harm was caused to any system or organization.
+            </p>
+
+        </div>
+
+        <div class="blog-footer">
+            <a href="index.html#projects" class="btn btn-ghost">← Back to Projects</a>
+            <a href="cyber-arena.html" class="btn btn-ghost">View Cyber-Arena →</a>
+            <a href="index.html#contact" class="btn btn-grad">📧 Contact Me</a>
+        </div>
+    </article>
+
+    <footer>
+        <p>Built with care by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
+    </footer>
+</body>
+</html>
