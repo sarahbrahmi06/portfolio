@@ -1,889 +1,1853 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Brahmi Sarah Kaouther — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
-<style>
-  :root {
-    --bg:       #09060f;
-    --bg2:      #100c1c;
-    --bg3:      #1a1330;
-    --violet:   #9b30ff;
-    --pink:     #ff2d9b;
-    --rose:     #ff7ac6;
-    --lavender: #d4a8ff;
-    --text:     #ede8f8;
-    --muted:    #7a6e9a;
-    --border:   rgba(155,48,255,0.3);
-    --glow-v:   0 0 24px rgba(155,48,255,0.45);
-    --glow-p:   0 0 24px rgba(255,45,155,0.45);
-  }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Brahmi Sarah Kaouther — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #09060f;
+            --bg2: #100c1c;
+            --bg3: #1a1330;
+            --violet: #9b30ff;
+            --pink: #ff2d9b;
+            --rose: #ff7ac6;
+            --lavender: #d4a8ff;
+            --text: #ede8f8;
+            --muted: #7a6e9a;
+            --border: rgba(155, 48, 255, 0.3);
+            --glow-v: 0 0 24px rgba(155, 48, 255, 0.45);
+            --glow-p: 0 0 24px rgba(255, 45, 155, 0.45);
+        }
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image:
-      linear-gradient(rgba(155,48,255,0.035) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(155,48,255,0.035) 1px, transparent 1px);
-    background-size: 50px 50px;
-  }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: linear-gradient(rgba(155, 48, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(155, 48, 255, 0.035) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
 
-  .scanline {
-    position: fixed; left: 0; right: 0; height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(255,45,155,0.5), transparent);
-    z-index: 999; pointer-events: none;
-    animation: scan 10s linear infinite;
-  }
-  @keyframes scan { from { top: -2px; } to { top: 100vh; } }
+        .scanline {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 45, 155, 0.5), transparent);
+            z-index: 999;
+            pointer-events: none;
+            animation: scan 10s linear infinite;
+        }
+        @keyframes scan {
+            from {
+                top: -2px;
+            }
+            to {
+                top: 100vh;
+            }
+        }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
-    background: rgba(9,6,15,0.92);
-    backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--border);
-    padding: .9rem 2rem;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 1rem;
-  }
-  .nav-logo {
-    font-family: 'Orbitron', monospace; font-size: .8rem; font-weight: 900;
-    background: linear-gradient(90deg, var(--violet), var(--pink));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: .15em; white-space: nowrap; flex-shrink: 0;
-  }
-  .nav-links {
-    display: flex; gap: 1.4rem; list-style: none;
-    flex-wrap: wrap; justify-content: center;
-  }
-  .nav-links a {
-    font-family: 'Space Mono', monospace; font-size: .66rem;
-    color: var(--muted); text-decoration: none;
-    letter-spacing: .1em; text-transform: uppercase; transition: color .2s;
-    white-space: nowrap;
-  }
-  .nav-links a:hover { color: var(--rose); }
-  .nav-cta {
-    font-family: 'Space Mono', monospace; font-size: .66rem;
-    background: linear-gradient(135deg, var(--violet), var(--pink));
-    color: #fff; border: none; padding: .45rem 1rem; border-radius: 3px;
-    cursor: pointer; text-decoration: none; letter-spacing: .08em;
-    transition: box-shadow .2s; white-space: nowrap; flex-shrink: 0;
-  }
-  .nav-cta:hover { box-shadow: 0 0 20px rgba(255,45,155,0.5); }
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(9, 6, 15, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: .9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: .8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--violet), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: .15em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.4rem;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            transition: color .2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            color: var(--rose);
+        }
+        .nav-cta,
+        .nav-cta:visited,
+        .nav-cta:active,
+        .nav-cta:hover {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #ffffff !important;
+            border: none;
+            padding: .45rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: .08em;
+            transition: box-shadow .2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-cta:hover {
+            box-shadow: 0 0 20px rgba(255, 45, 155, 0.5);
+        }
 
-  /* Hamburger */
-  .nav-toggle {
-    display: none; flex-direction: column; gap: 5px;
-    background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0;
-  }
-  .nav-toggle span {
-    display: block; width: 22px; height: 2px;
-    background: var(--lavender); border-radius: 2px;
-    transition: transform .25s, opacity .25s;
-  }
-  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .nav-toggle.open span:nth-child(2) { opacity: 0; }
-  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: var(--lavender);
+            border-radius: 2px;
+            transition: transform .25s, opacity .25s;
+        }
+        .nav-toggle.open span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .nav-toggle.open span:nth-child(2) {
+            opacity: 0;
+        }
+        .nav-toggle.open span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
 
-  .mobile-menu {
-    display: none; position: fixed; top: 52px; left: 0; right: 0;
-    background: rgba(9,6,15,0.97); border-bottom: 1px solid var(--border);
-    z-index: 99; padding: 1.5rem 2rem; flex-direction: column; gap: 1rem;
-    backdrop-filter: blur(14px);
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    font-family: 'Space Mono', monospace; font-size: .78rem;
-    color: var(--muted); text-decoration: none;
-    letter-spacing: .1em; text-transform: uppercase; padding: .5rem 0;
-    border-bottom: 1px solid rgba(155,48,255,.1);
-    transition: color .2s;
-  }
-  .mobile-menu a:last-child { border-bottom: none; }
-  .mobile-menu a:hover { color: var(--rose); }
-  .mobile-menu .nav-cta {
-    display: inline-block; text-align: center; margin-top: .5rem;
-    padding: .7rem 1.2rem;
-  }
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 52px;
+            left: 0;
+            right: 0;
+            background: rgba(9, 6, 15, 0.97);
+            border-bottom: 1px solid var(--border);
+            z-index: 99;
+            padding: 1.5rem 2rem;
+            flex-direction: column;
+            gap: 1rem;
+            backdrop-filter: blur(14px);
+        }
+        .mobile-menu.open {
+            display: flex;
+        }
+        .mobile-menu a {
+            font-family: 'Space Mono', monospace;
+            font-size: .78rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .5rem 0;
+            border-bottom: 1px solid rgba(155, 48, 255, .1);
+            transition: color .2s;
+        }
+        .mobile-menu a:last-child {
+            border-bottom: none;
+        }
+        .mobile-menu a:hover {
+            color: var(--rose);
+        }
+        .mobile-menu .nav-cta,
+        .mobile-menu .nav-cta:visited,
+        .mobile-menu .nav-cta:hover,
+        .mobile-menu .nav-cta:active {
+            display: inline-block;
+            text-align: center;
+            margin-top: .5rem;
+            padding: .7rem 1.2rem;
+            color: #ffffff !important;
+        }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center; padding: 7rem 1.5rem 4rem;
-    position: relative; z-index: 2;
-  }
-  .hero-glow {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: min(800px, 100vw); height: 600px; pointer-events: none;
-    background: radial-gradient(ellipse,
-      rgba(155,48,255,0.13) 0%, rgba(255,45,155,0.07) 45%, transparent 70%);
-    animation: breathe 5s ease-in-out infinite;
-  }
-  @keyframes breathe {
-    0%,100% { transform: translate(-50%,-50%) scale(1); opacity:.7; }
-    50%      { transform: translate(-50%,-50%) scale(1.1); opacity:1; }
-  }
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 7rem 1.5rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(800px, 100vw);
+            height: 600px;
+            pointer-events: none;
+            background: radial-gradient(ellipse,
+                    rgba(155, 48, 255, 0.13) 0%,
+                    rgba(255, 45, 155, 0.07) 45%,
+                    transparent 70%);
+            animation: breathe 5s ease-in-out infinite;
+        }
+        @keyframes breathe {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: .7;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.1);
+                opacity: 1;
+            }
+        }
 
-  .hero-eyebrow {
-    font-family: 'Space Mono', monospace; font-size: .68rem;
-    color: var(--pink); letter-spacing: .3em; text-transform: uppercase;
-    margin-bottom: 1.4rem;
-    opacity: 0; animation: rise .6s .2s forwards;
-  }
+        .hero-eyebrow {
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--pink);
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+            opacity: 0;
+            animation: rise .6s .2s forwards;
+        }
 
-  .hero-name {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1.6rem, 6.5vw, 5rem);
-    font-weight: 900; line-height: 1.08;
-    position: relative; display: inline-block;
-    background: linear-gradient(135deg, var(--lavender) 10%, var(--pink) 55%, var(--violet) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    opacity: 0; animation: rise .7s .4s forwards;
-    word-break: break-word;
-  }
-  .hero-name::before, .hero-name::after {
-    content: attr(data-text);
-    position: absolute; inset: 0;
-    background: inherit; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  }
-  .hero-name::before { animation: glitch-a 4s infinite; clip-path: polygon(0 20%,100% 20%,100% 40%,0 40%); }
-  .hero-name::after  { animation: glitch-b 4s infinite; clip-path: polygon(0 62%,100% 62%,100% 78%,0 78%); }
-  @keyframes glitch-a {
-    0%,88%,100% { transform:none; opacity:0; }
-    90% { transform:translateX(-4px); opacity:.75; }
-    92% { transform:translateX(3px);  opacity:.5; }
-    94% { transform:none; opacity:0; }
-  }
-  @keyframes glitch-b {
-    0%,88%,100% { transform:none; opacity:0; }
-    89% { transform:translateX(5px); opacity:.6; }
-    91% { transform:translateX(-2px); opacity:.4; }
-    93% { transform:none; opacity:0; }
-  }
+        .hero-name {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.6rem, 6.5vw, 5rem);
+            font-weight: 900;
+            line-height: 1.08;
+            position: relative;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--lavender) 10%, var(--pink) 55%, var(--violet) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0;
+            animation: rise .7s .4s forwards;
+            word-break: break-word;
+        }
+        .hero-name::before,
+        .hero-name::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            background: inherit;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-name::before {
+            animation: glitch-a 4s infinite;
+            clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
+        }
+        .hero-name::after {
+            animation: glitch-b 4s infinite;
+            clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
+        }
+        @keyframes glitch-a {
+            0%,
+            88%,
+            100% {
+                transform: none;
+                opacity: 0;
+            }
+            90% {
+                transform: translateX(-4px);
+                opacity: .75;
+            }
+            92% {
+                transform: translateX(3px);
+                opacity: .5;
+            }
+            94% {
+                transform: none;
+                opacity: 0;
+            }
+        }
+        @keyframes glitch-b {
+            0%,
+            88%,
+            100% {
+                transform: none;
+                opacity: 0;
+            }
+            89% {
+                transform: translateX(5px);
+                opacity: .6;
+            }
+            91% {
+                transform: translateX(-2px);
+                opacity: .4;
+            }
+            93% {
+                transform: none;
+                opacity: 0;
+            }
+        }
 
-  .hero-title {
-    font-family: 'Space Mono', monospace;
-    font-size: clamp(.8rem, 2vw, 1.05rem);
-    color: var(--muted); margin-top: 1.1rem;
-    opacity: 0; animation: rise .6s .6s forwards;
-  }
-  .hero-title .hi { color: var(--lavender); }
+        .hero-title {
+            font-family: 'Space Mono', monospace;
+            font-size: clamp(.8rem, 2vw, 1.05rem);
+            color: var(--muted);
+            margin-top: 1.1rem;
+            opacity: 0;
+            animation: rise .6s .6s forwards;
+        }
+        .hero-title .hi {
+            color: var(--lavender);
+        }
 
-  .cursor { display:inline-block; width:2px; height:.95em; background:var(--pink); margin-left:3px; animation:blink .7s infinite; vertical-align:middle; }
-  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: .95em;
+            background: var(--pink);
+            margin-left: 3px;
+            animation: blink .7s infinite;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
 
-  .hero-desc {
-    max-width: 560px; color: var(--muted); font-size: clamp(.85rem, 2.2vw, .95rem);
-    margin-top: 1.8rem; line-height: 1.8;
-    opacity: 0; animation: rise .6s .8s forwards;
-  }
+        .hero-desc {
+            max-width: 560px;
+            color: var(--muted);
+            font-size: clamp(.85rem, 2.2vw, .95rem);
+            margin-top: 1.8rem;
+            line-height: 1.8;
+            opacity: 0;
+            animation: rise .6s .8s forwards;
+        }
 
-  .hero-cta {
-    display: flex; gap: 1rem; margin-top: 2.6rem;
-    flex-wrap: wrap; justify-content: center;
-    opacity: 0; animation: rise .6s 1s forwards;
-  }
-  .btn {
-    font-family: 'Space Mono', monospace; font-size: .76rem;
-    font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-    padding: .8rem 1.8rem; border-radius: 3px; cursor: pointer;
-    text-decoration: none; display: inline-block;
-    transition: transform .15s, box-shadow .2s;
-  }
-  .btn:hover { transform: translateY(-2px); }
-  .btn-grad {
-    background: linear-gradient(135deg, var(--violet), var(--pink));
-    color:#fff; border:none; box-shadow: 0 0 22px rgba(155,48,255,.45);
-  }
-  .btn-grad:hover { box-shadow: 0 0 38px rgba(255,45,155,.6); }
-  .btn-ghost {
-    background: transparent; border: 1px solid var(--violet); color: var(--lavender);
-    box-shadow: inset 0 0 10px rgba(155,48,255,.08);
-  }
-  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); box-shadow: 0 0 20px rgba(255,45,155,.2); }
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.6rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: rise .6s 1s forwards;
+        }
+        .btn {
+            font-family: 'Space Mono', monospace;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .8rem 1.8rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform .15s, box-shadow .2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        .btn-grad {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border: none;
+            box-shadow: 0 0 22px rgba(155, 48, 255, .45);
+        }
+        .btn-grad:hover {
+            box-shadow: 0 0 38px rgba(255, 45, 155, .6);
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--violet);
+            color: var(--lavender);
+            box-shadow: inset 0 0 10px rgba(155, 48, 255, .08);
+        }
+        .btn-ghost:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 20px rgba(255, 45, 155, .2);
+        }
 
-  @keyframes rise {
-    from { opacity:0; transform: translateY(20px); }
-    to   { opacity:1; transform: none; }
-  }
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
 
-  /* ── SECTIONS ── */
-  .section-wrap { max-width: 1100px; margin: 0 auto; padding: 5rem 1.5rem; position: relative; z-index: 2; }
-  .section-label {
-    font-family: 'Space Mono', monospace; font-size: .66rem;
-    color: var(--pink); letter-spacing: .25em; text-transform: uppercase; margin-bottom: .5rem;
-  }
-  .section-title {
-    font-family: 'Orbitron', monospace;
-    font-size: clamp(1.3rem, 3.5vw, 2.2rem); font-weight: 700;
-    background: linear-gradient(90deg, var(--lavender), var(--pink));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    margin-bottom: 3rem; line-height: 1.2;
-  }
-  .hr { height:1px; background:linear-gradient(90deg,transparent,var(--violet),var(--pink),transparent); opacity:.3; max-width:1100px; margin:0 auto; }
+        /* ── SECTIONS ── */
+        .section-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        .section-label {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            color: var(--pink);
+            letter-spacing: .25em;
+            text-transform: uppercase;
+            margin-bottom: .5rem;
+        }
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.3rem, 3.5vw, 2.2rem);
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--lavender), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 3rem;
+            line-height: 1.2;
+        }
+        .hr {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--violet), var(--pink), transparent);
+            opacity: .3;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
 
-  /* ── AVATAR ── */
-  .hero-avatar {
-    margin-bottom: 1.5rem;
-    opacity: 0; animation: rise .6s .1s forwards;
-  }
-  .avatar-img {
-    width: clamp(120px, 25vw, 180px);
-    height: clamp(120px, 25vw, 180px);
-    border-radius: 50%; object-fit: cover;
-    border: 3px solid transparent;
-    background: linear-gradient(135deg, var(--violet), var(--pink)) padding-box,
+        /* ── AVATAR ── */
+        .hero-avatar {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: rise .6s .1s forwards;
+        }
+        .avatar-img {
+            width: clamp(120px, 25vw, 180px);
+            height: clamp(120px, 25vw, 180px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid transparent;
+            background: linear-gradient(135deg, var(--violet), var(--pink)) padding-box,
                 linear-gradient(135deg, var(--violet), var(--pink)) border-box;
-    box-shadow: var(--glow-v);
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .avatar-img:hover { transform: scale(1.05); box-shadow: var(--glow-p); }
+            box-shadow: var(--glow-v);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .avatar-img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--glow-p);
+        }
 
-  /* ── ABOUT ── */
-  .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
-  .about-body p { color:var(--muted); line-height:1.85; margin-bottom:1rem; font-size:.95rem; }
-  .about-body p b { color:var(--lavender); }
-  .about-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1.5rem; }
-  .badge {
-    font-family:'Space Mono',monospace; font-size:.63rem;
-    padding:.28rem .75rem; border-radius:20px;
-    background:rgba(155,48,255,.1); border:1px solid rgba(155,48,255,.3);
-    color:var(--lavender);
-  }
+        /* ── ABOUT ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .about-body p {
+            color: var(--muted);
+            line-height: 1.85;
+            margin-bottom: 1rem;
+            font-size: .95rem;
+        }
+        .about-body p b {
+            color: var(--lavender);
+        }
+        .about-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-top: 1.5rem;
+        }
+        .badge {
+            font-family: 'Space Mono', monospace;
+            font-size: .63rem;
+            padding: .28rem .75rem;
+            border-radius: 20px;
+            background: rgba(155, 48, 255, .1);
+            border: 1px solid rgba(155, 48, 255, .3);
+            color: var(--lavender);
+        }
 
-  /* ── TERMINAL ── */
-  .terminal {
-    background:var(--bg2); border:1px solid var(--border);
-    border-radius:6px; overflow:hidden; box-shadow: var(--glow-v); position:relative;
-  }
-  .terminal::before,.terminal::after {
-    content:''; position:absolute; width:10px; height:10px; border-style:solid;
-  }
-  .terminal::before { top:0; left:0; border-color:var(--pink); border-width:2px 0 0 2px; }
-  .terminal::after  { bottom:0; right:0; border-color:var(--pink); border-width:0 2px 2px 0; }
-  .t-bar {
-    background:var(--bg3); padding:.55rem 1rem;
-    display:flex; align-items:center; gap:.45rem;
-    border-bottom:1px solid var(--border);
-  }
-  .t-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
-  .t-r{background:#ff5f5f;} .t-y{background:#ffbe2e;} .t-g{background:#2eff8f;}
-  .t-host { font-family:'Space Mono',monospace; font-size:.62rem; color:var(--muted); margin-left:auto; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .t-body { padding:1.2rem 1.5rem; font-family:'Space Mono',monospace; font-size:.75rem; line-height:2; overflow-x:auto; }
-  .tc-prompt { color:var(--pink); }
-  .tc-key    { color:var(--lavender); }
-  .tc-val    { color:var(--text); }
-  .tc-dim    { color:var(--muted); }
-  .tc-green  { color:#2eff8f; }
+        /* ── TERMINAL ── */
+        .terminal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--glow-v);
+            position: relative;
+        }
+        .terminal::before,
+        .terminal::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-style: solid;
+        }
+        .terminal::before {
+            top: 0;
+            left: 0;
+            border-color: var(--pink);
+            border-width: 2px 0 0 2px;
+        }
+        .terminal::after {
+            bottom: 0;
+            right: 0;
+            border-color: var(--pink);
+            border-width: 0 2px 2px 0;
+        }
+        .t-bar {
+            background: var(--bg3);
+            padding: .55rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .t-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .t-r {
+            background: #ff5f5f;
+        }
+        .t-y {
+            background: #ffbe2e;
+        }
+        .t-g {
+            background: #2eff8f;
+        }
+        .t-host {
+            font-family: 'Space Mono', monospace;
+            font-size: .62rem;
+            color: var(--muted);
+            margin-left: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .t-body {
+            padding: 1.2rem 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+            line-height: 2;
+            overflow-x: auto;
+        }
+        .tc-prompt {
+            color: var(--pink);
+        }
+        .tc-key {
+            color: var(--lavender);
+        }
+        .tc-val {
+            color: var(--text);
+        }
+        .tc-dim {
+            color: var(--muted);
+        }
+        .tc-green {
+            color: #2eff8f;
+        }
 
-  /* ── SKILLS ── */
-  .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1.2rem; }
-  .skill-card {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:1.4rem; position:relative; overflow:hidden;
-    transition:border-color .2s, box-shadow .2s, transform .2s;
-  }
-  .skill-card::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:2px;
-    background:linear-gradient(90deg,var(--violet),var(--pink)); opacity:0; transition:opacity .2s;
-  }
-  .skill-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); transform:translateY(-3px); }
-  .skill-card:hover::before { opacity:1; }
-  .sk-cat {
-    font-family:'Space Mono',monospace; font-size:.62rem;
-    color:var(--pink); letter-spacing:.15em; text-transform:uppercase; margin-bottom:.85rem;
-  }
-  .tags { display:flex; flex-wrap:wrap; gap:.4rem; }
-  .tag {
-    font-family:'Space Mono',monospace; font-size:.66rem;
-    padding:.22rem .6rem; border-radius:3px;
-    background:rgba(155,48,255,.1); border:1px solid rgba(155,48,255,.25);
-    color:var(--lavender); transition:background .2s, border-color .2s, color .2s;
-  }
-  .skill-card:hover .tag { background:rgba(255,45,155,.08); border-color:rgba(255,45,155,.3); color:var(--rose); }
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.2rem;
+        }
+        .skill-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.4rem;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--violet), var(--pink));
+            opacity: 0;
+            transition: opacity .2s;
+        }
+        .skill-card:hover {
+            border-color: var(--pink);
+            box-shadow: var(--glow-p);
+            transform: translateY(-3px);
+        }
+        .skill-card:hover::before {
+            opacity: 1;
+        }
+        .sk-cat {
+            font-family: 'Space Mono', monospace;
+            font-size: .62rem;
+            color: var(--pink);
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            margin-bottom: .85rem;
+        }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .4rem;
+        }
+        .tag {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            padding: .22rem .6rem;
+            border-radius: 3px;
+            background: rgba(155, 48, 255, .1);
+            border: 1px solid rgba(155, 48, 255, .25);
+            color: var(--lavender);
+            transition: background .2s, border-color .2s, color .2s;
+        }
+        .skill-card:hover .tag {
+            background: rgba(255, 45, 155, .08);
+            border-color: rgba(255, 45, 155, .3);
+            color: var(--rose);
+        }
 
-  /* ── PROJECTS ── */
-  .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
-  .proj {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    overflow:hidden; display:flex; flex-direction:column;
-    transition:transform .2s, box-shadow .2s, border-color .2s;
-  }
-  .proj:hover { transform:translateY(-5px); box-shadow:0 10px 40px rgba(255,45,155,.22); border-color:var(--pink); }
-  .proj-header {
-    height:80px; display:flex; align-items:center; justify-content:space-between;
-    padding:1rem 1.4rem; position:relative; overflow:hidden; gap:.8rem;
-  }
-  .ph-c1 { background:linear-gradient(135deg,#1a0833,#2d1060); }
-  .ph-c2 { background:linear-gradient(135deg,#2d0820,#1a0833); }
-  .ph-c3 { background:linear-gradient(135deg,#0e0525,#2d1060); }
-  .ph-c4 { background:linear-gradient(135deg,#200828,#0e0525); }
-  .ph-c5 { background:linear-gradient(135deg,#12032e,#1a0820); }
-  .ph-c6 { background:linear-gradient(135deg,#1a0333,#2a0b1e); }
-  .proj-header::after {
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(135deg,rgba(155,48,255,.12),rgba(255,45,155,.1));
-  }
-  .proj-label {
-    font-family:'Orbitron',monospace; font-size:.78rem; font-weight:700;
-    color:var(--lavender); position:relative; z-index:1; letter-spacing:.03em;
-    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-  }
-  .proj-featured {
-    font-family:'Space Mono',monospace; font-size:.55rem;
-    color:var(--pink); letter-spacing:.1em; text-transform:uppercase;
-    border:1px solid var(--pink); border-radius:2px; padding:.2rem .5rem;
-    position:relative; z-index:1; white-space:nowrap; flex-shrink:0;
-  }
-  .proj-body { padding:1.2rem 1.4rem; flex:1; display:flex; flex-direction:column; }
-  .proj-desc { font-size:.85rem; color:var(--muted); flex:1; line-height:1.7; margin-bottom:1rem; }
-  .proj-stack { font-family:'Space Mono',monospace; font-size:.63rem; color:var(--violet); margin-bottom:1.1rem; line-height:1.6; }
-  .proj-links { display:flex; gap:.7rem; flex-wrap:wrap; }
-  .pl {
-    font-family:'Space Mono',monospace; font-size:.68rem;
-    padding:.42rem 1rem; border-radius:3px; text-decoration:none;
-    letter-spacing:.06em; transition:transform .15s, box-shadow .2s;
-  }
-  .pl:hover { transform:translateY(-1px); }
-  .pl-gh { background:transparent; border:1px solid var(--violet); color:var(--lavender); }
-  .pl-gh:hover { border-color:var(--lavender); box-shadow:0 0 12px rgba(155,48,255,.35); }
-  .pl-demo { background:linear-gradient(135deg,var(--violet),var(--pink)); color:#fff; border:none; }
-  .pl-demo:hover { box-shadow:0 0 18px rgba(255,45,155,.5); }
+        /* ── FEATURED PROJECT ── */
+        .featured-project {
+            background: var(--bg2);
+            border: 2px solid var(--violet);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--glow-v);
+            transition: border-color .3s, box-shadow .3s;
+            margin-bottom: 2rem;
+        }
+        .featured-project:hover {
+            border-color: var(--pink);
+            box-shadow: var(--glow-p);
+        }
+        .featured-banner {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            padding: .8rem 1.5rem;
+            font-family: 'Orbitron', monospace;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .2em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, .3);
+        }
+        .featured-content {
+            padding: 2rem 2rem 2.2rem;
+        }
+        .featured-content h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            color: var(--lavender);
+            margin-bottom: 1rem;
+        }
+        .featured-content p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+            font-size: .95rem;
+        }
+        .featured-content ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            margin-bottom: 1.5rem;
+        }
+        .featured-content ul li {
+            font-family: 'Space Mono', monospace;
+            font-size: .7rem;
+            color: var(--lavender);
+            padding: .3rem .8rem;
+            background: rgba(155, 48, 255, .1);
+            border: 1px solid rgba(155, 48, 255, .25);
+            border-radius: 20px;
+        }
 
-  /* ── HACKATHONS ── */
-  .hackathons-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; margin-top:1rem; }
-  .hack-card {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:1.5rem; transition:transform .2s, box-shadow .2s, border-color .2s;
-  }
-  .hack-card:hover { transform:translateY(-5px); box-shadow:var(--glow-p); border-color:var(--pink); }
-  .hack-title { font-family:'Orbitron',monospace; font-size:.95rem; color:var(--lavender); margin-bottom:.5rem; line-height:1.3; }
-  .hack-org { font-size:.82rem; color:var(--pink); margin-bottom:.75rem; font-family:'Space Mono',monospace; }
-  .hack-date { font-size:.68rem; color:var(--muted); margin-bottom:1rem; font-family:'Space Mono',monospace; line-height:1.5; }
-  .cert-link {
-    display: inline-flex; align-items: center; gap:0.5rem;
-    font-family:'Space Mono',monospace; font-size:.68rem;
-    padding:.5rem 1rem; background:rgba(155,48,255,.1);
-    border:1px solid var(--border); border-radius:3px;
-    color:var(--lavender); text-decoration:none; transition:all .2s; margin-top:.5rem;
-  }
-  .cert-link:hover { border-color:var(--pink); color:var(--pink); background:rgba(255,45,155,.05); }
+        /* ── PROJECTS ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .proj {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .proj:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(255, 45, 155, .22);
+            border-color: var(--pink);
+        }
+        .proj-header {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.4rem;
+            position: relative;
+            overflow: hidden;
+            gap: .8rem;
+        }
+        .ph-c1 {
+            background: linear-gradient(135deg, #1a0833, #2d1060);
+        }
+        .ph-c2 {
+            background: linear-gradient(135deg, #2d0820, #1a0833);
+        }
+        .ph-c3 {
+            background: linear-gradient(135deg, #0e0525, #2d1060);
+        }
+        .ph-c4 {
+            background: linear-gradient(135deg, #200828, #0e0525);
+        }
+        .ph-c5 {
+            background: linear-gradient(135deg, #12032e, #1a0820);
+        }
+        .ph-c6 {
+            background: linear-gradient(135deg, #1a0333, #2a0b1e);
+        }
+        .proj-header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(155, 48, 255, .12), rgba(255, 45, 155, .1));
+        }
+        .proj-label {
+            font-family: 'Orbitron', monospace;
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--lavender);
+            position: relative;
+            z-index: 1;
+            letter-spacing: .03em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .proj-featured {
+            font-family: 'Space Mono', monospace;
+            font-size: .55rem;
+            color: var(--pink);
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            border: 1px solid var(--pink);
+            border-radius: 2px;
+            padding: .2rem .5rem;
+            position: relative;
+            z-index: 1;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .proj-body {
+            padding: 1.2rem 1.4rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .proj-desc {
+            font-size: .85rem;
+            color: var(--muted);
+            flex: 1;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        .proj-stack {
+            font-family: 'Space Mono', monospace;
+            font-size: .63rem;
+            color: var(--violet);
+            margin-bottom: 1.1rem;
+            line-height: 1.6;
+        }
+        .proj-links {
+            display: flex;
+            gap: .7rem;
+            flex-wrap: wrap;
+        }
+        .pl {
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            padding: .42rem 1rem;
+            border-radius: 3px;
+            text-decoration: none;
+            letter-spacing: .06em;
+            transition: transform .15s, box-shadow .2s;
+        }
+        .pl:hover {
+            transform: translateY(-1px);
+        }
+        .pl-gh {
+            background: transparent;
+            border: 1px solid var(--violet);
+            color: var(--lavender);
+        }
+        .pl-gh:hover {
+            border-color: var(--lavender);
+            box-shadow: 0 0 12px rgba(155, 48, 255, .35);
+        }
+        .pl-demo {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border: none;
+        }
+        .pl-demo:hover {
+            box-shadow: 0 0 18px rgba(255, 45, 155, .5);
+        }
 
-  /* ── EDUCATION ── */
-  .edu-list { display:flex; flex-direction:column; gap:1.2rem; }
-  .edu-card {
-    background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-    padding:1.4rem 1.6rem;
-    transition:border-color .2s, box-shadow .2s;
-  }
-  .edu-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); }
-  .edu-degree { font-family:'Orbitron',monospace; font-size:.85rem; color:var(--lavender); font-weight:700; line-height:1.4; }
-  .edu-school { font-size:.85rem; color:var(--muted); margin:.3rem 0; line-height:1.5; }
-  .edu-meta { font-family:'Space Mono',monospace; font-size:.68rem; color:var(--pink); margin-top:.4rem; }
+        /* ── HACKATHONS ── */
+        .hackathons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .hack-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.5rem;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .hack-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow-p);
+            border-color: var(--pink);
+        }
+        .hack-title {
+            font-family: 'Orbitron', monospace;
+            font-size: .95rem;
+            color: var(--lavender);
+            margin-bottom: .5rem;
+            line-height: 1.3;
+        }
+        .hack-org {
+            font-size: .82rem;
+            color: var(--pink);
+            margin-bottom: .75rem;
+            font-family: 'Space Mono', monospace;
+        }
+        .hack-date {
+            font-size: .68rem;
+            color: var(--muted);
+            margin-bottom: 1rem;
+            font-family: 'Space Mono', monospace;
+            line-height: 1.5;
+        }
+        .cert-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            padding: .5rem 1rem;
+            background: rgba(155, 48, 255, .1);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--lavender);
+            text-decoration: none;
+            transition: all .2s;
+            margin-top: .5rem;
+        }
+        .cert-link:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            background: rgba(255, 45, 155, .05);
+        }
 
-  /* ── CONTACT ── */
-  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
-  .contact-intro p { color:var(--muted); line-height:1.8; margin-bottom:1.5rem; font-size:.95rem; }
-  .socials { display:flex; flex-direction:column; gap:.6rem; }
-  .social-row {
-    display:flex; align-items:center; gap:.8rem;
-    font-family:'Space Mono',monospace; font-size:.73rem;
-    color:var(--muted); text-decoration:none; padding:.55rem .8rem;
-    border-radius:4px; border:1px solid transparent;
-    transition:color .2s, border-color .2s, background .2s;
-    overflow:hidden;
-  }
-  .social-row:hover { color:var(--rose); border-color:var(--border); background:rgba(155,48,255,.06); }
-  .s-ico {
-    width:30px; height:30px; border-radius:4px; flex-shrink:0;
-    background:var(--bg3); border:1px solid var(--border);
-    display:flex; align-items:center; justify-content:center;
-    font-size:.7rem; font-family:'Space Mono',monospace;
-    color:var(--lavender); font-weight:700;
-  }
-  .social-text { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .contact-form { display:flex; flex-direction:column; gap:1rem; }
-  .f-label { font-family:'Space Mono',monospace; font-size:.65rem; color:var(--pink); letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:.35rem; }
-  .f-input, .f-textarea {
-    width:100%; background:var(--bg2); border:1px solid var(--border);
-    color:var(--text); font-family:'Inter',sans-serif; font-size:.9rem;
-    padding:.75rem 1rem; border-radius:4px; outline:none;
-    transition:border-color .2s, box-shadow .2s;
-  }
-  .f-input:focus, .f-textarea:focus { border-color:var(--violet); box-shadow:0 0 14px rgba(155,48,255,.22); }
-  .f-textarea { resize:vertical; min-height:120px; }
+        /* ── INTERNSHIPS ── */
+        .internships-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+        .intern-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.4rem 1.6rem;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .intern-card:hover {
+            border-color: var(--pink);
+            box-shadow: var(--glow-p);
+        }
 
-  /* ── FOOTER ── */
-  footer {
-    position:relative; z-index:2; text-align:center; padding:2.5rem 1.5rem;
-    border-top:1px solid var(--border);
-    font-family:'Space Mono',monospace; font-size:.68rem; color:var(--muted);
-  }
-  footer span { color:var(--pink); }
+        /* ── EDUCATION ── */
+        .edu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .edu-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.4rem 1.6rem;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .edu-card:hover {
+            border-color: var(--pink);
+            box-shadow: var(--glow-p);
+        }
+        .edu-degree {
+            font-family: 'Orbitron', monospace;
+            font-size: .85rem;
+            color: var(--lavender);
+            font-weight: 700;
+            line-height: 1.4;
+        }
+        .edu-school {
+            font-size: .85rem;
+            color: var(--muted);
+            margin: .3rem 0;
+            line-height: 1.5;
+        }
+        .edu-meta {
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--pink);
+            margin-top: .4rem;
+        }
 
-  ::-webkit-scrollbar { width:4px; }
-  ::-webkit-scrollbar-track { background:var(--bg); }
-  ::-webkit-scrollbar-thumb { background:linear-gradient(var(--violet),var(--pink)); border-radius:2px; }
+        /* ── CONTACT ── */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .contact-intro p {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            font-size: .95rem;
+        }
+        .socials {
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+        }
+        .social-row {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .73rem;
+            color: var(--muted);
+            text-decoration: none;
+            padding: .55rem .8rem;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: color .2s, border-color .2s, background .2s;
+            overflow: hidden;
+        }
+        .social-row:hover {
+            color: var(--rose);
+            border-color: var(--border);
+            background: rgba(155, 48, 255, .06);
+        }
+        .s-ico {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: .7rem;
+            font-family: 'Space Mono', monospace;
+            color: var(--lavender);
+            font-weight: 700;
+        }
+        .social-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .f-label {
+            font-family: 'Space Mono', monospace;
+            font-size: .65rem;
+            color: var(--pink);
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: .35rem;
+        }
+        .f-input,
+        .f-textarea {
+            width: 100%;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: .9rem;
+            padding: .75rem 1rem;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .f-input:focus,
+        .f-textarea:focus {
+            border-color: var(--violet);
+            box-shadow: 0 0 14px rgba(155, 48, 255, .22);
+        }
+        .f-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
 
-  .reveal { opacity:0; transform:translateY(24px); transition:opacity .55s, transform .55s; }
-  .reveal.visible { opacity:1; transform:none; }
+        /* ── RESUME MODAL ── */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(9, 6, 15, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            backdrop-filter: blur(8px);
+        }
+        .modal.open {
+            display: flex;
+        }
+        .modal-content {
+            background: var(--bg2);
+            border: 2px solid var(--violet);
+            border-radius: 12px;
+            padding: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            position: relative;
+            box-shadow: var(--glow-v);
+        }
+        .modal-content iframe {
+            width: 100%;
+            height: 70vh;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            background: #fff;
+        }
+        .modal-close {
+            position: absolute;
+            top: .8rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: 1.6rem;
+            cursor: pointer;
+            font-family: 'Space Mono', monospace;
+            transition: color .2s, transform .2s;
+            line-height: 1;
+        }
+        .modal-close:hover {
+            color: var(--pink);
+            transform: rotate(90deg);
+        }
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.2rem;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+        }
+        .modal-actions .btn {
+            padding: .6rem 1.6rem;
+        }
 
-  /* ── RESPONSIVE ── */
+        /* ── FOOTER ── */
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-top: 1px solid var(--border);
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--muted);
+        }
+        footer span {
+            color: var(--pink);
+        }
 
-  /* Tablet: ≤ 900px */
-  @media (max-width: 900px) {
-    nav { padding: .8rem 1.5rem; }
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: .62rem; }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--violet), var(--pink));
+            border-radius: 2px;
+        }
 
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity .55s, transform .55s;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: none;
+        }
 
-    .section-wrap { padding: 4rem 1.5rem; }
-  }
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            nav {
+                padding: .8rem 1.5rem;
+            }
+            .nav-links {
+                gap: 1rem;
+            }
+            .nav-links a {
+                font-size: .62rem;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .section-wrap {
+                padding: 4rem 1.5rem;
+            }
+            .modal-content {
+                padding: 1rem;
+            }
+            .modal-content iframe {
+                height: 50vh;
+            }
+        }
 
-  /* Mobile: ≤ 680px */
-  @media (max-width: 680px) {
-    nav { padding: .8rem 1rem; }
-    .nav-links { display: none; }
-    .nav-cta { display: none; }
-    .nav-toggle { display: flex; }
+        @media (max-width: 680px) {
+            nav {
+                padding: .8rem 1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .nav-cta {
+                display: none;
+            }
+            .nav-toggle {
+                display: flex;
+            }
+            .hero {
+                padding: 6rem 1rem 3rem;
+            }
+            .section-wrap {
+                padding: 3.5rem 1rem;
+            }
+            .section-title {
+                margin-bottom: 2rem;
+            }
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .hackathons-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+            .hero-cta {
+                gap: .75rem;
+            }
+            .btn {
+                font-size: .7rem;
+                padding: .7rem 1.4rem;
+            }
+            .t-body {
+                font-size: .7rem;
+                padding: 1rem 1rem;
+            }
+            .proj-header {
+                height: auto;
+                min-height: 70px;
+                flex-wrap: wrap;
+                gap: .5rem;
+                padding: .85rem 1.1rem;
+            }
+            .proj-label {
+                font-size: .72rem;
+            }
+            .hack-date {
+                font-size: .64rem;
+            }
+            .social-row {
+                font-size: .68rem;
+            }
+            .social-text {
+                font-size: .68rem;
+            }
+            .edu-degree {
+                font-size: .8rem;
+            }
+            .edu-school {
+                font-size: .8rem;
+            }
+            footer {
+                font-size: .62rem;
+            }
+            .featured-content {
+                padding: 1.5rem;
+            }
+            .featured-content h3 {
+                font-size: 1.1rem;
+            }
+            .modal-content {
+                padding: .8rem;
+                margin: .5rem;
+            }
+            .modal-content iframe {
+                height: 40vh;
+            }
+        }
 
-    .hero { padding: 6rem 1rem 3rem; }
-
-    .section-wrap { padding: 3.5rem 1rem; }
-    .section-title { margin-bottom: 2rem; }
-
-    .skills-grid { grid-template-columns: 1fr; }
-    .projects-grid { grid-template-columns: 1fr; }
-    .hackathons-grid { grid-template-columns: 1fr; }
-
-    .about-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-    .contact-grid { grid-template-columns: 1fr; gap: 1.8rem; }
-
-    .hero-cta { gap: .75rem; }
-    .btn { font-size: .7rem; padding: .7rem 1.4rem; }
-
-    .t-body { font-size: .7rem; padding: 1rem 1rem; }
-
-    .proj-header { height: auto; min-height: 70px; flex-wrap: wrap; gap: .5rem; padding: .85rem 1.1rem; }
-    .proj-label { font-size: .72rem; }
-
-    .hack-date { font-size: .64rem; }
-
-    .social-row { font-size: .68rem; }
-    .social-text { font-size: .68rem; }
-
-    .edu-degree { font-size: .8rem; }
-    .edu-school { font-size: .8rem; }
-
-    footer { font-size: .62rem; }
-  }
-
-  /* Small mobile: ≤ 400px */
-  @media (max-width: 400px) {
-    .hero-eyebrow { font-size: .58rem; letter-spacing: .2em; }
-    .hero-desc { font-size: .82rem; }
-    .badge { font-size: .58rem; }
-    .tag { font-size: .62rem; }
-    .t-body { font-size: .65rem; }
-    .section-wrap { padding: 3rem .85rem; }
-    .skill-card { padding: 1.1rem; }
-    .proj-body { padding: 1rem 1.1rem; }
-    .hack-card { padding: 1.2rem; }
-    .edu-card { padding: 1.1rem 1.2rem; }
-  }
-</style>
+        @media (max-width: 400px) {
+            .hero-eyebrow {
+                font-size: .58rem;
+                letter-spacing: .2em;
+            }
+            .hero-desc {
+                font-size: .82rem;
+            }
+            .badge {
+                font-size: .58rem;
+            }
+            .tag {
+                font-size: .62rem;
+            }
+            .t-body {
+                font-size: .65rem;
+            }
+            .section-wrap {
+                padding: 3rem .85rem;
+            }
+            .skill-card {
+                padding: 1.1rem;
+            }
+            .proj-body {
+                padding: 1rem 1.1rem;
+            }
+            .hack-card {
+                padding: 1.2rem;
+            }
+            .edu-card {
+                padding: 1.1rem 1.2rem;
+            }
+            .intern-card {
+                padding: 1.1rem 1.2rem;
+            }
+            .featured-content {
+                padding: 1.2rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="scanline"></div>
+    <div class="scanline"></div>
 
-<nav>
-  <div class="nav-logo">SARAH.EXE</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#hackathons">Hackathons</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="nav-cta" href="CV.pdf" download>Download CV</a>
-  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
-    <span></span><span></span><span></span>
-  </button>
-</nav>
+    <!-- ─── NAV ─── -->
+    <nav>
+        <div class="nav-logo">SARAH.EXE</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#featured-project">Featured</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#hackathons">Hackathons</a></li>
+            <li><a href="#internships">Internships</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button id="openResume" class="nav-cta">View Resume</button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
 
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#about"      onclick="closeMobile()">About</a>
-  <a href="#skills"     onclick="closeMobile()">Skills</a>
-  <a href="#projects"   onclick="closeMobile()">Projects</a>
-  <a href="#hackathons" onclick="closeMobile()">Hackathons</a>
-  <a href="#education"  onclick="closeMobile()">Education</a>
-  <a href="#contact"    onclick="closeMobile()">Contact</a>
-  <a class="nav-cta" href="CV.pdf" download>Download CV</a>
-</div>
-
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-avatar">
-    <img src="my-photo.png" alt="Brahmi Sarah Kaouther" class="avatar-img" />
-  </div>
-  <p class="hero-eyebrow">// cybersecurity student</p>
-  <h1 class="hero-name" data-text="Brahmi Sarah Kaouther">Brahmi Sarah Kaouther</h1>
-  <p class="hero-title">
-    <span class="hi" id="typed-role">Cybersecurity student</span><span class="cursor"></span>
-  </p>
-  <p class="hero-desc">
-    5th-year Cybersecurity Engineering student building at the intersection of
-    <b style="color:var(--lavender)">threat intelligence</b>,
-    <b style="color:var(--rose)">AI/ML</b>, and
-    <b style="color:var(--lavender)">UI/UX</b>.
-    Based in Oran, Algeria, engineering smart, secure solutions.
-  </p>
-  <div class="hero-cta">
-    <a class="btn btn-grad" href="#projects">View Projects</a>
-    <a class="btn btn-ghost" href="#contact">Get in Touch</a>
-  </div>
-</section>
-
-<div class="hr"></div>
-
-<section class="section-wrap" id="about">
-  <p class="section-label">who am i</p>
-  <h2 class="section-title">About Me</h2>
-  <div class="about-grid">
-    <div class="about-body reveal">
-      <p>I'm a <b>5th-year Cybersecurity Engineering student</b> at École Supérieure d'Informatique, Sidi Bel Abbès: graduating 2027. I combine deep security knowledge with AI research and cross-platform development to build systems that are both powerful and resilient.</p>
-      <p>My work spans autonomous attack-defence simulations with <b>reinforcement learning</b>, NLP with BERT, medical image segmentation, and beautiful UI/UX designs. I believe the best engineers understand both how to build systems and how to break them.</p>
-      <div class="about-badges">
-        <span class="badge">Oran, Algeria</span>
-        <span class="badge">Open to internships</span>
-        <span class="badge">Cybersecurity · AI · UI/UX</span>
-        <span class="badge">Expected grad: 2027</span>
-      </div>
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="closeMobile()">About</a>
+        <a href="#skills" onclick="closeMobile()">Skills</a>
+        <a href="#featured-project" onclick="closeMobile()">Featured</a>
+        <a href="#projects" onclick="closeMobile()">Projects</a>
+        <a href="#hackathons" onclick="closeMobile()">Hackathons</a>
+        <a href="#internships" onclick="closeMobile()">Internships</a>
+        <a href="#education" onclick="closeMobile()">Education</a>
+        <a href="#contact" onclick="closeMobile()">Contact</a>
+        <button id="openResumeMobile" class="nav-cta" onclick="openResumeModal(); closeMobile();">View Resume</button>
+        <a class="nav-cta" href="CV.pdf" download>Download CV</a>
     </div>
 
-    <div class="terminal reveal">
-      <div class="t-bar">
-        <span class="t-dot t-r"></span><span class="t-dot t-y"></span><span class="t-dot t-g"></span>
-        <span class="t-host">sarah_brahmi06 ~</span>
-      </div>
-      <div class="t-body">
-        <div><span class="tc-prompt">❯ </span><span class="tc-key">whoami</span></div>
-        <div><span class="tc-green">brahmi_sarah_kaouther</span></div>
-        <br />
-        <div><span class="tc-prompt">❯ </span><span class="tc-key">cat</span> <span class="tc-val">identity.json</span></div>
-        <div><span class="tc-dim">{</span></div>
-        <div>&nbsp;&nbsp;<span class="tc-key">"role"</span>: <span class="tc-val">"Cybersecurity Eng. Student"</span>,</div>
-        <div>&nbsp;&nbsp;<span class="tc-key">"school"</span>: <span class="tc-val">"ESI Sidi Bel Abbès"</span>,</div>
-        <div>&nbsp;&nbsp;<span class="tc-key">"year"</span>: <span class="tc-val">"5th / Engineering"</span>,</div>
-        <div>&nbsp;&nbsp;<span class="tc-key">"focus"</span>: <span class="tc-val">"Security · AI · UI/UX"</span>,</div>
-        <div><span class="tc-dim">}</span></div>
-        <br />
-        <div><span class="tc-prompt">❯ </span><span class="tc-dim">// STATUS: ONLINE</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="hr"></div>
-
-<section class="section-wrap" id="skills">
-  <p class="section-label">capabilities</p>
-  <h2 class="section-title">Skills &amp; Tools</h2>
-  <div class="skills-grid">
-    <div class="skill-card reveal">
-      <p class="sk-cat">Cybersecurity</p>
-      <div class="tags">
-        <span class="tag">Kali Linux</span><span class="tag">Metasploit</span><span class="tag">Burp Suite</span>
-        <span class="tag">Wireshark</span><span class="tag">Nmap</span><span class="tag">Suricata</span>
-        <span class="tag">Hydra</span><span class="tag">Autopsy</span><span class="tag">Volatility</span>
-        <span class="tag">ModSecurity</span><span class="tag">Zeek</span><span class="tag">tcpdump</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <p class="sk-cat">SIEM / Monitoring</p>
-      <div class="tags">
-        <span class="tag">Sysmon</span><span class="tag">Winlogbeat</span><span class="tag">Elasticsearch</span>
-        <span class="tag">Kibana</span><span class="tag">Telegraf</span><span class="tag">InfluxDB</span>
-        <span class="tag">Grafana</span><span class="tag">Prometheus</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <p class="sk-cat">AI &amp; Machine Learning</p>
-      <div class="tags">
-        <span class="tag">Python</span><span class="tag">BERT</span><span class="tag">UNET</span>
-        <span class="tag">EfficientNet-B3</span><span class="tag">OpenCV</span><span class="tag">Deep Q-Network</span>
-        <span class="tag">NLP</span><span class="tag">Haar Cascade</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <p class="sk-cat">Frontend &amp; Mobile</p>
-      <div class="tags">
-        <span class="tag">React.js</span><span class="tag">Flutter</span><span class="tag">Dart</span>
-        <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
-        <span class="tag">Tailwind CSS</span><span class="tag">Figma</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <p class="sk-cat">Backend &amp; Databases</p>
-      <div class="tags">
-        <span class="tag">FastAPI</span><span class="tag">MySQL</span><span class="tag">MongoDB</span>
-        <span class="tag">Cassandra</span><span class="tag">Neo4j</span><span class="tag">Firebase</span>
-        <span class="tag">OLAP</span><span class="tag">NoSQL</span>
-      </div>
-    </div>
-    <div class="skill-card reveal">
-      <p class="sk-cat">DevOps &amp; Cloud</p>
-      <div class="tags">
-        <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Git</span>
-        <span class="tag">Jenkins</span><span class="tag">Ansible</span><span class="tag">LocalStack</span>
-        <span class="tag">ZeroTier</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="hr"></div>
-
-<section class="section-wrap" id="projects">
-  <p class="section-label">recent work</p>
-  <h2 class="section-title">Projects</h2>
-  <div class="projects-grid">
-    <div class="proj reveal">
-      <div class="proj-header ph-c1">
-        <span class="proj-label">Cyber-Arena</span>
-        <span class="proj-featured">Team Lead</span>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">Autonomous cybersecurity simulation where Red &amp; Blue DQN agents learn to attack and defend a full enterprise network: 8 PCs, 5 VLANs, live telemetry, honeypots, and firewall management.</p>
-        <p class="proj-stack">GNS3 · Deep Q-Network · Telegraf → InfluxDB → Grafana · Ansible · ZeroTier</p>
-        <div class="proj-links">
-          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/rl-cybersec" target="_blank">GitHub</a>
+    <!-- ─── RESUME MODAL ─── -->
+    <div id="resumeModal" class="modal">
+        <div class="modal-content">
+            <button id="closeResume" class="modal-close">✕</button>
+            <iframe src="CV.pdf" title="Resume Preview"></iframe>
+            <div class="modal-actions">
+                <a href="CV.pdf" download class="btn btn-grad">Download CV</a>
+                <button id="closeResumeBtn" class="btn btn-ghost">Close</button>
+            </div>
         </div>
-      </div>
     </div>
 
-    <div class="proj reveal">
-      <div class="proj-header ph-c2">
-        <span class="proj-label">Ransomware Simulation</span>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">Simulated ransomware behaviour and built a full endpoint monitoring pipeline using an ELK stack to detect, alert, and visualise attack patterns in real time.</p>
-        <p class="proj-stack">Sysmon · Winlogbeat · Suricata · Elasticsearch · Kibana</p>
-        <div class="proj-links"></div>
-      </div>
-    </div>
-
-    <div class="proj reveal">
-      <div class="proj-header ph-c3">
-        <span class="proj-label">Serverless Simulator</span>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">Custom Python FaaS runtime with HTTP, SQS, and cron triggers, cold start simulation (350ms), warm container pooling, and full telemetry aggregation (p50 latency, cold-start rates).</p>
-        <p class="proj-stack">Python · FastAPI · LocalStack · JSON logging</p>
-        <div class="proj-links">
-          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/serverless-function-simulator" target="_blank">GitHub</a>
+    <!-- ─── HERO ─── -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-avatar">
+            <img src="my-photo.png" alt="Brahmi Sarah Kaouther" class="avatar-img" />
         </div>
-      </div>
-    </div>
-
-    <div class="proj reveal">
-      <div class="proj-header ph-c4">
-        <span class="proj-label">Pink Diary</span>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI: built with React, Vite, and Tailwind CSS.</p>
-        <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
-        <div class="proj-links">
-          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/pink_diary" target="_blank">GitHub</a>
+        <p class="hero-eyebrow">// cybersecurity student</p>
+        <h1 class="hero-name" data-text="Brahmi Sarah Kaouther">Brahmi Sarah Kaouther</h1>
+        <p class="hero-title">
+            <span class="hi" id="typed-role">Cybersecurity student</span><span class="cursor"></span>
+        </p>
+        <p class="hero-desc">
+            5th-year Cybersecurity Engineering student building at the intersection of
+            <b style="color:var(--lavender)">threat intelligence</b>,
+            <b style="color:var(--rose)">AI/ML</b>, and
+            <b style="color:var(--lavender)">UI/UX</b>.
+            Based in Oran, Algeria, engineering smart, secure solutions.
+        </p>
+        <div class="hero-cta">
+            <a class="btn btn-grad" href="#featured-project">Featured Project</a>
+            <a class="btn btn-ghost" href="#contact">Get in Touch</a>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="proj reveal">
-      <div class="proj-header ph-c5">
-        <span class="proj-label">LTE-2G Downgrade Attack</span>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">Educational simulation of an LTE to 2G downgrade attack demonstrating IMSI catcher vulnerabilities and SS7 protocol weaknesses for security research.</p>
-        <p class="proj-stack">Network Security · Protocol Analysis · Python</p>
-        <div class="proj-links">
-          <a class="pl pl-gh" href="https://github.com/sarahbrahmi06/LTE-2G-Downgrade-Attack" target="_blank">GitHub</a>
+    <div class="hr"></div>
+
+    <!-- ─── ABOUT ─── -->
+    <section class="section-wrap" id="about">
+        <p class="section-label">who am i</p>
+        <h2 class="section-title">About Me</h2>
+        <div class="about-grid">
+            <div class="about-body reveal">
+                <p>I'm a <b>5th-year Cybersecurity Engineering student</b> at École Supérieure d'Informatique, Sidi Bel Abbès: graduating 2027. I combine deep security knowledge with AI research and cross-platform development to build systems that are both powerful and resilient.</p>
+                <p>My work spans autonomous attack-defence simulations with <b>reinforcement learning</b>, NLP with BERT, medical image segmentation, and beautiful UI/UX designs. I believe the best engineers understand both how to build systems and how to break them.</p>
+                <div class="about-badges">
+                    <span class="badge">Oran, Algeria</span>
+                    <span class="badge">Open to internships</span>
+                    <span class="badge">Cybersecurity · AI · UI/UX</span>
+                    <span class="badge">Expected grad: 2027</span>
+                </div>
+            </div>
+
+            <div class="terminal reveal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span><span class="t-dot t-y"></span><span class="t-dot t-g"></span>
+                    <span class="t-host">sarah_brahmi06 ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">❯ </span><span class="tc-key">whoami</span></div>
+                    <div><span class="tc-green">brahmi_sarah_kaouther</span></div>
+                    <br />
+                    <div><span class="tc-prompt">❯ </span><span class="tc-key">cat</span> <span class="tc-val">identity.json</span></div>
+                    <div><span class="tc-dim">{</span></div>
+                    <div>&nbsp;&nbsp;<span class="tc-key">"role"</span>: <span class="tc-val">"Cybersecurity Eng. Student"</span>,</div>
+                    <div>&nbsp;&nbsp;<span class="tc-key">"school"</span>: <span class="tc-val">"ESI Sidi Bel Abbès"</span>,</div>
+                    <div>&nbsp;&nbsp;<span class="tc-key">"year"</span>: <span class="tc-val">"5th / Engineering"</span>,</div>
+                    <div>&nbsp;&nbsp;<span class="tc-key">"focus"</span>: <span class="tc-val">"Security · AI · UI/UX"</span>,</div>
+                    <div><span class="tc-dim">}</span></div>
+                    <br />
+                    <div><span class="tc-prompt">❯ </span><span class="tc-dim">// STATUS: ONLINE</span></div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <div class="proj reveal">
-      <div class="proj-header ph-c6">
-        <span class="proj-label">AI — NLP &amp; Vision</span>
-      </div>
-      <div class="proj-body">
-        <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
-        <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
-        <div class="proj-links"></div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="hr"></div>
 
-<div class="hr"></div>
+    <!-- ─── SKILLS ─── -->
+    <section class="section-wrap" id="skills">
+        <p class="section-label">capabilities</p>
+        <h2 class="section-title">Skills &amp; Tools</h2>
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <p class="sk-cat">Cybersecurity</p>
+                <div class="tags">
+                    <span class="tag">Kali Linux</span><span class="tag">Metasploit</span><span class="tag">Burp Suite</span>
+                    <span class="tag">Wireshark</span><span class="tag">Nmap</span><span class="tag">Suricata</span>
+                    <span class="tag">Hydra</span><span class="tag">Autopsy</span><span class="tag">Volatility</span>
+                    <span class="tag">ModSecurity</span><span class="tag">Zeek</span><span class="tag">tcpdump</span>
+                </div>
+            </div>
+            <div class="skill-card reveal">
+                <p class="sk-cat">SIEM / Monitoring</p>
+                <div class="tags">
+                    <span class="tag">Sysmon</span><span class="tag">Winlogbeat</span><span class="tag">Elasticsearch</span>
+                    <span class="tag">Kibana</span><span class="tag">Telegraf</span><span class="tag">InfluxDB</span>
+                    <span class="tag">Grafana</span><span class="tag">Prometheus</span>
+                </div>
+            </div>
+            <div class="skill-card reveal">
+                <p class="sk-cat">AI &amp; Machine Learning</p>
+                <div class="tags">
+                    <span class="tag">Python</span><span class="tag">BERT</span><span class="tag">UNET</span>
+                    <span class="tag">EfficientNet-B3</span><span class="tag">OpenCV</span><span class="tag">Deep Q-Network</span>
+                    <span class="tag">NLP</span><span class="tag">Haar Cascade</span>
+                </div>
+            </div>
+            <div class="skill-card reveal">
+                <p class="sk-cat">Frontend &amp; Mobile</p>
+                <div class="tags">
+                    <span class="tag">React.js</span><span class="tag">Flutter</span><span class="tag">Dart</span>
+                    <span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span>
+                    <span class="tag">Tailwind CSS</span><span class="tag">Figma</span>
+                </div>
+            </div>
+            <div class="skill-card reveal">
+                <p class="sk-cat">Backend &amp; Databases</p>
+                <div class="tags">
+                    <span class="tag">FastAPI</span><span class="tag">MySQL</span><span class="tag">MongoDB</span>
+                    <span class="tag">Cassandra</span><span class="tag">Neo4j</span><span class="tag">Firebase</span>
+                    <span class="tag">OLAP</span><span class="tag">NoSQL</span>
+                </div>
+            </div>
+            <div class="skill-card reveal">
+                <p class="sk-cat">DevOps &amp; Cloud</p>
+                <div class="tags">
+                    <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Git</span>
+                    <span class="tag">Jenkins</span><span class="tag">Ansible</span><span class="tag">LocalStack</span>
+                    <span class="tag">ZeroTier</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<section class="section-wrap" id="hackathons">
-  <p class="section-label">achievements</p>
-  <h2 class="section-title">Hackathons &amp; Certificates</h2>
-  <div class="hackathons-grid">
-    <div class="hack-card reveal">
-      <h3 class="hack-title">Forsatic Hackathon</h3>
-      <p class="hack-org">Algérie Télécom</p>
-      <p class="hack-date">December 11-13, 2025 | Sidi Abdallah University Pole</p>
-      <p class="proj-desc" style="font-size:.8rem">Participated in the Forsatic Hackathon by Algérie Télécom, contributing to innovative cybersecurity solutions.</p>
-      <a href="Forsatic-2025.pdf" class="cert-link" target="_blank">View Certificate →</a>
-    </div>
-    <div class="hack-card reveal">
-      <h3 class="hack-title">DevFest Algiers</h3>
-      <p class="hack-org">GDG Algiers</p>
-      <p class="hack-date">October 17-19, 2024 | Online</p>
-      <p class="proj-desc" style="font-size:.8rem">Active participant in DevFest 2024, contributing to workshops and tech talks on modern development practices.</p>
-      <a href="DevFest-Algiers-2024.pdf" class="cert-link" target="_blank">View Certificate →</a>
-    </div>
-  </div>
-</section>
+    <div class="hr"></div>
 
-<div class="hr"></div>
+    <!-- ─── FEATURED PROJECT ─── -->
+    <section class="section-wrap" id="featured-project">
+        <p class="section-label">highlight</p>
+        <h2 class="section-title">Featured Project</h2>
 
-<section class="section-wrap" id="education">
-  <p class="section-label">background</p>
-  <h2 class="section-title">Education</h2>
-  <div class="edu-list">
-    <div class="edu-card reveal">
-      <p class="edu-degree">Internship — Algérie Télécom</p>
-      <p class="edu-school">Network fundamentals, security, system administration, telecom infrastructure</p>
-      <p class="edu-meta">Professional Training</p>
-    </div>
-    <div class="edu-card reveal">
-      <p class="edu-degree">Cybersecurity Engineering (5th Year)</p>
-      <p class="edu-school">École Supérieure d'Informatique, Sidi Bel Abbès, Algeria</p>
-      <p class="edu-meta">2022 – Expected 2027</p>
-    </div>
-    <div class="edu-card reveal">
-      <p class="edu-degree">Baccalaureate in Mathematics</p>
-      <p class="edu-school">Algeria</p>
-      <p class="edu-meta">2022 · Average: 16.41 / 20</p>
-    </div>
-    <div class="edu-card reveal">
-      <p class="edu-degree">Baccalaureate in Sciences</p>
-      <p class="edu-school">Algeria</p>
-      <p class="edu-meta">2021 · Average: 16.2 / 20</p>
-    </div>
-  </div>
-</section>
+        <div class="featured-project reveal">
+            <div class="featured-banner">★ CYBER-ARENA ★</div>
+            <div class="featured-content">
+                <h3>AI-Powered Cyber Defense Simulation</h3>
+                <p>
+                    Multi-agent Red Team vs Blue Team environment using
+                    Reinforcement Learning and Digital Twin technologies.
+                    This project simulates a full enterprise network where
+                    autonomous agents learn to attack and defend in real-time.
+                </p>
+                <ul>
+                    <li>Enterprise Network Simulation</li>
+                    <li>DQN Attack Agents</li>
+                    <li>DQN Defense Agents</li>
+                    <li>Live Telemetry Monitoring</li>
+                    <li>Digital Twin Architecture</li>
+                </ul>
+                <div class="proj-links">
+                    <a href="cyber-arena.html" class="pl pl-demo">
+                        View Documentation →
+                    </a>
+                    <a href="https://github.com/sarahbrahmi06/rl-cybersec" class="pl pl-gh" target="_blank">
+                        GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="hr"></div>
+    <div class="hr"></div>
 
-<section class="section-wrap" id="contact">
-  <p class="section-label">get in touch</p>
-  <h2 class="section-title">Contact</h2>
-  <div class="contact-grid">
-    <div class="contact-intro reveal">
-      <p>Available for internships, research collaboration, and freelance work in cybersecurity, AI, and UI/UX design. Based in Oran, Algeria — open to remote opportunities worldwide.</p>
-      <div class="socials">
-        <a class="social-row" href="mailto:sk.brahmi@esi-sba.dz">
-          <span class="s-ico">@</span><span class="social-text">sk.brahmi@esi-sba.dz</span>
-        </a>
-        <a class="social-row" href="tel:+213540656280">
-          <span class="s-ico">tel</span><span class="social-text">+213 540 656 280</span>
-        </a>
-        <a class="social-row" href="https://github.com/sarahbrahmi06" target="_blank">
-          <span class="s-ico">gh</span><span class="social-text">github.com/sarahbrahmi06</span>
-        </a>
-        <a class="social-row" href="https://www.linkedin.com/in/brahmi-sarah-kaouther-953409255" target="_blank">
-          <span class="s-ico">in</span><span class="social-text">Brahmi Sarah Kaouther</span>
-        </a>
-        <a class="social-row" href="https://www.instagram.com/sarah_brahmi06" target="_blank">
-          <span class="s-ico">ig</span><span class="social-text">@sarah_brahmi06</span>
-        </a>
-        <a class="social-row" href="https://www.facebook.com/share/18cLDiTtgd/" target="_blank">
-          <span class="s-ico">fb</span><span class="social-text">Facebook</span>
-        </a>
-      </div>
-    </div>
-    <form class="contact-form reveal" onsubmit="return false;">
-      <div>
-        <label class="f-label">Name</label>
-        <input class="f-input" type="text" placeholder="Your name" />
-      </div>
-      <div>
-        <label class="f-label">Email</label>
-        <input class="f-input" type="email" placeholder="your@email.com" />
-      </div>
-      <div>
-        <label class="f-label">Message</label>
-        <textarea class="f-textarea" placeholder="Tell me about your project or opportunity…"></textarea>
-      </div>
-      <button class="btn btn-grad" style="align-self:flex-start">Send Message</button>
-    </form>
-  </div>
-</section>
+    <!-- ─── PROJECTS ─── -->
+    <section class="section-wrap" id="projects">
+        <p class="section-label">recent work</p>
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">
+            <div class="proj reveal">
+                <div class="proj-header ph-c2">
+                    <span class="proj-label">Ransomware Simulation</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">Simulated ransomware behaviour and built a full endpoint monitoring pipeline using an ELK stack to detect, alert, and visualise attack patterns in real time.</p>
+                    <p class="proj-stack">Sysmon · Winlogbeat · Suricata · Elasticsearch · Kibana</p>
+                    <div class="proj-links">
+                        <a href="ransomware-simulation.html" class="pl pl-demo">Read More</a>
+                        <a href="#" class="pl pl-gh">GitHub</a>
+                    </div>
+                </div>
+            </div>
 
-<footer>
-  <p>Built with care by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
-</footer>
+            <div class="proj reveal">
+                <div class="proj-header ph-c3">
+                    <span class="proj-label">Serverless Simulator</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">Custom Python FaaS runtime with HTTP, SQS, and cron triggers, cold start simulation (350ms), warm container pooling, and full telemetry aggregation.</p>
+                    <p class="proj-stack">Python · FastAPI · LocalStack · JSON logging</p>
+                    <div class="proj-links">
+                        <a href="serverless-simulator.html" class="pl pl-demo">Read More</a>
+                        <a href="https://github.com/sarahbrahmi06/serverless-function-simulator" class="pl pl-gh" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
 
-<script>
-  /* Typed role */
-  const roles = ['Cybersecurity Student','AI & ML Enthusiast','Ethical Hacker','UI/UX Designer'];
-  let ri=0, ci=0, del=false;
-  const el = document.getElementById('typed-role');
-  function type(){
-    const w = roles[ri];
-    if(!del){ el.textContent=w.slice(0,++ci); if(ci===w.length){del=true;setTimeout(type,1700);return;} }
-    else{ el.textContent=w.slice(0,--ci); if(ci===0){del=false;ri=(ri+1)%roles.length;} }
-    setTimeout(type, del?50:90);
-  }
-  setTimeout(type,1300);
+            <div class="proj reveal">
+                <div class="proj-header ph-c4">
+                    <span class="proj-label">Pink Diary</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI: built with React, Vite, and Tailwind CSS.</p>
+                    <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
+                    <div class="proj-links">
+                        <a href="pink-diary.html" class="pl pl-demo">Read More</a>
+                        <a href="https://github.com/sarahbrahmi06/pink_diary" class="pl pl-gh" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
 
-  /* Scroll reveal */
-  const obs = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-  },{threshold:0.08});
-  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+            <div class="proj reveal">
+                <div class="proj-header ph-c5">
+                    <span class="proj-label">LTE-2G Downgrade Attack</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">Educational simulation of an LTE to 2G downgrade attack demonstrating IMSI catcher vulnerabilities and SS7 protocol weaknesses for security research.</p>
+                    <p class="proj-stack">Network Security · Protocol Analysis · Python</p>
+                    <div class="proj-links">
+                        <a href="lte-downgrade.html" class="pl pl-demo">Read More</a>
+                        <a href="https://github.com/sarahbrahmi06/LTE-2G-Downgrade-Attack" class="pl pl-gh" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
 
-  /* Hamburger */
-  const toggle = document.getElementById('navToggle');
-  const menu   = document.getElementById('mobileMenu');
-  toggle.addEventListener('click', () => {
-    toggle.classList.toggle('open');
-    menu.classList.toggle('open');
-  });
-  function closeMobile() {
-    toggle.classList.remove('open');
-    menu.classList.remove('open');
-  }
-  /* Close mobile menu on outside click */
-  document.addEventListener('click', e => {
-    if (menu.classList.contains('open') && !menu.contains(e.target) && !toggle.contains(e.target)) {
-      closeMobile();
-    }
-  });
-</script>
+            <div class="proj reveal">
+                <div class="proj-header ph-c6">
+                    <span class="proj-label">AI — NLP &amp; Vision</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
+                    <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
+                    <div class="proj-links">
+                        <a href="ai-projects.html" class="pl pl-demo">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ─── HACKATHONS ─── -->
+    <section class="section-wrap" id="hackathons">
+        <p class="section-label">achievements</p>
+        <h2 class="section-title">Hackathons &amp; Certificates</h2>
+        <div class="hackathons-grid">
+            <div class="hack-card reveal">
+                <h3 class="hack-title">Forsatic Hackathon</h3>
+                <p class="hack-org">Algérie Télécom</p>
+                <p class="hack-date">December 11-13, 2025 | Sidi Abdallah University Pole</p>
+                <p class="proj-desc" style="font-size:.8rem">Participated in the Forsatic Hackathon by Algérie Télécom, contributing to innovative cybersecurity solutions.</p>
+                <a href="Forsatic-2025.pdf" class="cert-link" target="_blank">View Certificate →</a>
+            </div>
+            <div class="hack-card reveal">
+                <h3 class="hack-title">DevFest Algiers</h3>
+                <p class="hack-org">GDG Algiers</p>
+                <p class="hack-date">October 17-19, 2024 | Online</p>
+                <p class="proj-desc" style="font-size:.8rem">Active participant in DevFest 2024, contributing to workshops and tech talks on modern development practices.</p>
+                <a href="DevFest-Algiers-2024.pdf" class="cert-link" target="_blank">View Certificate →</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ─── INTERNSHIPS ─── -->
+    <section class="section-wrap" id="internships">
+        <p class="section-label">experience</p>
+        <h2 class="section-title">Internships</h2>
+        <div class="internships-grid">
+            <div class="intern-card reveal">
+                <p class="edu-degree">Network &amp; Security Intern</p>
+                <p class="edu-school">Algérie Télécom</p>
+                <p class="edu-meta">Network fundamentals · System Administration · Telecom Infrastructure</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ─── EDUCATION ─── -->
+    <section class="section-wrap" id="education">
+        <p class="section-label">background</p>
+        <h2 class="section-title">Education</h2>
+        <div class="edu-list">
+            <div class="edu-card reveal">
+                <p class="edu-degree">Cybersecurity Engineering (5th Year)</p>
+                <p class="edu-school">École Supérieure d'Informatique, Sidi Bel Abbès, Algeria</p>
+                <p class="edu-meta">2022 – Expected 2027</p>
+            </div>
+            <div class="edu-card reveal">
+                <p class="edu-degree">Baccalaureate in Mathematics</p>
+                <p class="edu-school">Algeria</p>
+                <p class="edu-meta">2022 · Average: 16.41 / 20</p>
+            </div>
+            <div class="edu-card reveal">
+                <p class="edu-degree">Baccalaureate in Sciences</p>
+                <p class="edu-school">Algeria</p>
+                <p class="edu-meta">2021 · Average: 16.2 / 20</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ─── CONTACT ─── -->
+    <section class="section-wrap" id="contact">
+        <p class="section-label">get in touch</p>
+        <h2 class="section-title">Contact</h2>
+        <div class="contact-grid">
+            <div class="contact-intro reveal">
+                <p>Available for internships, research collaboration, and freelance work in cybersecurity, AI, and UI/UX design. Based in Oran, Algeria — open to remote opportunities worldwide.</p>
+                <div class="socials">
+                    <a class="social-row" href="mailto:sk.brahmi@esi-sba.dz">
+                        <span class="s-ico">@</span><span class="social-text">sk.brahmi@esi-sba.dz</span>
+                    </a>
+                    <a class="social-row" href="tel:+213540656280">
+                        <span class="s-ico">tel</span><span class="social-text">+213 540 656 280</span>
+                    </a>
+                    <a class="social-row" href="https://github.com/sarahbrahmi06" target="_blank">
+                        <span class="s-ico">gh</span><span class="social-text">github.com/sarahbrahmi06</span>
+                    </a>
+                    <a class="social-row" href="https://www.linkedin.com/in/brahmi-sarah-kaouther-953409255" target="_blank">
+                        <span class="s-ico">in</span><span class="social-text">Brahmi Sarah Kaouther</span>
+                    </a>
+                    <a class="social-row" href="https://www.instagram.com/sarah_brahmi06" target="_blank">
+                        <span class="s-ico">ig</span><span class="social-text">@sarah_brahmi06</span>
+                    </a>
+                    <a class="social-row" href="https://www.facebook.com/share/18cLDiTtgd/" target="_blank">
+                        <span class="s-ico">fb</span><span class="social-text">Facebook</span>
+                    </a>
+                </div>
+            </div>
+            <form id="contact-form" class="contact-form reveal">
+                <div>
+                    <label class="f-label">Name</label>
+                    <input class="f-input" type="text" id="user_name" placeholder="Your name" required />
+                </div>
+                <div>
+                    <label class="f-label">Email</label>
+                    <input class="f-input" type="email" id="user_email" placeholder="your@email.com" required />
+                </div>
+                <div>
+                    <label class="f-label">Message</label>
+                    <textarea class="f-textarea" id="user_message" placeholder="Tell me about your project or opportunity…" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-grad" style="align-self:flex-start">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <p>Built with care by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
+    </footer>
+
+    <!-- ─── EMAILJS ─── -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+
+    <script>
+        // ─── TYPED ROLE ───
+        const roles = ['Cybersecurity Student', 'AI & ML Enthusiast', 'Ethical Hacker', 'UI/UX Designer'];
+        let ri = 0,
+            ci = 0,
+            del = false;
+        const el = document.getElementById('typed-role');
+
+        function type() {
+            const w = roles[ri];
+            if (!del) {
+                el.textContent = w.slice(0, ++ci);
+                if (ci === w.length) {
+                    del = true;
+                    setTimeout(type, 1700);
+                    return;
+                }
+            } else {
+                el.textContent = w.slice(0, --ci);
+                if (ci === 0) {
+                    del = false;
+                    ri = (ri + 1) % roles.length;
+                }
+            }
+            setTimeout(type, del ? 50 : 90);
+        }
+        setTimeout(type, 1300);
+
+        // ─── SCROLL REVEAL ───
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+        // ─── HAMBURGER ───
+        const toggle = document.getElementById('navToggle');
+        const menu = document.getElementById('mobileMenu');
+
+        toggle.addEventListener('click', () => {
+            toggle.classList.toggle('open');
+            menu.classList.toggle('open');
+        });
+
+        function closeMobile() {
+            toggle.classList.remove('open');
+            menu.classList.remove('open');
+        }
+
+        document.addEventListener('click', e => {
+            if (menu.classList.contains('open') && !menu.contains(e.target) && !toggle.contains(e.target)) {
+                closeMobile();
+            }
+        });
+
+        // ─── RESUME MODAL ───
+        const modal = document.getElementById('resumeModal');
+        const openBtns = document.querySelectorAll('#openResume, #openResumeMobile');
+        const closeBtns = document.querySelectorAll('#closeResume, #closeResumeBtn');
+
+        function openResumeModal() {
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeResumeModal() {
+            modal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        openBtns.forEach(btn => btn.addEventListener('click', openResumeModal));
+        closeBtns.forEach(btn => btn.addEventListener('click', closeResumeModal));
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeResumeModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('open')) closeResumeModal();
+        });
+
+        // ─── EMAILJS ───
+        (function() {
+            emailjs.init("YOUR_PUBLIC_KEY");
+        })();
+
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+
+            emailjs.send(
+                'YOUR_SERVICE_ID',
+                'YOUR_TEMPLATE_ID', {
+                    from_name: document.getElementById('user_name').value,
+                    from_email: document.getElementById('user_email').value,
+                    message: document.getElementById('user_message').value,
+                }
+            ).then(() => {
+                alert('✅ Message sent successfully! I\'ll get back to you soon.');
+                this.reset();
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }).catch((error) => {
+                console.error('EmailJS error:', error);
+                alert('❌ Failed to send message. Please try again or email me directly.');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            });
+        });
+    </script>
 </body>
 </html>
