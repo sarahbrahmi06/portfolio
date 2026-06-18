@@ -617,20 +617,20 @@
             </p>
 
             <div class="terminal">
-                <div class="t-bar">
-                    <span class="t-dot t-r"></span>
-                    <span class="t-dot t-y"></span>
-                    <span class="t-dot t-g"></span>
-                    <span class="t-host">kali@attacker ~</span>
-                </div>
-                <div class="t-body">
-                    <div><span class="tc-prompt">$</span> <span class="tc-key">hydra -l victim -P /usr/share/wordlists/rockyou.txt ssh://10.20.20.200 -t 4</span></div>
-                    <div class="tc-dim">[22][ssh] host: 10.20.20.200 login: victim password: <span class="tc-red">123456</span></div>
-                    <div class="tc-dim">1 of 1 target successfully completed, 1 valid password found</div>
-                    <div><span class="tc-prompt">$</span> <span class="tc-key">Hydra finished at 2026-05-28 12:27:52</span></div>
-                </div>
-                <p >A manual Hydra attack cracking the "victim" user's password "123456" in just 16 seconds. This established a baseline for the RL Red Agent to beat.</p>
-            </div>
+    <div class="t-bar">
+        <span class="t-dot t-r"></span>
+        <span class="t-dot t-y"></span>
+        <span class="t-dot t-g"></span>
+        <span class="t-host">kali@attacker ~</span>
+    </div>
+    <div class="t-body">
+        <div><span class="tc-prompt">$</span> <span class="tc-key">hydra -l victim -P /usr/share/wordlists/rockyou.txt ssh://10.20.20.200 -t 4</span></div>
+        <div class="tc-dim">[22][ssh] host: 10.20.20.200 login: victim password: <span class="tc-red">123456</span></div>
+        <div class="tc-dim">1 of 1 target successfully completed, 1 valid password found</div>
+        <div><span class="tc-prompt">$</span> <span class="tc-key">Hydra finished at 2026-05-28 12:27:52</span></div>
+    </div>
+</div>
+<p style="font-style: italic; color: var(--muted); font-family: 'Space Mono', monospace; font-size: .75rem; text-align: center; margin-top: 0.5rem;">A manual Hydra attack cracking the "victim" user's password "123456" in just 16 seconds. This established a baseline for the RL Red Agent to beat.</p>
 
             <h2>The Main Event: Training the Adversarial RL Agents</h2>
             <p>
@@ -664,23 +664,23 @@
             </div>
 
             <div class="terminal">
-                <div class="t-bar">
-                    <span class="t-dot t-r"></span>
-                    <span class="t-dot t-y"></span>
-                    <span class="t-dot t-g"></span>
-                    <span class="t-host">training@cluster ~</span>
-                </div>
-                <div class="t-body">
-                    <div><span class="tc-prompt">[Episode 245]</span> <span class="tc-key">Red:</span> Recon → Port Scan <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Anomaly Detection</div>
-                    <div><span class="tc-prompt">[Episode 246]</span> <span class="tc-key">Red:</span> SSH Brute Force <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Port Isolation <span class="tc-green">✓</span></div>
-                    <div><span class="tc-prompt">[Episode 247]</span> <span class="tc-key">Red:</span> Lateral Movement <span class="tc-red">✗</span> <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Config Restoration</div>
-                    <div><span class="tc-prompt">[Episode 248]</span> <span class="tc-key">Red:</span> DDoS Simulation <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Rate Limiting <span class="tc-green">✓</span></div>
-                    <div><span class="tc-prompt">[Episode 249]</span> <span class="tc-key">Red:</span> Backdoor Creation <span class="tc-red">✗</span> <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Honeypot Deployment</div>
-                    <div><span class="tc-prompt">[Episode 250]</span> <span class="tc-key">Red:</span> Kill Chain Complete! <span class="tc-red">Attack Success</span></div>
-                    <div class="tc-dim">--- Episode logged: kill_chain_stage=4, reward=+150 ---</div>
-                </div>
-                <p >Training logs showing the kill chain stage, agent rewards, and the specific attacks and defenses used, allowing for deep analysis of agent behavior.</p>
-            </div>
+    <div class="t-bar">
+        <span class="t-dot t-r"></span>
+        <span class="t-dot t-y"></span>
+        <span class="t-dot t-g"></span>
+        <span class="t-host">training@cluster ~</span>
+    </div>
+    <div class="t-body">
+        <div><span class="tc-prompt">[Episode 245]</span> <span class="tc-key">Red:</span> Recon → Port Scan <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Anomaly Detection</div>
+        <div><span class="tc-prompt">[Episode 246]</span> <span class="tc-key">Red:</span> SSH Brute Force <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Port Isolation <span class="tc-green">✓</span></div>
+        <div><span class="tc-prompt">[Episode 247]</span> <span class="tc-key">Red:</span> Lateral Movement <span class="tc-red">✗</span> <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Config Restoration</div>
+        <div><span class="tc-prompt">[Episode 248]</span> <span class="tc-key">Red:</span> DDoS Simulation <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Rate Limiting <span class="tc-green">✓</span></div>
+        <div><span class="tc-prompt">[Episode 249]</span> <span class="tc-key">Red:</span> Backdoor Creation <span class="tc-red">✗</span> <span class="tc-dim">|</span> <span class="tc-key">Blue:</span> Honeypot Deployment</div>
+        <div><span class="tc-prompt">[Episode 250]</span> <span class="tc-key">Red:</span> Kill Chain Complete! <span class="tc-red">Attack Success</span></div>
+        <div class="tc-dim">--- Episode logged: kill_chain_stage=4, reward=+150 ---</div>
+    </div>
+</div>
+<p style="font-style: italic; color: var(--muted); font-family: 'Space Mono', monospace; font-size: .75rem; text-align: center; margin-top: 0.5rem;">Training logs showing the kill chain stage, agent rewards, and the specific attacks and defenses used, allowing for deep analysis of agent behavior.</p>
 
             <h2>The Results and The Impact</h2>
             <p>
