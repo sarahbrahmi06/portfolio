@@ -557,7 +557,7 @@
 
             <div class="screenshot-img">
                 <img src="images/cyber-arena-arch.png" alt="High-Level Architecture Diagram" />
-                <div class="caption">Screenshot 1: The big picture — a Red (Attacker) and Blue (Defender) Agent interact with a live GNS3 virtual network, with a full monitoring stack providing real-time data.</div>
+                <div class="caption">The big picture — a Red (Attacker) and Blue (Defender) Agent interact with a live GNS3 virtual network, with a full monitoring stack providing real-time data.</div>
             </div>
 
             <h2>The Gladiator Arena: Building the Enterprise Network</h2>
@@ -570,13 +570,10 @@
 
             <div class="screenshot-img">
                 <img src="images/cyber-arena-topology.png" alt="Full GNS3 Network Topology" />
-                <div class="caption">Screenshot 2: The 18-node GNS3 network topology. The complex 3-tier architecture (Core, Distribution, Access) is clearly visible.</div>
+                <div class="caption">The 18-node GNS3 network topology. The complex 3-tier architecture (Core, Distribution, Access) is clearly visible.</div>
             </div>
 
-            <div class="screenshot-img">
-                <img src="images/cyber-arena-traceroute.png" alt="Traceroute Demonstrating External Attack Path" />
-                <div class="caption">Screenshot 3: An attacker's machine (10.202.91.131) successfully traverses 5 hops — from ZeroTier, through the firewall, to the Distribution Router, and finally to the target "Victim-1" VM (10.20.20.200).</div>
-            </div>
+           
 
             <h2>The Watchtower: The Digital Shadow &amp; Monitoring Stack</h2>
             <p>
@@ -593,12 +590,12 @@
 
             <div class="screenshot-img">
                 <img src="images/cyber-arena-netbox.png" alt="NetBox Inventory Dashboard" />
-                <div class="caption">Screenshot 4: NetBox showing the complete, auto-populated inventory. All 18 devices, their interfaces, and IP addresses are documented.</div>
+                <div class="caption">NetBox showing the complete, auto-populated inventory. All 18 devices, their interfaces, and IP addresses are documented.</div>
             </div>
 
             <div class="screenshot-img">
                 <img src="images/cyber-arena-grafana.png" alt="Grafana Security Dashboard" />
-                <div class="caption">Screenshot 5: Our custom Grafana dashboard providing real-time visibility into network traffic, CPU usage, interface status, and the impact of attacks.</div>
+                <div class="caption"> Our custom Grafana dashboard providing real-time visibility into network traffic, CPU usage, interface status, and the impact of attacks.</div>
             </div>
 
             <h2>The Pre-Game Warm-Up: Manual Penetration Testing</h2>
@@ -632,7 +629,7 @@
                     <div class="tc-dim">1 of 1 target successfully completed, 1 valid password found</div>
                     <div><span class="tc-prompt">$</span> <span class="tc-key">Hydra finished at 2026-05-28 12:27:52</span></div>
                 </div>
-                <div class="t-caption">A manual Hydra attack cracking the "victim" user's password "123456" in just 16 seconds. This established a baseline for the RL Red Agent to beat.</div>
+                <p >A manual Hydra attack cracking the "victim" user's password "123456" in just 16 seconds. This established a baseline for the RL Red Agent to beat.</p>
             </div>
 
             <h2>The Main Event: Training the Adversarial RL Agents</h2>
@@ -663,7 +660,7 @@
 
             <div class="screenshot-img">
                 <img src="images/cyber-arena-rl-arch.png" alt="RL System Architecture Diagram" />
-                <div class="caption">Screenshot 8: A detailed look at the RL loop. The agents observe the network state, execute actions (e.g., attacks/defenses), and receive rewards based on their success.</div>
+                <div class="caption">A detailed look at the RL loop. The agents observe the network state, execute actions (e.g., attacks/defenses), and receive rewards based on their success.</div>
             </div>
 
             <div class="terminal">
@@ -682,7 +679,7 @@
                     <div><span class="tc-prompt">[Episode 250]</span> <span class="tc-key">Red:</span> Kill Chain Complete! <span class="tc-red">Attack Success</span></div>
                     <div class="tc-dim">--- Episode logged: kill_chain_stage=4, reward=+150 ---</div>
                 </div>
-                <div class="t-caption">Training logs showing the kill chain stage, agent rewards, and the specific attacks and defenses used, allowing for deep analysis of agent behavior.</div>
+                <p >Training logs showing the kill chain stage, agent rewards, and the specific attacks and defenses used, allowing for deep analysis of agent behavior.</p>
             </div>
 
             <h2>The Results and The Impact</h2>
@@ -729,10 +726,7 @@
                 </tbody>
             </table>
 
-            <div class="screenshot-img">
-                <img src="images/cyber-arena-tensorboard.png" alt="TensorBoard Training Curves" />
-                <div class="caption">TensorBoard logs showing the agents' learning over 300 episodes. The chart tracks rewards, losses, and win rates, demonstrating the self-play loop in action.</div>
-            </div>
+            
 
             <h2>Conclusion &amp; Future Work</h2>
             <p>
