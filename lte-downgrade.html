@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LTE to 2G Downgrade Attack — Mobile Network Security</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #09060f;
+            --bg2: #100c1c;
+            --bg3: #1a1330;
+            --violet: #9b30ff;
+            --pink: #ff2d9b;
+            --rose: #ff7ac6;
+            --lavender: #d4a8ff;
+            --text: #ede8f8;
+            --muted: #7a6e9a;
+            --border: rgba(155, 48, 255, 0.3);
+            --glow-v: 0 0 24px rgba(155, 48, 255, 0.45);
+            --glow-p: 0 0 24px rgba(255, 45, 155, 0.45);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: linear-gradient(rgba(155, 48, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(155, 48, 255, 0.035) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(9, 6, 15, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            padding: .9rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: .8rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--violet), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: .15em;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.4rem;
+            list-style: none;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .nav-links a {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            transition: color .2s;
+            white-space: nowrap;
+        }
+        .nav-links a:hover {
+            color: var(--rose);
+        }
+        .nav-cta {
+            font-family: 'Space Mono', monospace;
+            font-size: .66rem;
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border: none;
+            padding: .45rem 1rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            letter-spacing: .08em;
+            transition: box-shadow .2s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .nav-cta:hover {
+            box-shadow: 0 0 20px rgba(255, 45, 155, 0.5);
+        }
+
+        .blog-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .blog-header {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .blog-header .badge {
+            font-family: 'Space Mono', monospace;
+            font-size: .65rem;
+            color: var(--pink);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            border: 1px solid var(--pink);
+            padding: .3rem .8rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .blog-header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(1.8rem, 4vw, 3.2rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--lavender) 10%, var(--pink) 55%, var(--violet) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .blog-header .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            color: var(--muted);
+        }
+
+        .blog-header .meta {
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+            color: var(--muted);
+            margin-top: 1rem;
+        }
+
+        .blog-header .meta span {
+            color: var(--lavender);
+        }
+
+        .blog-body h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.6rem;
+            color: var(--lavender);
+            margin: 3rem 0 1.2rem;
+            line-height: 1.3;
+        }
+
+        .blog-body h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            color: var(--rose);
+            margin: 2rem 0 0.8rem;
+        }
+
+        .blog-body h4 {
+            font-family: 'Orbitron', monospace;
+            font-size: .95rem;
+            color: var(--lavender);
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        .blog-body p {
+            color: var(--muted);
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.9;
+        }
+
+        .blog-body strong {
+            color: var(--lavender);
+        }
+
+        .blog-body ul,
+        .blog-body ol {
+            color: var(--muted);
+            margin: 1rem 0 1.5rem 1.5rem;
+            line-height: 1.9;
+        }
+
+        .blog-body li {
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-body .highlight-box {
+            background: var(--bg2);
+            border-left: 3px solid var(--pink);
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .blog-body .highlight-box p {
+            margin-bottom: 0;
+            color: var(--text);
+        }
+
+        .blog-body .highlight-box strong {
+            color: var(--pink);
+        }
+
+        .blog-body .highlight-box ul {
+            margin: 0.5rem 0 0 1.5rem;
+            color: var(--text);
+        }
+
+        .terminal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: var(--glow-v);
+            position: relative;
+            margin: 2rem 0;
+        }
+        .terminal::before,
+        .terminal::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-style: solid;
+        }
+        .terminal::before {
+            top: 0;
+            left: 0;
+            border-color: var(--pink);
+            border-width: 2px 0 0 2px;
+        }
+        .terminal::after {
+            bottom: 0;
+            right: 0;
+            border-color: var(--pink);
+            border-width: 0 2px 2px 0;
+        }
+        .t-bar {
+            background: var(--bg3);
+            padding: .55rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .45rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .t-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .t-r {
+            background: #ff5f5f;
+        }
+        .t-y {
+            background: #ffbe2e;
+        }
+        .t-g {
+            background: #2eff8f;
+        }
+        .t-host {
+            font-family: 'Space Mono', monospace;
+            font-size: .62rem;
+            color: var(--muted);
+            margin-left: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .t-body {
+            padding: 1.2rem 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .75rem;
+            line-height: 2;
+            overflow-x: auto;
+        }
+        .tc-prompt {
+            color: var(--pink);
+        }
+        .tc-key {
+            color: var(--lavender);
+        }
+        .tc-val {
+            color: var(--text);
+        }
+        .tc-dim {
+            color: var(--muted);
+        }
+        .tc-green {
+            color: #2eff8f;
+        }
+        .tc-red {
+            color: #ff5f5f;
+        }
+        .tc-yellow {
+            color: #ffbe2e;
+        }
+        .tc-white {
+            color: #ffffff;
+        }
+
+        .screenshot-img {
+            margin: 2rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .screenshot-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .screenshot-img .caption {
+            background: var(--bg2);
+            padding: .8rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .7rem;
+            color: var(--muted);
+            text-align: center;
+            font-style: italic;
+            border-top: 1px solid var(--border);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: .8rem 1.2rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .comparison-table th {
+            background: var(--bg3);
+            color: var(--lavender);
+            font-family: 'Space Mono', monospace;
+            font-size: .7rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .comparison-table td {
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .feature {
+            color: var(--text);
+            font-family: 'Space Mono', monospace;
+            font-size: .8rem;
+        }
+        .comparison-table .check {
+            color: var(--tc-green);
+        }
+        .comparison-table .cross {
+            color: var(--tc-red);
+        }
+
+        .attack-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--bg2);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .attack-table th,
+        .attack-table td {
+            padding: .6rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .attack-table th {
+            background: var(--bg3);
+            color: var(--lavender);
+            font-family: 'Space Mono', monospace;
+            font-size: .65rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .attack-table td {
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        .attack-table .level-success {
+            color: var(--tc-green);
+        }
+        .attack-table .level-warning {
+            color: var(--tc-yellow);
+        }
+        .attack-table .level-danger {
+            color: var(--tc-red);
+        }
+        .attack-table .log-msg {
+            color: var(--text);
+        }
+
+        .blog-footer {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .blog-footer .btn {
+            font-family: 'Space Mono', monospace;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: .8rem 2rem;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform .15s, box-shadow .2s;
+        }
+
+        .blog-footer .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .blog-footer .btn-grad {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border: none;
+            box-shadow: 0 0 22px rgba(155, 48, 255, .45);
+        }
+
+        .blog-footer .btn-grad:hover {
+            box-shadow: 0 0 38px rgba(255, 45, 155, .6);
+        }
+
+        .blog-footer .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--violet);
+            color: var(--lavender);
+            box-shadow: inset 0 0 10px rgba(155, 48, 255, .08);
+        }
+
+        .blog-footer .btn-ghost:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 20px rgba(255, 45, 155, .2);
+        }
+
+        footer {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-top: 1px solid var(--border);
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--muted);
+            margin-top: 2rem;
+        }
+        footer span {
+            color: var(--pink);
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--violet), var(--pink));
+            border-radius: 2px;
+        }
+
+        @media (max-width: 680px) {
+            nav {
+                padding: .8rem 1rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .blog-wrap {
+                padding: 6rem 1rem 3rem;
+            }
+            .blog-header h1 {
+                font-size: 1.6rem;
+            }
+            .blog-body h2 {
+                font-size: 1.3rem;
+            }
+            .blog-body h3 {
+                font-size: 1rem;
+            }
+            .blog-body .highlight-box {
+                padding: 1rem 1.2rem;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: .6rem .8rem;
+                font-size: .8rem;
+            }
+            .attack-table th,
+            .attack-table td {
+                padding: .5rem .8rem;
+                font-size: .8rem;
+            }
+            .t-body {
+                font-size: .65rem;
+                padding: 0.8rem 1rem;
+            }
+            .screenshot-img .caption {
+                font-size: .6rem;
+                padding: .6rem .8rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .blog-wrap {
+                padding: 5rem 0.8rem 2rem;
+            }
+            .blog-header h1 {
+                font-size: 1.3rem;
+            }
+            .blog-body p {
+                font-size: .9rem;
+            }
+            .t-body {
+                font-size: .6rem;
+                padding: 0.6rem 0.8rem;
+                line-height: 1.8;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-logo">SARAH.EXE</div>
+        <ul class="nav-links">
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#skills">Skills</a></li>
+            <li><a href="index.html#featured-project">Featured</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <a class="nav-cta" href="index.html">← Back to Portfolio</a>
+    </nav>
+
+    <article class="blog-wrap">
+        <div class="blog-header">
+            <div class="badge">★ Mobile Security</div>
+            <h1>LTE to 2G Downgrade Attack</h1>
+            <p class="subtitle">A Deep Dive into Mobile Network Security</p>
+            <p class="meta">By <span>BRAHMI Sarah Kaouther</span> · June 2026 · 7 min read</p>
+        </div>
+
+        <div class="blog-body">
+
+            <!-- TL;DR -->
+            <div class="highlight-box">
+                <p><strong>TL;DR:</strong> We built a complete LTE-to-2G downgrade attack simulator in Python. The attack exploits backward compatibility between LTE and 2G networks. Once downgraded, attackers can capture IMSI, intercept SMS, and decrypt calls using the broken A5/1 cipher. <strong>Mitigation:</strong> Enable LTE-only mode on your phone.</p>
+            </div>
+
+            <!-- Introduction -->
+            <h2>Introduction: The Hidden Danger in Your Pocket</h2>
+            <p>
+                Every day, billions of mobile devices connect to cellular networks around the world. We trust these connections implicitly—making calls, sending sensitive messages, accessing banking apps, and sharing personal data. But what if I told you that this trust is built on a fragile foundation?
+            </p>
+            <p>
+                Modern 4G LTE networks are designed with robust security in mind. They use mutual authentication, strong encryption, and sophisticated protocols to protect our communications. However, lurking beneath this secure layer is a decades-old vulnerability that attackers can exploit to strip away all these protections.
+            </p>
+            <p>
+                This is the story of the <strong>LTE to 2G Downgrade Attack</strong>—how it works, why it's dangerous, and what we're doing to understand and mitigate it.
+            </p>
+
+            <!-- The Project -->
+            <h2>The Project: Building a Complete Attack Simulator</h2>
+            <p>
+                As part of our mobile security research, we developed a comprehensive software simulation that demonstrates the entire LTE-to-2G downgrade attack chain. The project was built entirely in Python using Tkinter for the graphical interface and a custom publish/subscribe event bus for inter-module communication.
+            </p>
+
+            <h3>System Architecture</h3>
+            <p>
+                The project follows a decoupled, event-driven architecture with five core modules:
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Module</th>
+                        <th>Component</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="feature">events.py</span></td>
+                        <td>Event Bus</td>
+                        <td>Central publish/subscribe message broker</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">ue_simulator.py</span></td>
+                        <td>UESimulator</td>
+                        <td>Simulates the victim mobile device state machine</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">attack_engine.py</span></td>
+                        <td>AttackEngine</td>
+                        <td>Orchestrates the attack sequence step by step</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">dashboard.py</span></td>
+                        <td>Dashboard</td>
+                        <td>Dark-themed attacker GUI with live log + attack summary</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">phone_mockup.py</span></td>
+                        <td>PhoneMockup</td>
+                        <td>Realistic phone UI showing victim device status</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                This architecture ensures clean separation of concerns—the simulation engine never directly imports or references the GUI modules, communicating exclusively through events.
+            </p>
+
+            <!-- Understanding the Attack -->
+            <h2>Understanding the Attack</h2>
+
+            <h3>How Does the Downgrade Work?</h3>
+            <p>
+                4G LTE is a secure, encrypted mobile standard. However, it's backward-compatible with legacy 2G/GSM networks. Attackers exploit this by:
+            </p>
+            <ol>
+                <li><strong>Setting up a rogue base station (IMSI catcher)</strong> that mimics a legitimate cell tower</li>
+                <li><strong>Sending a fake RRC Connection Reject</strong> message to the victim's device, forcing it to disconnect from LTE</li>
+                <li><strong>Waiting for the device to automatically scan</strong> for available networks</li>
+                <li><strong>Connecting to the attacker's rogue 2G BTS</strong> when the phone searches for networks</li>
+            </ol>
+
+            <h3>The Security Gap</h3>
+            <p>
+                The core vulnerability lies in the authentication difference between network generations:
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>LTE (4G)</th>
+                        <th>2G (GSM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="feature">Mutual Authentication</span></td>
+                        <td><span class="check">✅ Yes</span></td>
+                        <td><span class="cross">❌ No</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">Strong Encryption</span></td>
+                        <td><span class="check">✅ AES</span></td>
+                        <td><span class="cross">❌ A5/1 (broken)</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">IMSI Protection</span></td>
+                        <td><span class="check">✅ Encrypted</span></td>
+                        <td><span class="cross">❌ Plaintext</span></td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">Downgrade Protection</span></td>
+                        <td><span class="check">✅ Yes</span></td>
+                        <td><span class="cross">❌ No</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p>
+                <strong>The result:</strong> Phones will connect to any tower that claims to be legitimate, making them vulnerable to rogue base station attacks.
+            </p>
+
+            <!-- Inside the Attack Chain -->
+            <h2>Inside the Attack Chain</h2>
+
+            <h3>Phase 1: Protocol Analysis</h3>
+            <p>
+                The attack begins by analyzing the LTE RRC (Radio Resource Control) protocol, which controls cell selection and network switching. Using software-defined radio (SDR) for signal monitoring, attackers can identify the RRC Connection Reject message—a legitimate mechanism designed to deny connections.
+            </p>
+
+            <h3>Phase 2: Signal Manipulation</h3>
+            <p>
+                Attackers inject a fake RRC Connection Reject message to the victim's device, forcing it to disconnect from LTE. The phone accepts this fake reject, disconnects, and begins searching for alternative networks.
+            </p>
+
+            <h3>Phase 3: Rogue Base Station Setup</h3>
+            <p>
+                Using OpenBTS (open-source software that transforms SDR into a functional 2G tower), attackers configure a rogue base station with:
+            </p>
+            <ul>
+                <li>Valid MCC/MNC (country + network codes)</li>
+                <li>A network name matching the legitimate operator</li>
+                <li>Stronger signal strength than distant real towers</li>
+            </ul>
+            <p>
+                The phone detects what appears to be a legitimate network, trusts it implicitly, and connects—all without user notification.
+            </p>
+
+            <h3>Phase 4: Exploitation</h3>
+            <p>
+                Once connected to the rogue 2G tower, attackers can access:
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Target</th>
+                        <th>Risk</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="feature">IMSI Capture</span></td>
+                        <td>Track individual's location and movements</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">SMS Interception</span></td>
+                        <td>Read plaintext messages, intercept 2FA codes</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">Call Metadata</span></td>
+                        <td>Build social graphs and call patterns</td>
+                    </tr>
+                    <tr>
+                        <td><span class="feature">Weak Encryption</span></td>
+                        <td>Decrypt voice calls and data (A5/1 cipher)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Technical Implementation -->
+            <h2>The Technical Implementation</h2>
+
+            <h3>The Event Bus System</h3>
+            <p>
+                The backbone of our simulation is a lightweight publish/subscribe messaging system. All modules communicate exclusively through this central bus:
+            </p>
+
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">events.py ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt"># </span><span class="tc-dim">Event bus implementation</span></div>
+                    <div><span class="tc-prompt">_listeners</span> = {}</div>
+                    <div><br /></div>
+                    <div><span class="tc-prompt">def</span> <span class="tc-key">subscribe</span>(event_type, callback):</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tc-prompt">if</span> event_type <span class="tc-prompt">not in</span> _listeners:</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_listeners[event_type] = []</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;_listeners[event_type].append(callback)</div>
+                    <div><br /></div>
+                    <div><span class="tc-prompt">def</span> <span class="tc-key">publish</span>(event_type, data=None):</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tc-prompt">if</span> event_type <span class="tc-prompt">in</span> _listeners:</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tc-prompt">for</span> callback <span class="tc-prompt">in</span> _listeners[event_type]:</div>
+                    <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callback(data)</div>
+                </div>
+            </div>
+
+            <p>
+                This decouples the simulation engine from the GUI layer entirely—the AttackEngine never imports Dashboard or PhoneMockup, it simply publishes events, and any subscriber reacts independently.
+            </p>
+
+            <h3>State Machine Design</h3>
+            <p>
+                The device lifecycle follows a strict state machine:
+            </p>
+
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">state-machine ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">┌─────────┐</span></div>
+                    <div><span class="tc-prompt">│</span>  IDLE  <span class="tc-prompt">│</span></div>
+                    <div><span class="tc-prompt">└────┬────┘</span></div>
+                    <div><span class="tc-prompt">     ▼</span></div>
+                    <div><span class="tc-prompt">┌─────────────┐</span></div>
+                    <div><span class="tc-prompt">│</span>  LTE_CONNECTED  <span class="tc-prompt">│</span></div>
+                    <div><span class="tc-prompt">└────┬────────┘</span></div>
+                    <div><span class="tc-prompt">     ▼</span></div>
+                    <div><span class="tc-prompt">┌─────────────┐</span></div>
+                    <div><span class="tc-prompt">│</span>  DISCONNECTED  <span class="tc-prompt">│</span></div>
+                    <div><span class="tc-prompt">└────┬────────┘</span></div>
+                    <div><span class="tc-prompt">     ▼</span></div>
+                    <div><span class="tc-prompt">┌──────────────┐</span></div>
+                    <div><span class="tc-prompt">│</span>  2G_CONNECTED  <span class="tc-prompt">│</span></div>
+                    <div><span class="tc-prompt">└────┬─────────┘</span></div>
+                    <div><span class="tc-prompt">     ▼</span></div>
+                    <div><span class="tc-prompt">┌─────────────────┐</span></div>
+                    <div><span class="tc-prompt">│</span>  ATTACK_COMPLETE  <span class="tc-prompt">│</span></div>
+                    <div><span class="tc-prompt">└─────────────────┘</span></div>
+                </div>
+            </div>
+
+            <p>
+                Each transition triggers a <code>state_change</code> event that all subscribers handle independently according to their own logic.
+            </p>
+
+            <h3>Thread Safety</h3>
+            <p>
+                The UESimulator runs on a background thread to avoid blocking the GUI event loop. All UI mutations are wrapped in <code>root.after(0, update)</code> calls, which schedule updates on the Tkinter main thread—the standard and correct approach for thread-safe Tkinter updates.
+            </p>
+
+            <!-- Attack Sequence -->
+            <h2>The Complete Attack Sequence</h2>
+            <p>
+                Here's what happens during a full simulation run:
+            </p>
+
+            <table class="attack-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Level</th>
+                        <th>Log Message</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td class="level-success">SUCCESS</td>
+                        <td class="log-msg">Phone connected to LTE network (46)</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td class="level-warning">WARNING</td>
+                        <td class="log-msg">Attacker sending fake RRC Connection Reject...</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="level-danger">DANGER</td>
+                        <td class="log-msg">Phone accepted the fake reject – disconnecting from LTE!</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="level-warning">WARNING</td>
+                        <td class="log-msg">Phone searching for available networks...</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="level-danger">DANGER</td>
+                        <td class="log-msg">Phone connected to 2G (GERAN) – weak encryption!</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="level-danger">DANGER</td>
+                        <td class="log-msg">Fake 2G base station active – phone is connected to us!</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="level-warning">WARNING</td>
+                        <td class="log-msg">Detecting encryption... A5/1 found – this is crackable!</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td class="level-warning">WARNING</td>
+                        <td class="log-msg">Running A5/1 known-plaintext attack...</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td class="level-danger">DANGER</td>
+                        <td class="log-msg">Encryption key recovered: 0xFA3C9B12E4D07A56</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="level-warning">WARNING</td>
+                        <td class="log-msg">Capturing IMSI from unprotected 2G channel...</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td class="level-danger">DANGER</td>
+                        <td class="log-msg">IMSI CAPTURED: 603 01 0000000001</td>
+                    </tr>
+                    <tr>
+                        <td>12</td>
+                        <td class="level-danger">DANGER</td>
+                        <td class="log-msg">Attack complete. Device fully compromised.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Why This Matters -->
+            <h2>Why This Matters: Real-World Implications</h2>
+
+            <h3>Historical Context</h3>
+            <p>
+                The A5/1 cipher was introduced in the 1980s and has been publicly broken for years. Rainbow table attacks and known-plaintext attacks can recover the 64-bit session key in seconds to minutes. Once the attacker holds the IMSI and the session key, they can:
+            </p>
+            <ul>
+                <li>Track the device's location and movements</li>
+                <li>Intercept calls and SMS messages</li>
+                <li>Impersonate the victim on the network</li>
+                <li>Access 2FA codes sent via SMS</li>
+            </ul>
+
+            <h3>Law Enforcement and Malicious Actors</h3>
+            <p>
+                IMSI catchers (Stingrays) are used legally by law enforcement with warrants in many countries. However, malicious actors also exploit these vulnerabilities for unauthorized surveillance, targeted tracking, and data theft—a documented global problem.
+            </p>
+
+            <h3>The Ongoing Threat</h3>
+            <p>
+                As long as 2G networks exist and phones support fallback, this vulnerability remains active. While 3GPP introduced countermeasures in later LTE releases, the attack surface persists.
+            </p>
+
+            <!-- Defense -->
+            <h2>Defense and Mitigation</h2>
+
+            <h3>User-Level Protections</h3>
+            <p>
+                <strong>Enable LTE-Only Mode:</strong> Modern Android/iOS settings allow users to disable 2G fallback entirely. This forces the phone to stay on 4G/5G or lose service—preventing downgrade attacks.
+            </p>
+
+            <div class="terminal">
+                <div class="t-bar">
+                    <span class="t-dot t-r"></span>
+                    <span class="t-dot t-y"></span>
+                    <span class="t-dot t-g"></span>
+                    <span class="t-host">settings ~</span>
+                </div>
+                <div class="t-body">
+                    <div><span class="tc-prompt">📱</span> <span class="tc-key">Settings → Mobile Network → Preferred Network</span></div>
+                    <div><span class="tc-green">✓ Select "LTE/5G Only"</span></div>
+                    <div><span class="tc-dim"># This prevents the phone from connecting to 2G networks</span></div>
+                </div>
+            </div>
+
+            <h3>Infrastructure Solutions</h3>
+            <p>
+                <strong>5G Standalone (SA):</strong> The 5G SA architecture removes 2G/3G support entirely, eliminating legacy protocols and forced downgrade vulnerabilities. Major carriers are transitioning to 5G SA by 2025-2026.
+            </p>
+            <p>
+                <strong>Network Operator Actions:</strong> Carriers can disable 2G networks in regions with sufficient 4G/5G coverage, reducing the attack surface for all users. 2G shutdowns are already ongoing in Europe, the US, and Australia.
+            </p>
+
+            <h3>Detection Systems</h3>
+            <p>
+                Network anomaly detection can identify rogue base stations. Mobile apps like SnoopSnitch and Cell Spy Catcher alert users to potential IMSI catchers in their area.
+            </p>
+
+            <!-- Key Takeaways -->
+            <h2>Key Takeaways</h2>
+
+            <div class="highlight-box">
+                <ul>
+                    <li><strong>Vulnerability Confirmed:</strong> We successfully demonstrated the LTE to 2G downgrade attack in a controlled lab setting.</li>
+                    <li><strong>Easy to Execute:</strong> Requires only commodity SDR hardware (~$300) and open-source software.</li>
+                    <li><strong>Solutions Exist:</strong> User-side protections are available today, and infrastructure fixes are in progress.</li>
+                    <li><strong>Ongoing Threat:</strong> As long as 2G networks exist, this vulnerability remains a genuine security concern.</li>
+                </ul>
+            </div>
+
+            <!-- Conclusion -->
+            <h2>Conclusion</h2>
+            <p>
+                This project successfully demonstrates the complete LTE-to-2G downgrade attack lifecycle in a purely software-based, educational simulation. The event-driven Python architecture cleanly separates the simulation logic from the GUI layer, making the codebase extensible and well-structured.
+            </p>
+            <p>
+                The dual-window interface (Attack Dashboard + Phone Mockup) provides two simultaneous perspectives on the same attack: the attacker's operational view and the victim device's user experience. This makes the security implications immediately visible and intuitive.
+            </p>
+            <p>
+                From a security perspective, this simulation highlights a real and historically exploited vulnerability in mobile network standards. The A5/1 cipher used by 2G GSM networks is considered cryptographically broken, and the lack of mutual authentication in early LTE RRC procedures enabled downgrade attacks until 3GPP introduced countermeasures in later releases.
+            </p>
+            <p>
+                Understanding these attack vectors is essential for mobile security research, network operator defense, and regulatory policy. As we transition to 5G and beyond, we must remember the lessons learned from legacy protocols and ensure that security is built into the foundation of next-generation networks—not bolted on as an afterthought.
+            </p>
+
+            <div class="highlight-box">
+                <p><strong>Attack Statistics:</strong></p>
+                <ul>
+                    <li>⏱️ Attack Completion Time: <strong>~30 seconds</strong></li>
+                    <li>🔑 A5/1 Key Recovery: <strong>Seconds to minutes</strong></li>
+                    <li>📡 Hardware Cost: <strong>~$300</strong></li>
+                    <li>🎯 Success Rate: <strong>High</strong></li>
+                </ul>
+            </div>
+
+            <h2>Resources and References</h2>
+            <ul>
+                <li><strong>3GPP LTE RRC Protocol Specifications</strong></li>
+                <li><strong>OpenBTS:</strong> Open-source base station software</li>
+                <li><strong>Software-Defined Radio:</strong> Hardware and software tools for radio signal analysis</li>
+                <li><strong>A5/1 Cryptanalysis:</strong> Research papers on breaking GSM encryption</li>
+                <li><strong>IMSI Catcher Detection:</strong> Academic research and detection tools</li>
+            </ul>
+
+            <p style="font-size: .9rem; color: var(--muted); font-style: italic; margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 2rem;">
+                <strong>Disclaimer:</strong> This project was developed for educational purposes only. Unauthorized use of these techniques is illegal in most jurisdictions. Always obtain proper authorization before conducting any security research on live networks.
+            </p>
+
+        </div>
+
+        <div class="blog-footer">
+            <a href="index.html#projects" class="btn btn-ghost">← Back to Projects</a>
+            <a href="cyber-arena.html" class="btn btn-ghost">View Cyber-Arena →</a>
+            <a href="https://github.com/sarahbrahmi06/LTE-2G-Downgrade-Attack" class="btn btn-grad" target="_blank">View on GitHub →</a>
+        </div>
+    </article>
+
+    <footer>
+        <p>Built with care by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
+    </footer>
+</body>
+</html>
