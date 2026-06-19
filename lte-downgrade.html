@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LTE to 2G Downgrade Attack — Mobile Network Security</title>
+    <title>LTE to 2G Downgrade Attack, Mobile Network Security</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -596,7 +596,7 @@
             <div class="badge">★ Mobile Security</div>
             <h1>LTE to 2G Downgrade Attack</h1>
             <p class="subtitle">A Deep Dive into Mobile Network Security</p>
-            <p class="meta">By <span>BRAHMI Sarah Kaouther</span> · June 2026 · 7 min read</p>
+            <p class="meta">By <span>BRAHMI Sarah Kaouther</span> · April 2026 · 7 min read</p>
         </div>
 
         <div class="blog-body">
@@ -609,13 +609,13 @@
             <!-- Introduction -->
             <h2>Introduction: The Hidden Danger in Your Pocket</h2>
             <p>
-                Every day, billions of mobile devices connect to cellular networks around the world. We trust these connections implicitly—making calls, sending sensitive messages, accessing banking apps, and sharing personal data. But what if I told you that this trust is built on a fragile foundation?
+                Every day, billions of mobile devices connect to cellular networks around the world. We trust these connections implicitly, making calls, sending sensitive messages, accessing banking apps, and sharing personal data. But what if I told you that this trust is built on a fragile foundation?
             </p>
             <p>
                 Modern 4G LTE networks are designed with robust security in mind. They use mutual authentication, strong encryption, and sophisticated protocols to protect our communications. However, lurking beneath this secure layer is a decades-old vulnerability that attackers can exploit to strip away all these protections.
             </p>
             <p>
-                This is the story of the <strong>LTE to 2G Downgrade Attack</strong>—how it works, why it's dangerous, and what we're doing to understand and mitigate it.
+                This is the story of the <strong>LTE to 2G Downgrade Attack</strong>, how it works, why it's dangerous, and what we're doing to understand and mitigate it.
             </p>
 
             <!-- The Project -->
@@ -667,7 +667,7 @@
             </table>
 
             <p>
-                This architecture ensures clean separation of concerns—the simulation engine never directly imports or references the GUI modules, communicating exclusively through events.
+                This architecture ensures clean separation of concerns, the simulation engine never directly imports or references the GUI modules, communicating exclusively through events.
             </p>
 
             <!-- Understanding the Attack -->
@@ -730,7 +730,7 @@
 
             <h3>Phase 1: Protocol Analysis</h3>
             <p>
-                The attack begins by analyzing the LTE RRC (Radio Resource Control) protocol, which controls cell selection and network switching. Using software-defined radio (SDR) for signal monitoring, attackers can identify the RRC Connection Reject message—a legitimate mechanism designed to deny connections.
+                The attack begins by analyzing the LTE RRC (Radio Resource Control) protocol, which controls cell selection and network switching. Using software-defined radio (SDR) for signal monitoring, attackers can identify the RRC Connection Reject message, a legitimate mechanism designed to deny connections.
             </p>
 
             <h3>Phase 2: Signal Manipulation</h3>
@@ -748,7 +748,7 @@
                 <li>Stronger signal strength than distant real towers</li>
             </ul>
             <p>
-                The phone detects what appears to be a legitimate network, trusts it implicitly, and connects—all without user notification.
+                The phone detects what appears to be a legitimate network, trusts it implicitly, and connects, all without user notification.
             </p>
 
             <h3>Phase 4: Exploitation</h3>
@@ -815,7 +815,7 @@
             </div>
 
             <p>
-                This decouples the simulation engine from the GUI layer entirely—the AttackEngine never imports Dashboard or PhoneMockup, it simply publishes events, and any subscriber reacts independently.
+                This decouples the simulation engine from the GUI layer entirely, the AttackEngine never imports Dashboard or PhoneMockup, it simply publishes events, and any subscriber reacts independently.
             </p>
 
             <h3>State Machine Design</h3>
@@ -859,7 +859,7 @@
 
             <h3>Thread Safety</h3>
             <p>
-                The UESimulator runs on a background thread to avoid blocking the GUI event loop. All UI mutations are wrapped in <code>root.after(0, update)</code> calls, which schedule updates on the Tkinter main thread—the standard and correct approach for thread-safe Tkinter updates.
+                The UESimulator runs on a background thread to avoid blocking the GUI event loop. All UI mutations are wrapped in <code>root.after(0, update)</code> calls, which schedule updates on the Tkinter main thread, the standard and correct approach for thread-safe Tkinter updates.
             </p>
 
             <!-- Attack Sequence -->
@@ -956,7 +956,7 @@
 
             <h3>Law Enforcement and Malicious Actors</h3>
             <p>
-                IMSI catchers (Stingrays) are used legally by law enforcement with warrants in many countries. However, malicious actors also exploit these vulnerabilities for unauthorized surveillance, targeted tracking, and data theft—a documented global problem.
+                IMSI catchers (Stingrays) are used legally by law enforcement with warrants in many countries. However, malicious actors also exploit these vulnerabilities for unauthorized surveillance, targeted tracking, and data theft, a documented global problem.
             </p>
 
             <h3>The Ongoing Threat</h3>
@@ -969,7 +969,7 @@
 
             <h3>User-Level Protections</h3>
             <p>
-                <strong>Enable LTE-Only Mode:</strong> Modern Android/iOS settings allow users to disable 2G fallback entirely. This forces the phone to stay on 4G/5G or lose service—preventing downgrade attacks.
+                <strong>Enable LTE-Only Mode:</strong> Modern Android/iOS settings allow users to disable 2G fallback entirely. This forces the phone to stay on 4G/5G or lose service, preventing downgrade attacks.
             </p>
 
             <div class="terminal">
@@ -1023,16 +1023,16 @@
                 From a security perspective, this simulation highlights a real and historically exploited vulnerability in mobile network standards. The A5/1 cipher used by 2G GSM networks is considered cryptographically broken, and the lack of mutual authentication in early LTE RRC procedures enabled downgrade attacks until 3GPP introduced countermeasures in later releases.
             </p>
             <p>
-                Understanding these attack vectors is essential for mobile security research, network operator defense, and regulatory policy. As we transition to 5G and beyond, we must remember the lessons learned from legacy protocols and ensure that security is built into the foundation of next-generation networks—not bolted on as an afterthought.
+                Understanding these attack vectors is essential for mobile security research, network operator defense, and regulatory policy. As we transition to 5G and beyond, we must remember the lessons learned from legacy protocols and ensure that security is built into the foundation of next-generation networks, not bolted on as an afterthought.
             </p>
 
             <div class="highlight-box">
                 <p><strong>Attack Statistics:</strong></p>
                 <ul>
-                    <li>⏱️ Attack Completion Time: <strong>~30 seconds</strong></li>
-                    <li>🔑 A5/1 Key Recovery: <strong>Seconds to minutes</strong></li>
-                    <li>📡 Hardware Cost: <strong>~$300</strong></li>
-                    <li>🎯 Success Rate: <strong>High</strong></li>
+                    <li> Attack Completion Time: <strong>~30 seconds</strong></li>
+                    <li> A5/1 Key Recovery: <strong>Seconds to minutes</strong></li>
+                    <li> Hardware Cost: <strong>~$300</strong></li>
+                    <li> Success Rate: <strong>High</strong></li>
                 </ul>
             </div>
 
@@ -1053,7 +1053,6 @@
 
         <div class="blog-footer">
             <a href="index.html#projects" class="btn btn-ghost">← Back to Projects</a>
-            <a href="cyber-arena.html" class="btn btn-ghost">View Cyber-Arena →</a>
             <a href="https://github.com/sarahbrahmi06/LTE-2G-Downgrade-Attack" class="btn btn-grad" target="_blank">View on GitHub →</a>
         </div>
     </article>
