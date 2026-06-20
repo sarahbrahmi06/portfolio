@@ -116,6 +116,7 @@
         .nav-links a:hover {
             color: var(--rose);
         }
+
         .nav-cta,
         .nav-cta:visited,
         .nav-cta:active,
@@ -1118,6 +1119,48 @@
             color: var(--pink);
             transform: rotate(90deg);
         }
+
+        /* ── MODAL LANGUAGE TOGGLE ── */
+        .modal-lang-toggle {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0;
+        }
+
+        .modal-lang-toggle span {
+            color: var(--muted);
+            font-size: 0.7rem;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .modal-lang-toggle .lang-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            transition: all 0.3s;
+        }
+
+        .modal-lang-toggle .lang-btn.active {
+            color: var(--lavender);
+            background: rgba(155, 48, 255, 0.15);
+        }
+
+        .modal-lang-toggle .lang-btn:hover:not(.active) {
+            color: var(--text);
+        }
+
+        .modal-lang-divider {
+            color: var(--muted);
+            font-size: 0.7rem;
+        }
+
         .modal-actions {
             display: flex;
             gap: 1rem;
@@ -1202,9 +1245,6 @@
             .nav-links {
                 display: none;
             }
-            .nav-cta {
-                display: none;
-            }
             .nav-toggle {
                 display: flex;
             }
@@ -1285,6 +1325,9 @@
             }
             .modal-content iframe {
                 height: 40vh;
+            }
+            .modal-lang-toggle {
+                justify-content: center;
             }
         }
 
@@ -1368,9 +1411,19 @@
     <div id="resumeModal" class="modal">
         <div class="modal-content">
             <button id="closeResume" class="modal-close">✕</button>
+
+            <!-- Language toggle inside modal -->
+            <div class="modal-lang-toggle">
+                <span>🌐 Language:</span>
+                <button onclick="switchCV('en')" class="lang-btn active" id="modal-lang-en">English</button>
+                <span class="modal-lang-divider">|</span>
+                <button onclick="switchCV('fr')" class="lang-btn" id="modal-lang-fr">Français</button>
+            </div>
+
             <iframe src="CV.pdf" title="Resume Preview"></iframe>
+
             <div class="modal-actions">
-                <a href="CV.pdf" download class="btn btn-grad">Download CV</a>
+                <a href="CV.pdf" download class="btn btn-grad" id="downloadCVBtn">Download CV</a>
                 <button id="closeResumeBtn" class="btn btn-ghost">Close</button>
             </div>
         </div>
@@ -1465,8 +1518,8 @@
                     <span class="tag">Grafana</span><span class="tag">Prometheus</span>
                 </div>
             </div>
-            
-             <div class="skill-card reveal">
+
+            <div class="skill-card reveal">
                 <p class="sk-cat">DevOps &amp; Cloud</p>
                 <div class="tags">
                     <span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Git</span>
@@ -1498,8 +1551,6 @@
                     <span class="tag">Tailwind CSS</span><span class="tag">Figma</span>
                 </div>
             </div>
-            
-           
         </div>
     </section>
 
@@ -1573,7 +1624,7 @@
                     </div>
                 </div>
             </div>
-             <div class="proj reveal">
+            <div class="proj reveal">
                 <div class="proj-header ph-c5">
                     <span class="proj-label">LTE-2G Downgrade Attack</span>
                 </div>
@@ -1598,8 +1649,6 @@
                     </div>
                 </div>
             </div>
-
-           
 
             <div class="proj reveal">
                 <div class="proj-header ph-c6">
@@ -1732,6 +1781,62 @@
     </script>
 
     <script>
+        // ─── LANGUAGE TOGGLE ───
+        let currentLang = 'en';
+
+        function switchCV(lang) {
+            currentLang = lang;
+
+            // Update modal buttons
+            document.getElementById('modal-lang-en').classList.toggle('active', lang === 'en');
+            document.getElementById('modal-lang-fr').classList.toggle('active', lang === 'fr');
+
+            // Update iframe
+            const iframe = document.querySelector('#resumeModal iframe');
+            if (iframe) {
+                iframe.src = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
+            }
+
+            // Update download link
+            const downloadLink = document.getElementById('downloadCVBtn');
+            if (downloadLink) {
+                downloadLink.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
+                downloadLink.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
+            }
+
+            // Update navbar View Resume button text
+            const navResumeBtn = document.getElementById('openResume');
+            if (navResumeBtn) {
+                navResumeBtn.textContent = lang === 'fr' ? 'Voir CV' : 'View Resume';
+            }
+
+            // Update mobile View Resume button
+            const mobileResumeBtn = document.getElementById('openResumeMobile');
+            if (mobileResumeBtn) {
+                mobileResumeBtn.textContent = lang === 'fr' ? 'Voir CV' : 'View Resume';
+            }
+
+            // Update mobile Download CV link
+            const mobileDownloadLinks = document.querySelectorAll('.mobile-menu .nav-cta[download]');
+            mobileDownloadLinks.forEach(link => {
+                link.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
+                link.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
+            });
+
+            // Update navbar Download CV link if it exists as a direct link
+            const navDownloadLink = document.querySelector('nav .nav-cta[download]');
+            if (navDownloadLink) {
+                navDownloadLink.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
+                navDownloadLink.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
+            }
+
+            // Update modal title
+            const modalTitle = document.querySelector('.modal-content .modal-lang-toggle span');
+            if (modalTitle) {
+                modalTitle.textContent = lang === 'fr' ? '🌐 Langue:' : '🌐 Language:';
+            }
+        }
+
         // ─── TYPED ROLE ───
         const roles = ['Cybersecurity Student', 'AI & ML Enthusiast', 'Ethical Hacker', 'UI/UX Designer'];
         let ri = 0,
@@ -1829,10 +1934,10 @@
             emailjs.send(
                 'service_vudzz6p',
                 'template_7lut34x', {
-                   name: document.getElementById('user_name').value,      // ← changed from from_name
-        email: document.getElementById('user_email').value,    // ← changed from from_email
-        message: document.getElementById('user_message').value,
-        time: new Date().toLocaleString()  
+                    name: document.getElementById('user_name').value,
+                    email: document.getElementById('user_email').value,
+                    message: document.getElementById('user_message').value,
+                    time: new Date().toLocaleString()
                 }
             ).then(() => {
                 alert('✅ Message sent successfully! I\'ll get back to you soon.');
