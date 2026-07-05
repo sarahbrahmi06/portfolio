@@ -567,9 +567,9 @@
 
     <article class="blog-wrap">
         <div class="blog-header">
-            <div class="badge">★ CTF Writeup</div>
+            <div class="badge">★ CTF Writeup · 67% Serious</div>
             <h1>SEKAI{...} Flag Challenge</h1>
-            <p class="subtitle">Cracking a Mathematical CTF Puzzle with Python</p>
+            <p class="subtitle">Cracking a Math CTF Puzzle with Python (and an Unreasonable Amount of 6-7 Energy)</p>
             <p class="meta">By <span>Brahmi Sarah Kaouther</span> · June 2026 · 6 min read</p>
         </div>
 
@@ -577,7 +577,7 @@
 
             <!-- TL;DR -->
             <div class="highlight-box">
-                <p><strong>TL;DR:</strong> Solved a CTF challenge where the flag validation uses a regex pattern and a modular arithmetic condition. The key insight was recognizing that <code>~(6+~7)**67 = 2^67 - 1</code> and leveraging the cyclic property of powers of 2 modulo <code>2^67 - 1</code>. The final flag has exactly 67 characters of '6' and '7' and satisfies the divisibility condition.</p>
+                <p><strong>TL;DR:</strong> Solved a CTF challenge that is, and I cannot stress this enough, extremely <strong>6-7</strong> about itself. The flag validation hides <code>2^67 - 1</code> behind a wall of bitwise NOTs, and the answer turns out to be a 67-character string built entirely from '6' and '7'. The key insight was recognizing that <code>~(6+~7)**67 = 2^67 - 1</code> and leveraging the cyclic property of powers of 2 modulo <code>2^67 - 1</code>. Somewhere, a middle schooler is doing the hand-wobble in solidarity.</p>
             </div>
 
             <!-- Challenge Overview -->
@@ -589,6 +589,9 @@
                 <li>A regex pattern requiring exactly 67 characters consisting only of '6' and '7' inside <code>SEKAI{...}</code></li>
                 <li>A complex mathematical divisibility condition</li>
             </ol>
+            <p>
+                The author had the entire keyboard to choose from and picked <em>these</em> two digits. In 2026. On purpose. We have questions, but the math doesn't care about our feelings, so let's get into it.
+            </p>
 
             <!-- The Assert Statement -->
             <h2>Understanding the Assert Statement</h2>
@@ -615,9 +618,13 @@
                 <li>Must end with <code>}</code></li>
             </ul>
 
+            <div class="highlight-box">
+                <p><strong>PSA</strong> for anyone offline since 2025: yes, this is <em>that</em> 6 and 7, Dictionary.com's Word of the Year, now with a papal hand-gesture cameo. If the Pope can do it, you can appreciate a well-placed bitwise NOT.</p>
+            </div>
+
             <h3>Decoding the Mathematical Expression</h3>
             <p>
-                Let's simplify <code>~(6+~7)**67</code> step by step, noting Python's operator precedence:
+                Let's simplify <code>~(6+~7)**67</code> step by step, noting Python's operator precedence. Yes, the 6 and 7 are doing a bit even here, before we've even gotten to the flag itself. Stay with me:
             </p>
 
             <div class="math-block">
@@ -629,6 +636,10 @@
 
             <p>
                 Notice that <code>2<sup>67</sup> = 147573952589676412928</code>, so <code>~(6+~7)**67 = 2<sup>67</sup> - 1</code>.
+            </p>
+
+            <p>
+                At this point the challenge has said "6-7" three separate times, twice as literal digits in the source, once as the exponent, and I am legally obligated to report that this is no longer a coincidence, it's a personality trait.
             </p>
 
             <p>
@@ -644,7 +655,7 @@
 
             <h3>Flag Structure</h3>
             <p>
-                The flag is 74 bytes total:
+                The flag is 74 bytes total (67 of which are extremely online):
             </p>
             <ul>
                 <li><code>SEKAI{</code>: 6 bytes (0x53, 0x45, 0x4b, 0x41, 0x49, 0x7b)</li>
@@ -681,7 +692,7 @@
             </div>
 
             <p>
-                Since <strong>8 and 67 are coprime</strong>, <code>(8y) mod 67</code> for y = 1..67 produces a perfect permutation of {0, 1, ..., 66}.
+                Since <strong>8 and 67 are coprime</strong>, <code>(8y) mod 67</code> for y = 1..67 produces a perfect permutation of {0, 1, ..., 66}. It's 67s all the way down.
             </p>
             <p>
                 Therefore, the variable part is exactly the binary representation of some number between 0 and <code>2<sup>67</sup> - 1</code>.
@@ -703,6 +714,7 @@
                     <span class="t-host">solve.py ~</span>
                 </div>
                 <div class="t-body">
+                    <div><span class="tc-prompt"># start with all sixes, the sevens have to earn their spot</span></div>
                     <div><span class="tc-prompt">base_bytes</span> = b'SEKAI{' + b'\x36' * 67 + b'}'</div>
                     <div><span class="tc-prompt">C</span> = int.<span class="tc-key">from_bytes</span>(base_bytes, 'big')</div>
                 </div>
@@ -777,6 +789,7 @@
                 </div>
                 <div class="t-body">
                     <div><span class="tc-prompt">#!/usr/bin/env python3</span></div>
+                    <div><span class="tc-prompt"># solve.py  for when 'assert' and 'a meme' collide</span></div>
                     <div><br /></div>
                     <div><span class="tc-prompt">def</span> <span class="tc-key">solve_flag</span>():</div>
                     <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tc-prompt"># Base value with all '6's</span></div>
@@ -826,7 +839,7 @@
                 <div class="t-body">
                     <div><span class="tc-prompt">flag</span> = solve_flag()</div>
                     <div><span class="tc-prompt">assert</span> __import__('re').<span class="tc-key">match</span>(<span class="tc-val">'SEKAI{[67]{67}}$'</span>, flag) <span class="tc-prompt">and</span> <span class="tc-prompt">not</span> int.<span class="tc-key">from_bytes</span>(flag.<span class="tc-key">encode</span>()) % <span class="tc-prompt">~(6+~7)</span>**<span class="tc-prompt">67</span></div>
-                    <div><span class="tc-key">print</span>(<span class="tc-val">"✅ Valid flag found!"</span>)</div>
+                    <div><span class="tc-key">print</span>(<span class="tc-val">"✅ Valid flag found! Do the hand gesture."</span>)</div>
                 </div>
             </div>
 
@@ -839,6 +852,7 @@
                     <li><strong>Modulo Cyclic Property:</strong> In modulo <code>2^67 - 1</code>, powers of 2 wrap around every 67 steps.</li>
                     <li><strong>Unique Mapping:</strong> Because gcd(8, 67) = 1, each position maps to a unique bit position.</li>
                     <li><strong>Binary Representation:</strong> The problem reduces to finding the binary representation of a specific remainder.</li>
+                    <li><strong>Meme Awareness:</strong> Recognizing a viral cultural reference is, apparently, now a transferable CTF skill.</li>
                 </ul>
             </div>
 
@@ -858,7 +872,7 @@
             </div>
 
             <p style="font-style: italic; color: var(--muted); font-family: 'Space Mono', monospace; font-size: .75rem; text-align: center; margin-top: 0.5rem;">
-                The flag follows the required pattern with exactly 67 characters of '6' and '7' and satisfies the divisibility condition modulo <code>2^67 - 1</code>.
+                67 characters. Only 6s and 7s. Zero remainder. LaMelo would be proud.
             </p>
 
             <!-- CTF Skills -->
@@ -892,6 +906,10 @@
                         <td><span class="value">Cryptography</span></td>
                         <td>Encoding/decoding, bit manipulation</td>
                     </tr>
+                    <tr>
+                        <td><span class="value">Pop Culture Literacy</span></td>
+                        <td>Spotting a 6-7 reference from a mile away</td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -906,20 +924,16 @@
                 <li>Mapping positions to bits using the fact that gcd(8, 67) = 1</li>
             </ol>
             <p>
-                The solution showcases how mathematical insights can be combined with systematic programming to solve complex CTF challenges.
+                The solution showcases how mathematical insights can be combined with systematic programming to solve complex CTF challenges. And if you take away only one thing from this writeup, let it be this: somewhere out there, a challenge author is very proud of themselves, and honestly? Earned.
             </p>
 
         </div>
 
-        <div class="blog-footer">
-            <a href="index.html#projects" class="btn btn-ghost">← Back to Projects</a>
-            <a href="cyber-arena.html" class="btn btn-ghost">View Cyber-Arena →</a>
-            <a href="https://github.com/sarahbrahmi06" class="btn btn-grad" target="_blank">View on GitHub →</a>
-        </div>
+       
     </article>
 
     <footer>
-        <p>Built with care by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
+        <p>Built with care (and a suspicious amount of 6-7 energy) by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
     </footer>
 </body>
 </html>
