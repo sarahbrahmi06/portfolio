@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>APBQ-RSA-IV — CTF Writeup</title>
+    <title>APBQ-RSA-IV  CTF Writeup</title>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -646,7 +646,7 @@
 
             <!-- TL;DR -->
             <div class="highlight-box">
-                <p><strong>TL;DR:</strong> The challenge hands you three numbers that look like nonsense. They're not nonsense — they're a single small vector wearing a disguise three sizes too big. Once you notice the disguise, you split that vector into a <em>p</em> half and a <em>q</em> half using a CRT idempotent, chase the split down through one Coppersmith lattice, and finish with a two-line gcd. Total run time: one coffee, one 252-dimensional lattice, and a moment of genuine delight when six equations that should disagree all quietly agree with each other instead.</p>
+                <p><strong>TL;DR:</strong> The challenge hands you three numbers that look like nonsense. They're not nonsense, they're a single small vector wearing a disguise three sizes too big. Once you notice the disguise, you split that vector into a <em>p</em> half and a <em>q</em> half using a CRT idempotent, chase the split down through one Coppersmith lattice, and finish with a two-line gcd. Total run time: one coffee, one 252-dimensional lattice, and a moment of genuine delight when six equations that should disagree all quietly agree with each other instead.</p>
             </div>
 
             <!-- The Setup -->
@@ -697,7 +697,7 @@
             </div>
 
             <p>
-                Why the extra <code>neᵢ</code> generators? Because we're allowed to add any multiple of <code>n</code> to any coordinate without breaking anything mod <code>n</code> — so those vectors are free filler that don't cost us anything but keep the lattice well-defined over ℤ rather than just mod <code>n</code>.
+                Why the extra <code>neᵢ</code> generators? Because we're allowed to add any multiple of <code>n</code> to any coordinate without breaking anything mod <code>n</code>  so those vectors are free filler that don't cost us anything but keep the lattice well-defined over ℤ rather than just mod <code>n</code>.
             </p>
 
             <p>
@@ -724,7 +724,7 @@
                 Here's the part that actually made this problem interesting instead of just mechanical.
             </p>
             <p>
-                <code>pA</code> and <code>qB</code> are each individually invisible to us — we only ever get their sum <code>H</code>. But both of them are secretly members of <code>Λ</code> too, which is not obvious and is the whole reason this challenge isn't trivial. The argument uses a CRT idempotent: an integer <code>εₚ</code> satisfying
+                <code>pA</code> and <code>qB</code> are each individually invisible to us, we only ever get their sum <code>H</code>. But both of them are secretly members of <code>Λ</code> too, which is not obvious and is the whole reason this challenge isn't trivial. The argument uses a CRT idempotent: an integer <code>εₚ</code> satisfying
             </p>
 
             <div class="math-block">
@@ -732,7 +732,7 @@
             </div>
 
             <p>
-                Multiply <code>H</code> by it: mod <code>p</code>, <code>εₚH ≡ 0</code>; mod <code>q</code>, <code>εₚH ≡ H ≡ pA</code> (since <code>qB ≡ 0</code> there). By CRT, that means <code>εₚH ≡ pA (mod n)</code> — so <code>pA</code> sits inside <code>Λ</code> up to an integer multiple of <code>n</code>, which we already folded into the lattice. Same logic hands us <code>qB ∈ Λ</code>.
+                Multiply <code>H</code> by it: mod <code>p</code>, <code>εₚH ≡ 0</code>; mod <code>q</code>, <code>εₚH ≡ H ≡ pA</code> (since <code>qB ≡ 0</code> there). By CRT, that means <code>εₚH ≡ pA (mod n)</code>  so <code>pA</code> sits inside <code>Λ</code> up to an integer multiple of <code>n</code>, which we already folded into the lattice. Same logic hands us <code>qB ∈ Λ</code>.
             </p>
 
             <p>
@@ -744,7 +744,7 @@
             </div>
 
             <p>
-                <code>s</code> is a known, public, computed-five-minutes-ago vector. <code>u</code> and <code>v</code> are locked in a vault. But they're not just any two numbers that sum to <code>s</code> — they're two very specific lattice vectors, one of which is entirely built from <code>p</code>. The moment we recover <code>u</code>, any nonzero coordinate of <code>uV</code> is a multiple of <code>p</code>, and one <code>gcd</code> call against <code>n</code> ends the challenge.
+                <code>s</code> is a known, public, computed-five-minutes-ago vector. <code>u</code> and <code>v</code> are locked in a vault. But they're not just any two numbers that sum to <code>s</code>  they're two very specific lattice vectors, one of which is entirely built from <code>p</code>. The moment we recover <code>u</code>, any nonzero coordinate of <code>uV</code> is a multiple of <code>p</code>, and one <code>gcd</code> call against <code>n</code> ends the challenge.
             </p>
 
             <!-- Writing an Equation -->
@@ -766,7 +766,7 @@
             </div>
 
             <p>
-                Reduce mod <code>p</code>: top line is zero. Reduce mod <code>q</code>: bottom line collapses to <code>p a₀</code>, leaving exactly <strong>1</strong>. So <code>R(u)</code> is itself a CRT idempotent — it's zero in one world and one in the other, which means:
+                Reduce mod <code>p</code>: top line is zero. Reduce mod <code>q</code>: bottom line collapses to <code>p a₀</code>, leaving exactly <strong>1</strong>. So <code>R(u)</code> is itself a CRT idempotent, it's zero in one world and one in the other, which means:
             </p>
 
             <div class="math-block">
@@ -795,7 +795,7 @@
             </p>
 
             <div class="highlight-box">
-                <p><strong>Not Cheating, Just Tidying:</strong> <code>P</code> isn't a secret and isn't derived from anything hidden — it's purely a convenience rotation computed from public bound data, chosen to make the lattice construction behave better.</p>
+                <p><strong>Not Cheating, Just Tidying:</strong> <code>P</code> isn't a secret and isn't derived from anything hidden, it's purely a convenience rotation computed from public bound data, chosen to make the lattice construction behave better.</p>
             </div>
 
             <!-- Building the Machine -->
@@ -832,7 +832,7 @@
             <!-- Panning for Exact Equations -->
             <h2>Panning for Exact Equations</h2>
             <p>
-                Not every short row out of the reduction is meaningful — some are just short by coincidence. The filter is a Howgrave-Graham style norm check: if a row's coefficient vector, rescaled by the root bounds, has norm (times √# nonzero terms) below <code>n⁴</code>, then the corresponding polynomial doesn't just vanish mod <code>n⁴</code> at the root — it vanishes exactly, over the integers.
+                Not every short row out of the reduction is meaningful, some are just short by coincidence. The filter is a Howgrave-Graham style norm check: if a row's coefficient vector, rescaled by the root bounds, has norm (times √# nonzero terms) below <code>n⁴</code>, then the corresponding polynomial doesn't just vanish mod <code>n⁴</code> at the root, it vanishes exactly, over the integers.
             </p>
             <p>
                 Run every row through that filter and <strong>250 of the 252</strong> survive as genuine, exact, integer-true relations.
@@ -841,13 +841,13 @@
             <!-- The Shortcut -->
             <h2>The Shortcut: Everything Here Is Rank One</h2>
             <p>
-                Stack the 250 exact relations into a <code>250 × 252</code> matrix <code>C</code> and reduce it mod a disposable 61-bit prime <code>ℓ</code>. Typically <code>rank(C mod ℓ) = 250</code>, leaving a 2-dimensional kernel — spanned exactly by the even-monomial evaluation vectors of the two roots that still matter: the known <code>Eₛ</code> and the hidden <code>Eᵈ</code>.
+                Stack the 250 exact relations into a <code>250 × 252</code> matrix <code>C</code> and reduce it mod a disposable 61-bit prime <code>ℓ</code>. Typically <code>rank(C mod ℓ) = 250</code>, leaving a 2-dimensional kernel, spanned exactly by the even-monomial evaluation vectors of the two roots that still matter: the known <code>Eₛ</code> and the hidden <code>Eᵈ</code>.
             </p>
             <p>
                 Pull a basis <code>b₀, b₁</code> of that kernel, cancel out the constant-monomial coordinate to get a direction <code>w ∝ Eᵈ - Eₛ</code>, and now <code>Eᵈ = Eₛ + tw</code> for a single unknown scalar <code>t</code>.
             </p>
             <p>
-                Here's the trick that makes this tractable: the six quadratic monomials <code>(z₀², z₀z₁, z₀z₂, z₁², z₁z₂, z₂²)</code> are exactly the entries of a <strong>rank-one matrix</strong>. Rank-one matrices have every <code>2×2</code> minor equal to zero — always, no exceptions. That's six free quadratic equations in the single unknown <code>t</code>.
+                Here's the trick that makes this tractable: the six quadratic monomials <code>(z₀², z₀z₁, z₀z₂, z₁², z₁z₂, z₂²)</code> are exactly the entries of a <strong>rank-one matrix</strong>. Rank-one matrices have every <code>2×2</code> minor equal to zero , always, no exceptions. That's six free quadratic equations in the single unknown <code>t</code>.
             </p>
 
             <!-- Cashing Out -->
@@ -1006,10 +1006,10 @@
                 Four moves, if you strip away the scenery:
             </p>
             <ol>
-                <li><strong>The three hints are one vector in disguise</strong> — find the lattice it actually lives in, reduce, and the disguise falls off.</li>
-                <li><strong>That short vector is secretly two hidden vectors glued together</strong> — a CRT idempotent proves it and lets you write <code>u + v = s</code>.</li>
+                <li><strong>The three hints are one vector in disguise</strong>  find the lattice it actually lives in, reduce, and the disguise falls off.</li>
+                <li><strong>That short vector is secretly two hidden vectors glued together</strong>  a CRT idempotent proves it and lets you write <code>u + v = s</code>.</li>
                 <li><strong>Turn "recover u" into a small-root problem</strong> via a second CRT idempotent identity, throw a 252-dimensional Coppersmith lattice at it.</li>
-                <li><strong>Let the rank-one matrix hand you the missing scalar</strong> — no full algebraic solve needed.</li>
+                <li><strong>Let the rank-one matrix hand you the missing scalar</strong>  no full algebraic solve needed.</li>
             </ol>
 
             <div class="highlight-box">
@@ -1069,7 +1069,7 @@
                 <li>Exploiting the rank-one structure for the final recovery</li>
             </ol>
             <p>
-                The solution demonstrates advanced mathematical and algorithmic thinking — exactly what makes CTFs both challenging and rewarding.
+                The solution demonstrates advanced mathematical and algorithmic thinking, exactly what makes CTFs both challenging and rewarding.
             </p>
 
         </div>
