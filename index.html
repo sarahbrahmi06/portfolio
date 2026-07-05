@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brahmi Sarah Kaouther — Portfolio</title>
+    <title>Brahmi Sarah Kaouther — Cybersecurity Portfolio</title>
+    <meta name="description" content="Portfolio of Brahmi Sarah Kaouther, a cybersecurity engineering student specializing in threat intelligence, AI/ML security research, and CTF competitions." />
+    <meta name="author" content="Brahmi Sarah Kaouther" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Brahmi Sarah Kaouther — Cybersecurity Portfolio" />
+    <meta property="og:description" content="Cybersecurity engineering student building at the intersection of threat intelligence, AI/ML, and UI/UX. CTF writeups, security research, and projects." />
+    <meta property="og:image" content="my-photo.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Brahmi Sarah Kaouther — Cybersecurity Portfolio" />
+    <meta name="twitter:description" content="Cybersecurity engineering student building at the intersection of threat intelligence, AI/ML, and UI/UX." />
+
+    <link rel="icon" type="image/png" href="favicon.png" />
+
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@700;900&display=swap" rel="stylesheet" />
     <style>
         :root {
@@ -51,6 +65,7 @@
             background-size: 50px 50px;
         }
 
+        /* ── SCANLINE ── */
         .scanline {
             position: fixed;
             left: 0;
@@ -275,63 +290,6 @@
             animation: rise .7s .4s forwards;
             word-break: break-word;
         }
-        .hero-name::before,
-        .hero-name::after {
-            content: attr(data-text);
-            position: absolute;
-            inset: 0;
-            background: inherit;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .hero-name::before {
-            animation: glitch-a 4s infinite;
-            clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%);
-        }
-        .hero-name::after {
-            animation: glitch-b 4s infinite;
-            clip-path: polygon(0 62%, 100% 62%, 100% 78%, 0 78%);
-        }
-        @keyframes glitch-a {
-            0%,
-            88%,
-            100% {
-                transform: none;
-                opacity: 0;
-            }
-            90% {
-                transform: translateX(-4px);
-                opacity: .75;
-            }
-            92% {
-                transform: translateX(3px);
-                opacity: .5;
-            }
-            94% {
-                transform: none;
-                opacity: 0;
-            }
-        }
-        @keyframes glitch-b {
-            0%,
-            88%,
-            100% {
-                transform: none;
-                opacity: 0;
-            }
-            89% {
-                transform: translateX(5px);
-                opacity: .6;
-            }
-            91% {
-                transform: translateX(-2px);
-                opacity: .4;
-            }
-            93% {
-                transform: none;
-                opacity: 0;
-            }
-        }
 
         .hero-title {
             font-family: 'Space Mono', monospace;
@@ -343,25 +301,6 @@
         }
         .hero-title .hi {
             color: var(--lavender);
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: .95em;
-            background: var(--pink);
-            margin-left: 3px;
-            animation: blink .7s infinite;
-            vertical-align: middle;
-        }
-        @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
         }
 
         .hero-desc {
@@ -857,6 +796,57 @@
             box-shadow: 0 0 18px rgba(255, 45, 155, .5);
         }
 
+        /* ── WRITEUPS ── */
+        .writeups-intro {
+            color: var(--muted);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: .95rem;
+            max-width: 700px;
+        }
+        .writeups-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.2rem;
+        }
+        .writeup-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.3rem 1.4rem;
+            text-decoration: none;
+            display: block;
+            transition: transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .writeup-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--glow-p);
+            border-color: var(--pink);
+        }
+        .wu-cat {
+            font-family: 'Space Mono', monospace;
+            font-size: .6rem;
+            color: var(--pink);
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            margin-bottom: .6rem;
+        }
+        .wu-title {
+            font-family: 'Orbitron', monospace;
+            font-size: .88rem;
+            color: var(--lavender);
+            margin-bottom: .5rem;
+            line-height: 1.35;
+        }
+        .wu-desc {
+            font-size: .8rem;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        .writeups-cta {
+            margin-top: 2rem;
+        }
+
         /* ── HACKATHONS ── */
         .hackathons-grid {
             display: grid;
@@ -1263,6 +1253,9 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+            .writeups-grid {
+                grid-template-columns: 1fr;
+            }
             .hackathons-grid {
                 grid-template-columns: 1fr;
             }
@@ -1383,6 +1376,7 @@
             <li><a href="#skills">Skills</a></li>
             <li><a href="#featured-project">Featured</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#writeups">Writeups</a></li>
             <li><a href="#hackathons">Hackathons</a></li>
             <li><a href="#internships">Internships</a></li>
             <li><a href="#education">Education</a></li>
@@ -1399,6 +1393,7 @@
         <a href="#skills" onclick="closeMobile()">Skills</a>
         <a href="#featured-project" onclick="closeMobile()">Featured</a>
         <a href="#projects" onclick="closeMobile()">Projects</a>
+        <a href="#writeups" onclick="closeMobile()">Writeups</a>
         <a href="#hackathons" onclick="closeMobile()">Hackathons</a>
         <a href="#internships" onclick="closeMobile()">Internships</a>
         <a href="#education" onclick="closeMobile()">Education</a>
@@ -1436,9 +1431,9 @@
             <img src="my-photo.png" alt="Brahmi Sarah Kaouther" class="avatar-img" />
         </div>
         <p class="hero-eyebrow">// cybersecurity student</p>
-        <h1 class="hero-name" data-text="Brahmi Sarah Kaouther">Brahmi Sarah Kaouther</h1>
+        <h1 class="hero-name">Brahmi Sarah Kaouther</h1>
         <p class="hero-title">
-            <span class="hi" id="typed-role">Cybersecurity student</span><span class="cursor"></span>
+            <span class="hi">Cybersecurity Engineering Student</span>
         </p>
         <p class="hero-desc">
             5th-year Cybersecurity Engineering student building at the intersection of
@@ -1449,6 +1444,7 @@
         </p>
         <div class="hero-cta">
             <a class="btn btn-grad" href="#featured-project">Featured Project</a>
+            <a class="btn btn-ghost" href="#writeups">CTF Writeups</a>
             <a class="btn btn-ghost" href="#contact">Get in Touch</a>
         </div>
     </section>
@@ -1606,7 +1602,7 @@
                     <p class="proj-stack">Sysmon · Winlogbeat · Suricata · Elasticsearch · Kibana</p>
                     <div class="proj-links">
                         <a href="ransomware-simulation.html" class="pl pl-demo">Read More</a>
-                        <a href="#" class="pl pl-gh">GitHub</a>
+                        <a href="https://github.com/sarahbrahmi06" class="pl pl-gh" target="_blank">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -1636,32 +1632,69 @@
                     </div>
                 </div>
             </div>
-           <div class="proj reveal">
-    <div class="proj-header ph-c4">
-        <span class="proj-label">Pink Diary</span>
-    </div>
-    <div class="proj-body">
-        <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI: built with React, Vite, and Tailwind CSS.</p>
-        <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
-        <div class="proj-links">
-            <a href="pink-diary.html" class="pl pl-demo">Read More</a>
-            <a href="https://github.com/sarahbrahmi06/pink_diary" class="pl pl-gh" target="_blank">GitHub</a>
-        </div>
-    </div>
-</div>
+            <div class="proj reveal">
+                <div class="proj-header ph-c4">
+                    <span class="proj-label">Pink Diary</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI: built with React, Vite, and Tailwind CSS.</p>
+                    <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
+                    <div class="proj-links">
+                        <a href="pink-diary.html" class="pl pl-demo">Read More</a>
+                        <a href="https://github.com/sarahbrahmi06/pink_diary" class="pl pl-gh" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
 
             <div class="proj reveal">
-    <div class="proj-header ph-c6">
-        <span class="proj-label">AI — NLP &amp; Vision</span>
-    </div>
-    <div class="proj-body">
-        <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
-        <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
-        <div class="proj-links">
-            <a href="ai-projects.html" class="pl pl-demo">Read More</a>
+                <div class="proj-header ph-c6">
+                    <span class="proj-label">AI, NLP &amp; Vision</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
+                    <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
+                    <div class="proj-links">
+                        <a href="ai-projects.html" class="pl pl-demo">Read More</a>
+    
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ─── WRITEUPS ─── -->
+    <section class="section-wrap" id="writeups">
+        <p class="section-label">ctf &amp; research</p>
+        <h2 class="section-title">CTF Writeups</h2>
+        <p class="writeups-intro">
+            Detailed technical writeups from CTF competitions and security research challenges.
+            Each writeup includes the full solution approach, code, and key takeaways.
+        </p>
+        <div class="writeups-grid">
+            <!-- Writeup 1: APBQ-RSA-IV -->
+            <a href="ctf-apbq-rsa-iv.html" class="writeup-card reveal">
+                <div class="wu-cat"> Cryptography</div>
+                <div class="wu-title">APBQ-RSA-IV (SEKAI CTF 2026)</div>
+                <div class="wu-desc">Lattice attacks on RSA with hidden vector hints. 252-dimensional Coppersmith, CRT idempotents, and a rank-one recovery trick.</div>
+            </a>
+
+            <!-- Writeup 2: SEKAI Flag Challenge -->
+            <a href="ctf-sekai.html" class="writeup-card reveal">
+                <div class="wu-cat"> Math</div>
+                <div class="wu-title">SEKAI{...} Flag Challenge</div>
+                <div class="wu-desc">Python assert statement with regex and modular arithmetic. Leveraged cyclic properties of powers of 2 modulo 2^67 - 1.</div>
+            </a>
+
+            <!-- Writeup 3: Placeholder -->
+            <a href="#" class="writeup-card reveal" style="opacity:0.6; pointer-events:none;">
+                <div class="wu-cat">📡 Coming Soon</div>
+                <div class="wu-title">More writeups in progress</div>
+            </a>
+        </div>
+        <div class="writeups-cta">
+            <a href="https://github.com/sarahbrahmi06/ctf-writeups" class="pl pl-gh" target="_blank">Browse all writeups on GitHub →</a>
         </div>
     </section>
 
@@ -1737,9 +1770,6 @@
                     <a class="social-row" href="mailto:sk.brahmi@esi-sba.dz">
                         <span class="s-ico">@</span><span class="social-text">sk.brahmi@esi-sba.dz</span>
                     </a>
-                    <a class="social-row" href="tel:+213540656280">
-                        <span class="s-ico">tel</span><span class="social-text">+213 540 656 280</span>
-                    </a>
                     <a class="social-row" href="https://github.com/sarahbrahmi06" target="_blank">
                         <span class="s-ico">gh</span><span class="social-text">github.com/sarahbrahmi06</span>
                     </a>
@@ -1787,82 +1817,47 @@
         function switchCV(lang) {
             currentLang = lang;
 
-            // Update modal buttons
             document.getElementById('modal-lang-en').classList.toggle('active', lang === 'en');
             document.getElementById('modal-lang-fr').classList.toggle('active', lang === 'fr');
 
-            // Update iframe
             const iframe = document.querySelector('#resumeModal iframe');
             if (iframe) {
                 iframe.src = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
             }
 
-            // Update download link
             const downloadLink = document.getElementById('downloadCVBtn');
             if (downloadLink) {
                 downloadLink.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
                 downloadLink.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
             }
 
-            // Update navbar View Resume button text
             const navResumeBtn = document.getElementById('openResume');
             if (navResumeBtn) {
                 navResumeBtn.textContent = lang === 'fr' ? 'Voir CV' : 'View Resume';
             }
 
-            // Update mobile View Resume button
             const mobileResumeBtn = document.getElementById('openResumeMobile');
             if (mobileResumeBtn) {
                 mobileResumeBtn.textContent = lang === 'fr' ? 'Voir CV' : 'View Resume';
             }
 
-            // Update mobile Download CV link
             const mobileDownloadLinks = document.querySelectorAll('.mobile-menu .nav-cta[download]');
             mobileDownloadLinks.forEach(link => {
                 link.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
                 link.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
             });
 
-            // Update navbar Download CV link if it exists as a direct link
             const navDownloadLink = document.querySelector('nav .nav-cta[download]');
             if (navDownloadLink) {
                 navDownloadLink.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
                 navDownloadLink.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
             }
 
-            // Update modal title
             const modalTitle = document.querySelector('.modal-content .modal-lang-toggle span');
             if (modalTitle) {
                 modalTitle.textContent = lang === 'fr' ? '🌐 Langue:' : '🌐 Language:';
             }
         }
-
-        // ─── TYPED ROLE ───
-        const roles = ['Cybersecurity Student', 'AI & ML Enthusiast', 'Ethical Hacker', 'UI/UX Designer'];
-        let ri = 0,
-            ci = 0,
-            del = false;
-        const el = document.getElementById('typed-role');
-
-        function type() {
-            const w = roles[ri];
-            if (!del) {
-                el.textContent = w.slice(0, ++ci);
-                if (ci === w.length) {
-                    del = true;
-                    setTimeout(type, 1700);
-                    return;
-                }
-            } else {
-                el.textContent = w.slice(0, --ci);
-                if (ci === 0) {
-                    del = false;
-                    ri = (ri + 1) % roles.length;
-                }
-            }
-            setTimeout(type, del ? 50 : 90);
-        }
-        setTimeout(type, 1300);
 
         // ─── SCROLL REVEAL ───
         const obs = new IntersectionObserver(entries => {
