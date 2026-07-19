@@ -113,14 +113,14 @@
         }
         .nav-links {
             display: flex;
-            gap: 1.4rem;
+            gap: 2rem;
             list-style: none;
             flex-wrap: wrap;
             justify-content: center;
         }
         .nav-links a {
             font-family: 'Space Mono', monospace;
-            font-size: .66rem;
+            font-size: .7rem;
             color: var(--muted);
             text-decoration: none;
             letter-spacing: .1em;
@@ -603,62 +603,6 @@
             color: var(--rose);
         }
 
-        /* ── FEATURED PROJECT ── */
-        .featured-project {
-            background: var(--bg2);
-            border: 2px solid var(--violet);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--glow-v);
-            transition: border-color .3s, box-shadow .3s;
-            margin-bottom: 2rem;
-        }
-        .featured-project:hover {
-            border-color: var(--pink);
-            box-shadow: var(--glow-p);
-        }
-        .featured-banner {
-            background: linear-gradient(135deg, var(--violet), var(--pink));
-            padding: .8rem 1.5rem;
-            font-family: 'Orbitron', monospace;
-            font-size: .75rem;
-            font-weight: 700;
-            letter-spacing: .2em;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255, 255, 255, .3);
-        }
-        .featured-content {
-            padding: 2rem 2rem 2.2rem;
-        }
-        .featured-content h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4rem;
-            color: var(--lavender);
-            margin-bottom: 1rem;
-        }
-        .featured-content p {
-            color: var(--muted);
-            line-height: 1.8;
-            margin-bottom: 1.2rem;
-            font-size: .95rem;
-        }
-        .featured-content ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: .6rem;
-            margin-bottom: 1.5rem;
-        }
-        .featured-content ul li {
-            font-family: 'Space Mono', monospace;
-            font-size: .7rem;
-            color: var(--lavender);
-            padding: .3rem .8rem;
-            background: rgba(155, 48, 255, .1);
-            border: 1px solid rgba(155, 48, 255, .25);
-            border-radius: 20px;
-        }
-
         /* ── PROJECTS ── */
         .projects-grid {
             display: grid;
@@ -706,6 +650,9 @@
         }
         .ph-c6 {
             background: linear-gradient(135deg, #1a0333, #2a0b1e);
+        }
+        .ph-c7 {
+            background: linear-gradient(135deg, #0d0420, #1a1040);
         }
         .proj-header::after {
             content: '';
@@ -921,43 +868,6 @@
         .intern-card:hover {
             border-color: var(--pink);
             box-shadow: var(--glow-p);
-        }
-
-        /* ── EDUCATION ── */
-        .edu-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-        .edu-card {
-            background: var(--bg2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 1.4rem 1.6rem;
-            transition: border-color .2s, box-shadow .2s;
-        }
-        .edu-card:hover {
-            border-color: var(--pink);
-            box-shadow: var(--glow-p);
-        }
-        .edu-degree {
-            font-family: 'Orbitron', monospace;
-            font-size: .85rem;
-            color: var(--lavender);
-            font-weight: 700;
-            line-height: 1.4;
-        }
-        .edu-school {
-            font-size: .85rem;
-            color: var(--muted);
-            margin: .3rem 0;
-            line-height: 1.5;
-        }
-        .edu-meta {
-            font-family: 'Space Mono', monospace;
-            font-size: .68rem;
-            color: var(--pink);
-            margin-top: .4rem;
         }
 
         /* ── CONTACT ── */
@@ -1295,12 +1205,6 @@
             .social-text {
                 font-size: .68rem;
             }
-            .edu-degree {
-                font-size: .8rem;
-            }
-            .edu-school {
-                font-size: .8rem;
-            }
             footer {
                 font-size: .62rem;
             }
@@ -1351,12 +1255,6 @@
             .hack-card {
                 padding: 1.2rem;
             }
-            .edu-card {
-                padding: 1.1rem 1.2rem;
-            }
-            .intern-card {
-                padding: 1.1rem 1.2rem;
-            }
             .featured-content {
                 padding: 1.2rem;
             }
@@ -1371,13 +1269,8 @@
         <div class="nav-logo">SARAH.EXE</div>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#featured-project">Featured</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#writeups">Writeups</a></li>
-            <li><a href="#hackathons">Hackathons</a></li>
-            <li><a href="#internships">Internships</a></li>
-            <li><a href="#education">Education</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <button id="openResume" class="nav-cta">View Resume</button>
@@ -1388,13 +1281,8 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#about" onclick="closeMobile()">About</a>
-        <a href="#skills" onclick="closeMobile()">Skills</a>
-        <a href="#featured-project" onclick="closeMobile()">Featured</a>
         <a href="#projects" onclick="closeMobile()">Projects</a>
         <a href="#writeups" onclick="closeMobile()">Writeups</a>
-        <a href="#hackathons" onclick="closeMobile()">Hackathons</a>
-        <a href="#internships" onclick="closeMobile()">Internships</a>
-        <a href="#education" onclick="closeMobile()">Education</a>
         <a href="#contact" onclick="closeMobile()">Contact</a>
         <button id="openResumeMobile" class="nav-cta" onclick="openResumeModal(); closeMobile();">View Resume</button>
         <a class="nav-cta" href="CV.pdf" download>Download CV</a>
@@ -1405,7 +1293,6 @@
         <div class="modal-content">
             <button id="closeResume" class="modal-close">✕</button>
 
-            <!-- Language toggle inside modal -->
             <div class="modal-lang-toggle">
                 <span>🌐 Language:</span>
                 <button onclick="switchCV('en')" class="lang-btn active" id="modal-lang-en">English</button>
@@ -1441,8 +1328,7 @@
             Based in Oran, Algeria, engineering smart, secure solutions.
         </p>
         <div class="hero-cta">
-            <a class="btn btn-grad" href="#featured-project">Featured Project</a>
-            <a class="btn btn-ghost" href="#writeups">CTF Writeups</a>
+            <a class="btn btn-grad" href="#projects">View Projects</a>
             <a class="btn btn-ghost" href="#contact">Get in Touch</a>
         </div>
     </section>
@@ -1550,47 +1436,28 @@
 
     <div class="hr"></div>
 
-    <!-- ─── FEATURED PROJECT ─── -->
-    <section class="section-wrap" id="featured-project">
-        <p class="section-label">highlight</p>
-        <h2 class="section-title">Featured Project</h2>
-
-        <div class="featured-project reveal">
-            <div class="featured-banner">★ CYBER-ARENA ★</div>
-            <div class="featured-content">
-                <h3>AI-Powered Cyber Defense Simulation</h3>
-                <p>
-                    Multi-agent Red Team vs Blue Team environment using
-                    Reinforcement Learning and Digital Twin technologies.
-                    This project simulates a full enterprise network where
-                    autonomous agents learn to attack and defend in real-time.
-                </p>
-                <ul>
-                    <li>Enterprise Network Simulation</li>
-                    <li>DQN Attack Agents</li>
-                    <li>DQN Defense Agents</li>
-                    <li>Live Telemetry Monitoring</li>
-                    <li>Digital Twin Architecture</li>
-                </ul>
-                <div class="proj-links">
-                    <a href="cyber-arena.html" class="pl pl-demo">
-                        View Documentation →
-                    </a>
-                    <a href="https://github.com/sarahbrahmi06/rl-cybersec" class="pl pl-gh" target="_blank">
-                        GitHub
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="hr"></div>
-
     <!-- ─── PROJECTS ─── -->
     <section class="section-wrap" id="projects">
         <p class="section-label">recent work</p>
         <h2 class="section-title">Projects</h2>
         <div class="projects-grid">
+
+            <!-- Featured: Cyber-Arena -->
+            <div class="proj reveal">
+                <div class="proj-header ph-c1">
+                    <span class="proj-label">★ Cyber-Arena</span>
+                    <span class="proj-featured">Featured</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">Multi-agent Red Team vs Blue Team environment using Reinforcement Learning and Digital Twin technologies. Simulates a full enterprise network where autonomous agents learn to attack and defend in real-time.</p>
+                    <p class="proj-stack">GNS3 · Deep Q-Network · Telegraf → InfluxDB → Grafana · Ansible · ZeroTier</p>
+                    <div class="proj-links">
+                        <a href="cyber-arena.html" class="pl pl-demo">Read More</a>
+                        <a href="https://github.com/sarahbrahmi06/rl-cybersec" class="pl pl-gh" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="proj reveal">
                 <div class="proj-header ph-c2">
                     <span class="proj-label">Ransomware Simulation</span>
@@ -1618,6 +1485,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="proj reveal">
                 <div class="proj-header ph-c5">
                     <span class="proj-label">LTE-2G Downgrade Attack</span>
@@ -1630,6 +1498,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="proj reveal">
                 <div class="proj-header ph-c4">
                     <span class="proj-label">Pink Diary</span>
@@ -1646,13 +1515,28 @@
 
             <div class="proj reveal">
                 <div class="proj-header ph-c6">
-                    <span class="proj-label">AI, NLP &amp; Vision</span>
+                    <span class="proj-label">AI — NLP &amp; Vision</span>
                 </div>
                 <div class="proj-body">
                     <p class="proj-desc">AISM Challenge: semantic similarity with BERT on Kaggle. Image Segmentation: UNET + EfficientNet-B3 for accurate medical/satellite image segmentation.</p>
                     <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
                     <div class="proj-links">
                         <a href="ai-projects.html" class="pl pl-demo">Read More</a>
+                        <a href="https://github.com/sarahbrahmi06" class="pl pl-gh" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Algérie Télécom Internship -->
+            <div class="proj reveal">
+                <div class="proj-header ph-c7">
+                    <span class="proj-label">Algérie Télécom — Internship</span>
+                </div>
+                <div class="proj-body">
+                    <p class="proj-desc">Network engineering internship at Algérie Télécom's Complexe Haddadin, Oran. Focused on backbone infrastructure (MPLS, BGP), CGNAT operations, and IPv6 transition strategies.</p>
+                    <p class="proj-stack">MPLS · BGP · CGNAT · IPv6 · Huawei OM · Fortinet Firewalls</p>
+                    <div class="proj-links">
+                        <a href="internship.html" class="pl pl-demo">Read More</a>
                     </div>
                 </div>
             </div>
@@ -1670,21 +1554,18 @@
             Each writeup includes the full solution approach, code, and key takeaways.
         </p>
         <div class="writeups-grid">
-            <!-- Writeup 1: APBQ-RSA-IV -->
             <a href="ctf-apbq-rsa-iv.html" class="writeup-card reveal">
                 <div class="wu-cat"> Cryptography</div>
                 <div class="wu-title">APBQ-RSA-IV (SEKAI CTF 2026)</div>
                 <div class="wu-desc">Lattice attacks on RSA with hidden vector hints. 252-dimensional Coppersmith, CRT idempotents, and a rank-one recovery trick.</div>
             </a>
 
-            <!-- Writeup 2: SEKAI Flag Challenge -->
             <a href="ctf-sekai.html" class="writeup-card reveal">
                 <div class="wu-cat"> Math</div>
                 <div class="wu-title">SEKAI{...} Flag Challenge</div>
                 <div class="wu-desc">Python assert statement with regex and modular arithmetic. Leveraged cyclic properties of powers of 2 modulo 2^67 - 1.</div>
             </a>
 
-            <!-- Writeup 3: Placeholder -->
             <a href="#" class="writeup-card reveal" style="opacity:0.6; pointer-events:none;">
                 <div class="wu-cat">📡 Coming Soon</div>
                 <div class="wu-title">More writeups in progress</div>
@@ -1728,28 +1609,11 @@
         <div class="internships-grid">
             <div class="intern-card reveal">
                 <p class="edu-degree">Network &amp; Security Intern</p>
-                <p class="edu-school">Algérie Télécom</p>
-                <p class="edu-meta">Network fundamentals · System Administration · Telecom Infrastructure</p>
-            </div>
-        </div>
-    </section>
-
-    <div class="hr"></div>
-
-    <!-- ─── EDUCATION ─── -->
-    <section class="section-wrap" id="education">
-        <p class="section-label">background</p>
-        <h2 class="section-title">Education</h2>
-        <div class="edu-list">
-            <div class="edu-card reveal">
-                <p class="edu-degree">Cybersecurity Engineering (5th Year)</p>
-                <p class="edu-school">École Supérieure d'Informatique, Sidi Bel Abbès, Algeria</p>
-                <p class="edu-meta">2022 – Expected 2027</p>
-            </div>
-            <div class="edu-card reveal">
-                <p class="edu-degree">Baccalaureate in Mathematics</p>
-                <p class="edu-school">Algeria</p>
-                <p class="edu-meta">2022 · Average: 16.41 / 20</p>
+                <p class="edu-school">Algérie Télécom — Complexe Haddadin, Oran</p>
+                <p class="edu-meta">September 2025 · 3 weeks</p>
+                <div style="margin-top:0.8rem; font-size:.85rem; color:var(--muted); line-height:1.6;">
+                    <p>Explored backbone infrastructure (MPLS, BGP), CGNAT operations, IPv6 transition strategies, and Huawei OM network monitoring. Gained hands-on exposure to carrier-grade network security and critical infrastructure protection.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1803,12 +1667,10 @@
         <p>Built with care by <span>Brahmi Sarah Kaouther</span> · Oran, Algeria · 2026</p>
     </footer>
 
-    <!-- ─── EMAILJS ─── -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
     </script>
 
     <script>
-        // ─── LANGUAGE TOGGLE ───
         let currentLang = 'en';
 
         function switchCV(lang) {
@@ -1856,7 +1718,6 @@
             }
         }
 
-        // ─── SCROLL REVEAL ───
         const obs = new IntersectionObserver(entries => {
             entries.forEach(e => {
                 if (e.isIntersecting) e.target.classList.add('visible');
@@ -1864,7 +1725,6 @@
         }, { threshold: 0.08 });
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        // ─── HAMBURGER ───
         const toggle = document.getElementById('navToggle');
         const menu = document.getElementById('mobileMenu');
 
@@ -1884,7 +1744,6 @@
             }
         });
 
-        // ─── RESUME MODAL ───
         const modal = document.getElementById('resumeModal');
         const openBtns = document.querySelectorAll('#openResume, #openResumeMobile');
         const closeBtns = document.querySelectorAll('#closeResume, #closeResumeBtn');
@@ -1910,7 +1769,6 @@
             if (e.key === 'Escape' && modal.classList.contains('open')) closeResumeModal();
         });
 
-        // ─── EMAILJS ───
         (function() {
             emailjs.init("hOJsM2D_7RxYjFDEv");
         })();
