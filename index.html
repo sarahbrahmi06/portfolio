@@ -411,19 +411,17 @@
             animation: rise .6s .1s forwards;
         }
         .avatar-img {
-            width: clamp(120px, 25vw, 180px);
-            height: clamp(120px, 25vw, 180px);
+            width: clamp(140px, 28vw, 200px);
+            height: clamp(140px, 28vw, 200px);
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid transparent;
-            background: linear-gradient(135deg, var(--violet), var(--pink)) padding-box,
-                linear-gradient(135deg, var(--violet), var(--pink)) border-box;
-            box-shadow: var(--glow-v);
+            border: 2px solid #db0073;
+            box-shadow: 0 0 30px rgba(219, 0, 115, 0.4);
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .avatar-img:hover {
             transform: scale(1.05);
-            box-shadow: var(--glow-p);
+            box-shadow: 0 0 50px rgba(219, 0, 115, 0.7);
         }
 
         /* ── ABOUT ── */
@@ -1655,7 +1653,6 @@
                     <p class="proj-stack">Python · BERT · UNET · EfficientNet-B3 · OpenCV</p>
                     <div class="proj-links">
                         <a href="ai-projects.html" class="pl pl-demo">Read More</a>
-    
                     </div>
                 </div>
             </div>
