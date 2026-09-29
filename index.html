@@ -1453,79 +1453,79 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
     </script>
 
-    <script>
-        let currentLang = 'en';
+   <script>
+    let currentLang = 'en';
 
-        function switchCV(lang) {
-            currentLang = lang;
-            document.getElementById('modal-lang-en').classList.toggle('active', lang === 'en');
-            document.getElementById('modal-lang-fr').classList.toggle('active', lang === 'fr');
+    function switchCV(lang) {
+        currentLang = lang;
+        document.getElementById('modal-lang-en').classList.toggle('active', lang === 'en');
+        document.getElementById('modal-lang-fr').classList.toggle('active', lang === 'fr');
 
-            const iframe = document.querySelector('#resumeModal iframe');
-            if (iframe) iframe.src = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
+        const iframe = document.querySelector('#resumeModal iframe');
+        if (iframe) iframe.src = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
 
-            const downloadLink = document.getElementById('downloadCVBtn');
-            if (downloadLink) {
-                downloadLink.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
-                downloadLink.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
-            }
+        const downloadLink = document.getElementById('downloadCVBtn');
+        if (downloadLink) {
+            downloadLink.href = lang === 'fr' ? 'CV_frnc.pdf' : 'CV.pdf';
+            downloadLink.textContent = lang === 'fr' ? 'Télécharger CV' : 'Download CV';
         }
+    }
 
-        const obs = new IntersectionObserver(entries => {
-            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-        }, { threshold: 0.08 });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-        const toggle = document.getElementById('navToggle');
-        const menu = document.getElementById('mobileMenu');
-        toggle.addEventListener('click', () => {
-            toggle.classList.toggle('open');
-            menu.classList.toggle('open');
+    const toggle = document.getElementById('navToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+        toggle.classList.toggle('open');
+        menu.classList.toggle('open');
+    });
+    function closeMobile() {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+    }
+    document.addEventListener('click', e => {
+        if (menu.classList.contains('open') && !menu.contains(e.target) && !toggle.contains(e.target)) closeMobile();
+    });
+
+    const modal = document.getElementById('resumeModal');
+    const openBtns = document.querySelectorAll('#openResume, #openResumeMobile');
+    const closeBtns = document.querySelectorAll('#closeResume, #closeResumeBtn');
+    function openResumeModal() { modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeResumeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    openBtns.forEach(btn => btn.addEventListener('click', openResumeModal));
+    closeBtns.forEach(btn => btn.addEventListener('click', closeResumeModal));
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeResumeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeResumeModal(); });
+
+    (function() { emailjs.init("hOJsM2D_7RxYjFDEv"); })();
+
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = this.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        btn.textContent = 'Sending...';
+        btn.disabled = true;
+
+        emailjs.send('service_vudzz6p', 'template_7lut34x', {
+            from_name: document.getElementById('user_name').value,
+            from_email: document.getElementById('user_email').value,
+            message: document.getElementById('user_message').value,
+            time: new Date().toLocaleString()
+        }).then(() => {
+            alert('✅ Message sent successfully! I\'ll get back to you soon.');
+            this.reset();
+            btn.textContent = originalText;
+            btn.disabled = false;
+        }).catch((error) => {
+            console.error('EmailJS error:', error);
+            alert('❌ Failed to send message. Please try again or email me directly.');
+            btn.textContent = originalText;
+            btn.disabled = false;
         });
-        function closeMobile() {
-            toggle.classList.remove('open');
-            menu.classList.remove('open');
-        }
-        document.addEventListener('click', e => {
-            if (menu.classList.contains('open') && !menu.contains(e.target) && !toggle.contains(e.target)) closeMobile();
-        });
-
-        const modal = document.getElementById('resumeModal');
-        const openBtns = document.querySelectorAll('#openResume, #openResumeMobile');
-        const closeBtns = document.querySelectorAll('#closeResume, #closeResumeBtn');
-        function openResumeModal() { modal.classList.add('open'); document.body.style.overflow = 'hidden'; }
-        function closeResumeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
-        openBtns.forEach(btn => btn.addEventListener('click', openResumeModal));
-        closeBtns.forEach(btn => btn.addEventListener('click', closeResumeModal));
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeResumeModal(); });
-        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeResumeModal(); });
-
-        (function() { emailjs.init("hOJsM2D_7RxYjFDEv"); })();
-
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = this.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-            btn.textContent = 'Sending...';
-            btn.disabled = true;
-
-            emailjs.send('service_vudzz6p', 'template_7lut34x', {
-                name: document.getElementById('user_name').value,
-                email: document.getElementById('user_email').value,
-                message: document.getElementById('user_message').value,
-                time: new Date().toLocaleString()
-            }).then(() => {
-                alert('✅ Message sent successfully! I\'ll get back to you soon.');
-                this.reset();
-                btn.textContent = originalText;
-                btn.disabled = false;
-            }).catch((error) => {
-                console.error('EmailJS error:', error);
-                alert('❌ Failed to send message. Please try again or email me directly.');
-                btn.textContent = originalText;
-                btn.disabled = false;
-            });
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
