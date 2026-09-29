@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Brahmi Sarah Kaouther: Portfolio</title>
+    <title>Brahmi Sarah Kaouther: Cybersecurity Portfolio</title>
     <meta name="description" content="Cybersecurity engineering student specializing in AI security, threat intelligence, and malware analysis. Research portfolio covering security telemetry, automated threat detection, and adversarial attack-defense simulation." />
     <meta name="author" content="Brahmi Sarah Kaouther" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Brahmi Sarah Kaouther — Cybersecurity Portfolio" />
+    <meta property="og:title" content="Brahmi Sarah Kaouther, Cybersecurity Portfolio" />
     <meta property="og:description" content="Cybersecurity engineering student specializing in AI security, threat intelligence, and malware analysis." />
     <meta property="og:image" content="my-photo.png" />
 
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Brahmi Sarah Kaouther — Cybersecurity Portfolio" />
+    <meta name="twitter:title" content="Brahmi Sarah Kaouther, Cybersecurity Portfolio" />
     <meta name="twitter:description" content="Cybersecurity engineering student specializing in AI security, threat intelligence, and malware analysis." />
 
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -79,11 +79,11 @@
             letter-spacing: .15em; white-space: nowrap; flex-shrink: 0;
         }
         .nav-links {
-            display: flex; gap: 2rem; list-style: none;
+            display: flex; gap: 1.8rem; list-style: none;
             flex-wrap: wrap; justify-content: center;
         }
         .nav-links a {
-            font-family: 'Space Mono', monospace; font-size: .7rem;
+            font-family: 'Space Mono', monospace; font-size: .68rem;
             color: var(--muted); text-decoration: none;
             letter-spacing: .1em; text-transform: uppercase; transition: color .2s;
             white-space: nowrap;
@@ -140,6 +140,7 @@
             padding: .7rem 1.2rem; color: #ffffff !important;
         }
 
+        /* ── HERO ── */
         .hero {
             min-height: 100vh;
             display: flex; flex-direction: column;
@@ -208,8 +209,51 @@
             opacity: 0; animation: rise .6s .95s forwards;
         }
 
+        /* ── QUICK LINKS (beside name) ── */
+        .hero-quicklinks {
+            display: flex;
+            gap: .8rem;
+            margin-top: 1.4rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0; animation: rise .6s .98s forwards;
+        }
+        .quicklink {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .45rem 1rem;
+            border-radius: 3px;
+            text-decoration: none;
+            transition: transform .15s, box-shadow .2s, border-color .2s;
+            border: 1px solid var(--border);
+            color: var(--lavender);
+            background: rgba(155, 48, 255, 0.06);
+        }
+        .quicklink:hover {
+            transform: translateY(-2px);
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 16px rgba(255, 45, 155, 0.25);
+        }
+        .quicklink.primary {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 0 16px rgba(155, 48, 255, .4);
+        }
+        .quicklink.primary:hover {
+            box-shadow: 0 0 28px rgba(255, 45, 155, .6);
+            color: #fff;
+        }
+
         .hero-cta {
-            display: flex; gap: 1rem; margin-top: 2.6rem;
+            display: flex; gap: 1rem; margin-top: 2rem;
             flex-wrap: wrap; justify-content: center;
             opacity: 0; animation: rise .6s 1s forwards;
         }
@@ -262,6 +306,7 @@
         }
         .avatar-img:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(219, 0, 115, 0.7); }
 
+        /* ── ABOUT ── */
         .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
         .about-body p { color:var(--muted); line-height:1.85; margin-bottom:1rem; font-size:.95rem; }
         .about-body p b { color:var(--lavender); }
@@ -273,6 +318,7 @@
             color:var(--lavender);
         }
 
+        /* ── TERMINAL ── */
         .terminal {
             background:var(--bg2); border:1px solid var(--border);
             border-radius:6px; overflow:hidden;
@@ -298,7 +344,8 @@
         .tc-dim    { color:var(--muted); }
         .tc-green  { color:#2eff8f; }
 
-        .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:1.2rem; }
+        /* ── SKILLS (organized, deliberate) ── */
+        .skills-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:1.2rem; }
         .skill-card {
             background:var(--bg2); border:1px solid var(--border); border-radius:6px;
             padding:1.4rem; position:relative; overflow:hidden;
@@ -323,6 +370,7 @@
         }
         .skill-card:hover .tag { background:rgba(255,45,155,.08); border-color:rgba(255,45,155,.3); color:var(--rose); }
 
+        /* ── RESEARCH INTERESTS ── */
         .research-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -354,6 +402,232 @@
             color: var(--muted);
             line-height: 1.7;
         }
+
+        /* ── RESEARCH QUESTIONS ── */
+        .questions-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1rem;
+        }
+        .question-item {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 1.3rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: border-color .2s, box-shadow .2s, transform .2s;
+        }
+        .question-item:hover {
+            border-color: var(--pink);
+            box-shadow: var(--glow-p);
+            transform: translateY(-2px);
+        }
+        .q-mark {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .q-text {
+            font-size: .88rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        /* ── FLAGSHIP PROJECT ── */
+        .flagship {
+            background: var(--bg2);
+            border: 2px solid var(--violet);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--glow-v);
+            margin-bottom: 2.5rem;
+            transition: border-color .3s, box-shadow .3s;
+        }
+        .flagship:hover {
+            border-color: var(--pink);
+            box-shadow: var(--glow-p);
+        }
+        .flagship-banner {
+            background: linear-gradient(135deg, var(--violet), var(--pink));
+            padding: 1rem 1.6rem;
+            font-family: 'Orbitron', monospace;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .15em;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, .3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: .8rem;
+        }
+        .flagship-banner .fb-star { color: #fff; letter-spacing: .05em; }
+        .flagship-banner .fb-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: .58rem;
+            letter-spacing: .1em;
+            border: 1px solid #fff;
+            padding: .2rem .6rem;
+            border-radius: 2px;
+        }
+        .flagship-content { padding: 2rem 2rem 2.2rem; }
+        .flagship-content h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.45rem;
+            color: var(--lavender);
+            margin-bottom: .6rem;
+            line-height: 1.25;
+        }
+        .flagship-content .flagship-sub {
+            font-family: 'Space Mono', monospace;
+            font-size: .72rem;
+            color: var(--pink);
+            letter-spacing: .05em;
+            margin-bottom: 1.3rem;
+            line-height: 1.7;
+        }
+        .flagship-content p {
+            color: var(--muted);
+            line-height: 1.85;
+            margin-bottom: 1.2rem;
+            font-size: .95rem;
+        }
+        .flagship-content strong { color: var(--lavender); }
+        .flagship-results {
+            background: rgba(155, 48, 255, .06);
+            border-left: 3px solid var(--rose);
+            padding: .8rem 1.2rem;
+            border-radius: 0 4px 4px 0;
+            margin: 1.2rem 0 1.5rem;
+            font-size: .85rem;
+            color: var(--text);
+            line-height: 1.75;
+        }
+        .flagship-results strong { color: var(--rose); }
+        .flagship-features {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-bottom: 1.5rem;
+            padding: 0;
+        }
+        .flagship-features li {
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--lavender);
+            padding: .3rem .8rem;
+            background: rgba(155, 48, 255, .1);
+            border: 1px solid rgba(155, 48, 255, .25);
+            border-radius: 20px;
+        }
+        .flagship-contribution {
+            background: var(--bg3);
+            border-radius: 6px;
+            padding: 1rem 1.3rem;
+            margin-bottom: 1.5rem;
+            font-size: .82rem;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+        .flagship-contribution strong { color: var(--pink); }
+        .flagship-links { display: flex; gap: .7rem; flex-wrap: wrap; }
+
+        /* ── PROJECTS ── */
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.5rem; }
+        .proj {
+            background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+            overflow:hidden; display:flex; flex-direction:column;
+            transition:transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .proj:hover { transform:translateY(-5px); box-shadow:0 10px 40px rgba(255,45,155,.22); border-color:var(--pink); }
+        .proj-header {
+            height:80px; display:flex; align-items:center; justify-content:space-between;
+            padding:1rem 1.4rem; position:relative; overflow:hidden; gap:.8rem;
+        }
+        .ph-c1 { background:linear-gradient(135deg,#1a0833,#2d1060); }
+        .ph-c2 { background:linear-gradient(135deg,#2d0820,#1a0833); }
+        .ph-c3 { background:linear-gradient(135deg,#0e0525,#2d1060); }
+        .ph-c4 { background:linear-gradient(135deg,#200828,#0e0525); }
+        .ph-c5 { background:linear-gradient(135deg,#12032e,#1a0820); }
+        .ph-c6 { background:linear-gradient(135deg,#1a0333,#2a0b1e); }
+        .ph-c7 { background:linear-gradient(135deg,#0d0420,#1a1040); }
+        .proj-header::after {
+            content:''; position:absolute; inset:0;
+            background:linear-gradient(135deg,rgba(155,48,255,.12),rgba(255,45,155,.1));
+        }
+        .proj-label {
+            font-family:'Orbitron',monospace; font-size:.78rem; font-weight:700;
+            color:var(--lavender); position:relative; z-index:1; letter-spacing:.03em;
+            white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+        }
+        .proj-featured {
+            font-family:'Space Mono',monospace; font-size:.55rem;
+            color:var(--pink); letter-spacing:.1em; text-transform:uppercase;
+            border:1px solid var(--pink); border-radius:2px; padding:.2rem .5rem;
+            position:relative; z-index:1; white-space:nowrap; flex-shrink:0;
+        }
+        .proj-body { padding:1.2rem 1.4rem; flex:1; display:flex; flex-direction:column; }
+        .proj-desc { font-size:.85rem; color:var(--muted); flex:1; line-height:1.7; margin-bottom:.8rem; }
+        .proj-results {
+            background: rgba(155, 48, 255, .05);
+            border-left: 2px solid var(--violet);
+            padding: .55rem .9rem;
+            border-radius: 0 3px 3px 0;
+            font-size: .78rem;
+            color: var(--text);
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+        .proj-results strong { color: var(--rose); }
+        .proj-contribution {
+            font-size: .76rem;
+            color: var(--muted);
+            line-height: 1.6;
+            padding: .6rem .9rem;
+            background: rgba(255, 45, 155, .05);
+            border-left: 2px solid var(--pink);
+            border-radius: 0 3px 3px 0;
+            margin-bottom: 1rem;
+        }
+        .proj-contribution strong { color: var(--pink); font-family: 'Space Mono', monospace; font-size: .68rem; letter-spacing: .05em; text-transform: uppercase; }
+        .proj-stack { font-family:'Space Mono',monospace; font-size:.63rem; color:var(--violet); margin-bottom:1.1rem; line-height:1.6; }
+        .proj-links { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:.5rem; }
+        .pl {
+            font-family:'Space Mono',monospace; font-size:.68rem;
+            padding:.42rem 1rem; border-radius:3px; text-decoration:none;
+            letter-spacing:.06em; transition:transform .15s, box-shadow .2s;
+        }
+        .pl:hover { transform:translateY(-1px); }
+        .pl-gh { background:transparent; border:1px solid var(--violet); color:var(--lavender); }
+        .pl-gh:hover { border-color:var(--lavender); box-shadow:0 0 12px rgba(155,48,255,.35); }
+        .pl-demo { background:linear-gradient(135deg,var(--violet),var(--pink)); color:#fff; border:none; }
+        .pl-demo:hover { box-shadow:0 0 18px rgba(255,45,155,.5); }
+
+        /* ── WRITEUPS ── */
+        .writeups-intro { color:var(--muted); line-height:1.8; margin-bottom:2rem; font-size:.95rem; max-width:700px; }
+        .writeups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.2rem; }
+        .writeup-card {
+            background:var(--bg2); border:1px solid var(--border); border-radius:6px;
+            padding:1.3rem 1.4rem; text-decoration:none; display:block;
+            transition:transform .2s, box-shadow .2s, border-color .2s;
+        }
+        .writeup-card:hover { transform:translateY(-4px); box-shadow:var(--glow-p); border-color:var(--pink); }
+        .wu-cat {
+            font-family:'Space Mono',monospace; font-size:.6rem;
+            color:var(--pink); letter-spacing:.15em; text-transform:uppercase; margin-bottom:.6rem;
+        }
+        .wu-title { font-family:'Orbitron',monospace; font-size:.88rem; color:var(--lavender); margin-bottom:.5rem; line-height:1.35; }
+        .wu-desc { font-size:.8rem; color:var(--muted); line-height:1.6; }
+        .writeups-cta { margin-top:2rem; }
 
         /* ── RESEARCH NOTES ── */
         .notes-intro {
@@ -422,6 +696,24 @@
             color: var(--muted);
             line-height: 1.65;
         }
+        .note-structure {
+            list-style: none;
+            padding: 0;
+            margin: .8rem 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .35rem;
+        }
+        .note-structure li {
+            font-family: 'Space Mono', monospace;
+            font-size: .58rem;
+            color: var(--muted);
+            padding: .15rem .5rem;
+            background: rgba(155, 48, 255, .05);
+            border: 1px solid rgba(155, 48, 255, .15);
+            border-radius: 2px;
+            letter-spacing: .05em;
+        }
         .note-meta {
             font-family: 'Space Mono', monospace;
             font-size: .6rem;
@@ -441,70 +733,7 @@
         .note-card:hover .note-meta .read-link { color: var(--pink); }
         .notes-cta { margin-top: 2rem; }
 
-        .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1.5rem; }
-        .proj {
-            background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-            overflow:hidden; display:flex; flex-direction:column;
-            transition:transform .2s, box-shadow .2s, border-color .2s;
-        }
-        .proj:hover { transform:translateY(-5px); box-shadow:0 10px 40px rgba(255,45,155,.22); border-color:var(--pink); }
-        .proj-header {
-            height:80px; display:flex; align-items:center; justify-content:space-between;
-            padding:1rem 1.4rem; position:relative; overflow:hidden; gap:.8rem;
-        }
-        .ph-c1 { background:linear-gradient(135deg,#1a0833,#2d1060); }
-        .ph-c2 { background:linear-gradient(135deg,#2d0820,#1a0833); }
-        .ph-c3 { background:linear-gradient(135deg,#0e0525,#2d1060); }
-        .ph-c4 { background:linear-gradient(135deg,#200828,#0e0525); }
-        .ph-c5 { background:linear-gradient(135deg,#12032e,#1a0820); }
-        .ph-c6 { background:linear-gradient(135deg,#1a0333,#2a0b1e); }
-        .ph-c7 { background:linear-gradient(135deg,#0d0420,#1a1040); }
-        .proj-header::after {
-            content:''; position:absolute; inset:0;
-            background:linear-gradient(135deg,rgba(155,48,255,.12),rgba(255,45,155,.1));
-        }
-        .proj-label {
-            font-family:'Orbitron',monospace; font-size:.78rem; font-weight:700;
-            color:var(--lavender); position:relative; z-index:1; letter-spacing:.03em;
-            white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
-        }
-        .proj-featured {
-            font-family:'Space Mono',monospace; font-size:.55rem;
-            color:var(--pink); letter-spacing:.1em; text-transform:uppercase;
-            border:1px solid var(--pink); border-radius:2px; padding:.2rem .5rem;
-            position:relative; z-index:1; white-space:nowrap; flex-shrink:0;
-        }
-        .proj-body { padding:1.2rem 1.4rem; flex:1; display:flex; flex-direction:column; }
-        .proj-desc { font-size:.85rem; color:var(--muted); flex:1; line-height:1.7; margin-bottom:1rem; }
-        .proj-stack { font-family:'Space Mono',monospace; font-size:.63rem; color:var(--violet); margin-bottom:1.1rem; line-height:1.6; }
-        .proj-links { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:.5rem; }
-        .pl {
-            font-family:'Space Mono',monospace; font-size:.68rem;
-            padding:.42rem 1rem; border-radius:3px; text-decoration:none;
-            letter-spacing:.06em; transition:transform .15s, box-shadow .2s;
-        }
-        .pl:hover { transform:translateY(-1px); }
-        .pl-gh { background:transparent; border:1px solid var(--violet); color:var(--lavender); }
-        .pl-gh:hover { border-color:var(--lavender); box-shadow:0 0 12px rgba(155,48,255,.35); }
-        .pl-demo { background:linear-gradient(135deg,var(--violet),var(--pink)); color:#fff; border:none; }
-        .pl-demo:hover { box-shadow:0 0 18px rgba(255,45,155,.5); }
-
-        .writeups-intro { color:var(--muted); line-height:1.8; margin-bottom:2rem; font-size:.95rem; max-width:700px; }
-        .writeups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1.2rem; }
-        .writeup-card {
-            background:var(--bg2); border:1px solid var(--border); border-radius:6px;
-            padding:1.3rem 1.4rem; text-decoration:none; display:block;
-            transition:transform .2s, box-shadow .2s, border-color .2s;
-        }
-        .writeup-card:hover { transform:translateY(-4px); box-shadow:var(--glow-p); border-color:var(--pink); }
-        .wu-cat {
-            font-family:'Space Mono',monospace; font-size:.6rem;
-            color:var(--pink); letter-spacing:.15em; text-transform:uppercase; margin-bottom:.6rem;
-        }
-        .wu-title { font-family:'Orbitron',monospace; font-size:.88rem; color:var(--lavender); margin-bottom:.5rem; line-height:1.35; }
-        .wu-desc { font-size:.8rem; color:var(--muted); line-height:1.6; }
-        .writeups-cta { margin-top:2rem; }
-
+        /* ── CERTIFICATES ── */
         .hackathons-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; margin-top:1rem; }
         .hack-card {
             background:var(--bg2); border:1px solid var(--border); border-radius:6px;
@@ -523,6 +752,7 @@
         }
         .cert-link:hover { border-color:var(--pink); color:var(--pink); background:rgba(255,45,155,.05); }
 
+        /* ── EXPERIENCE ── */
         .internships-grid { display:grid; grid-template-columns:1fr; gap:1.2rem; }
         .intern-card {
             background:var(--bg2); border:1px solid var(--border); border-radius:6px;
@@ -531,6 +761,7 @@
         }
         .intern-card:hover { border-color:var(--pink); box-shadow:var(--glow-p); }
 
+        /* ── CONTACT ── */
         .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; }
         .contact-intro p { color:var(--muted); line-height:1.8; margin-bottom:1.5rem; font-size:.95rem; }
         .socials { display:flex; flex-direction:column; gap:.6rem; }
@@ -565,6 +796,7 @@
         .f-input:focus, .f-textarea:focus { border-color:var(--violet); box-shadow:0 0 14px rgba(155,48,255,.22); }
         .f-textarea { resize:vertical; min-height:120px; }
 
+        /* ── MODAL ── */
         .modal {
             display:none; position:fixed; top:0; left:0; width:100%; height:100%;
             background:rgba(9,6,15,0.95); z-index:1000; justify-content:center; align-items:center;
@@ -614,7 +846,7 @@
         @media (max-width: 900px) {
             nav { padding:.8rem 1.5rem; }
             .nav-links { gap:1rem; }
-            .nav-links a { font-size:.62rem; }
+            .nav-links a { font-size:.6rem; }
             .about-grid { grid-template-columns:1fr; gap:2rem; }
             .contact-grid { grid-template-columns:1fr; gap:2rem; }
             .section-wrap { padding:4rem 1.5rem; }
@@ -635,6 +867,7 @@
             .notes-grid { grid-template-columns:1fr; }
             .hackathons-grid { grid-template-columns:1fr; }
             .research-grid { grid-template-columns:1fr; }
+            .questions-list { grid-template-columns:1fr; }
             .about-grid { grid-template-columns:1fr; gap:1.8rem; }
             .contact-grid { grid-template-columns:1fr; gap:1.8rem; }
             .hero-cta { gap:.75rem; }
@@ -649,6 +882,8 @@
             .modal-content { padding:.8rem; margin:.5rem; }
             .modal-content iframe { height:40vh; }
             .modal-lang-toggle { justify-content:center; }
+            .flagship-content { padding:1.5rem; }
+            .flagship-content h3 { font-size:1.15rem; }
         }
 
         @media (max-width: 400px) {
@@ -663,12 +898,14 @@
             .hack-card { padding:1.2rem; }
             .research-card { padding:1.1rem 1.2rem; }
             .note-card { padding:1.2rem 1.3rem; }
+            .question-item { padding:1.1rem 1.2rem; }
         }
     </style>
 </head>
 <body>
     <div class="scanline"></div>
 
+    <!-- ─── NAV ─── -->
     <nav>
         <div class="nav-logo">SARAH.EXE</div>
         <ul class="nav-links">
@@ -676,7 +913,9 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#writeups">Writeups</a></li>
             <li><a href="#notes">Notes</a></li>
-            <li><a href="#internships">Experience</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#certificates">Certificates</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         <button id="openResume" class="nav-cta">View Resume</button>
@@ -690,11 +929,14 @@
         <a href="#projects" onclick="closeMobile()">Projects</a>
         <a href="#writeups" onclick="closeMobile()">Writeups</a>
         <a href="#notes" onclick="closeMobile()">Research Notes</a>
-        <a href="#internships" onclick="closeMobile()">Experience</a>
+        <a href="#experience" onclick="closeMobile()">Experience</a>
+        <a href="#skills" onclick="closeMobile()">Skills</a>
+        <a href="#certificates" onclick="closeMobile()">Certificates</a>
         <a href="#contact" onclick="closeMobile()">Contact</a>
         <button id="openResumeMobile" class="nav-cta" onclick="openResumeModal(); closeMobile();">View Resume</button>
     </div>
 
+    <!-- ─── RESUME MODAL ─── -->
     <div id="resumeModal" class="modal">
         <div class="modal-content">
             <button id="closeResume" class="modal-close">✕</button>
@@ -715,6 +957,7 @@
         </div>
     </div>
 
+    <!-- ─── HERO ─── -->
     <section class="hero">
         <div class="hero-glow"></div>
         <div class="hero-avatar">
@@ -735,6 +978,14 @@
         <p class="hero-location">
             Oran, Algeria · Open to PFE / Research Internships
         </p>
+
+        <!-- Quick links beside name -->
+        <div class="hero-quicklinks">
+            <a href="CV.pdf" download class="quicklink primary">CV</a>
+            <a href="https://github.com/sarahbrahmi06" target="_blank" rel="noopener" class="quicklink">GitHub</a>
+            <a href="https://www.linkedin.com/in/brahmi-sarah-kaouther-953409255" target="_blank" rel="noopener" class="quicklink">LinkedIn</a>
+        </div>
+
         <div class="hero-cta">
             <a class="btn btn-grad" href="#projects">View Research Projects</a>
             <a class="btn btn-ghost" href="#contact">Contact</a>
@@ -743,6 +994,7 @@
 
     <div class="hr"></div>
 
+    <!-- ─── ABOUT ─── -->
     <section class="section-wrap" id="about">
         <p class="section-label">who am i</p>
         <h2 class="section-title">About Me</h2>
@@ -783,6 +1035,7 @@
 
     <div class="hr"></div>
 
+    <!-- ─── RESEARCH INTERESTS ─── -->
     <section class="section-wrap" id="research">
         <p class="section-label">focus areas</p>
         <h2 class="section-title">Research Interests</h2>
@@ -804,22 +1057,103 @@
                 <p class="research-desc">Attack-defense simulation, adversarial ML, and autonomous cyber defense.</p>
             </div>
         </div>
+
+        <!-- ─── RESEARCH DIRECTIONS ─── -->
+        <h3 style="font-family:'Orbitron',monospace; font-size:1.15rem; color:var(--rose); margin:3.5rem 0 1.5rem; letter-spacing:.05em;">Research Directions</h3>
+        <div class="questions-list">
+            <div class="question-item reveal">
+                <span class="q-mark">?</span>
+                <p class="q-text">Can reinforcement learning improve autonomous cyber-defense decisions under realistic network constraints?</p>
+            </div>
+            <div class="question-item reveal">
+                <span class="q-mark">?</span>
+                <p class="q-text">How can endpoint and network telemetry be combined for automated malware behavior analysis?</p>
+            </div>
+            <div class="question-item reveal">
+                <span class="q-mark">?</span>
+                <p class="q-text">How can machine-learning systems incorporate analyst reasoning into malware detection?</p>
+            </div>
+            <div class="question-item reveal">
+                <span class="q-mark">?</span>
+                <p class="q-text">How can threat intelligence be automatically mapped to actionable defensive strategies?</p>
+            </div>
+        </div>
     </section>
 
     <div class="hr"></div>
 
+    <!-- ─── FLAGSHIP PROJECT: CYBER-ARENA ─── -->
     <section class="section-wrap" id="projects">
-        <p class="section-label">featured work</p>
-        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-label">flagship work</p>
+        <h2 class="section-title">Featured Project</h2>
+
+        <div class="flagship reveal">
+            <div class="flagship-banner">
+                <span class="fb-star">★ CYBER-ARENA</span>
+                <span class="fb-tag">FLAGSHIP</span>
+            </div>
+            <div class="flagship-content">
+                <h3>Adversarial Reinforcement Learning for Autonomous Cyber Defense</h3>
+                <p class="flagship-sub">
+                    18-node GNS3 enterprise network · DQN attack/defense agents · live telemetry · automated evaluation
+                </p>
+                <p>
+                    A Network Digital Twin enhanced with Adversarial Reinforcement Learning agents for autonomous
+                    cybersecurity simulation. The platform combines a virtual enterprise network emulated in GNS3, a
+                    real-time monitoring stack (<strong>Telegraf, InfluxDB, Grafana, NetBox</strong>), and two competing
+                    DQN agents, a red attacker and a blue defender, that learn attack and defense strategies across
+                    four kill-chain stages.
+                </p>
+                <ul class="flagship-features">
+                    <li>18-node enterprise network</li>
+                    <li>3-tier architecture · 5 VLANs · OSPF</li>
+                    <li>18 attack actions · 18 defense actions</li>
+                    <li>4-stage kill chain</li>
+                    <li>Prioritised experience replay</li>
+                    <li>Dockerized monitoring stack</li>
+                    <li>Ansible automation</li>
+                </ul>
+
+                <div class="flagship-results">
+                    <strong>Results:</strong> Evaluated attack/defense behavior across five scenario types and 300 training
+                    episodes. Measured detection time, recovery time, network availability, false-positive rate, and kill-chain
+                    progression. Confirmed 5 successful baseline manual attacks across a real 5-hop path from external Kali →
+                    ZeroTier → firewall → victim VM, establishing the baseline the RL defender must learn to prevent.
+                </div>
+
+                <div class="flagship-contribution">
+                    <strong>My contribution:</strong> Hosted the GNS3 server and full network topology on my machine (18 nodes,
+                    3-tier architecture, 5 VLANs, OSPF, firewall). Set up the ZeroTier virtual LAN connecting all five team
+                    machines and established the external attacker path. Contributed to the manual penetration testing
+                    phase and network topology verification.
+                </div>
+
+                <div class="flagship-links">
+                    <a href="cyber-arena.html" class="pl pl-demo">View Documentation →</a>
+                    <a href="reports/cyber-arena-report.pdf" class="pl pl-gh" target="_blank" rel="noopener">Technical Report</a>
+                    <a href="https://github.com/sarahbrahmi06/rl-cybersec" class="pl pl-gh" target="_blank" rel="noopener">Code</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ─── OTHER FEATURED PROJECTS ─── -->
+        <h3 style="font-family:'Orbitron',monospace; font-size:1.15rem; color:var(--rose); margin:3rem 0 1.5rem; letter-spacing:.05em;">Featured Projects</h3>
         <div class="projects-grid">
 
+            <!-- WormLocker -->
             <div class="proj reveal">
                 <div class="proj-header ph-c2">
                     <span class="proj-label">Reverse Engineering WormLocker 2.0</span>
-                    <span class="proj-featured">Featured</span>
+                    <span class="proj-featured">Team</span>
                 </div>
                 <div class="proj-body">
-                    <p class="proj-desc">Team project investigating ransomware behavior and its detection through endpoint and network telemetry. Combines malware analysis, security monitoring, and forensic investigation using Sysmon, Winlogbeat, Elasticsearch, Kibana, and network monitoring.</p>
+                    <p class="proj-desc">Team project investigating ransomware behavior and its detection through endpoint and network telemetry. Combines static and dynamic malware analysis, security monitoring, and forensic investigation.</p>
+                    <div class="proj-results">
+                        <strong>Results:</strong> Identified behavioral indicators through static/dynamic analysis and correlated endpoint telemetry with ransomware activity across the full attack lifecycle.
+                    </div>
+                    <div class="proj-contribution">
+                        <strong>My contribution:</strong> Dynamic analysis · Sysmon telemetry · ELK monitoring · forensic analysis · MITRE ATT&CK mapping
+                    </div>
                     <p class="proj-stack">Sysmon · Winlogbeat · ELK · Volatility · Autopsy · MITRE ATT&CK</p>
                     <div class="proj-links">
                         <a href="ransomware-simulation.html" class="pl pl-demo">Read More</a>
@@ -827,27 +1161,16 @@
                 </div>
             </div>
 
-            <div class="proj reveal">
-                <div class="proj-header ph-c1">
-                    <span class="proj-label">Cyber-Arena — Adversarial RL</span>
-                    <span class="proj-featured">Featured</span>
-                </div>
-                <div class="proj-body">
-                    <p class="proj-desc">Adversarial Reinforcement Learning for Cyber Attack-Defense Simulation. A GNS3-based experimental environment for studying autonomous attack and defense strategies across an 18-node enterprise network.</p>
-                    <p class="proj-stack">GNS3 · Deep Q-Network · Telegraf · InfluxDB · Grafana · Ansible</p>
-                    <div class="proj-links">
-                        <a href="cyber-arena.html" class="pl pl-demo">Read More</a>
-                        <a href="https://github.com/sarahbrahmi06/rl-cybersec" class="pl pl-gh" target="_blank">GitHub</a>
-                    </div>
-                </div>
-            </div>
-
+            <!-- Algérie Télécom -->
             <div class="proj reveal">
                 <div class="proj-header ph-c7">
                     <span class="proj-label">Algérie Télécom: Network &amp; Security</span>
                 </div>
                 <div class="proj-body">
-                    <p class="proj-desc">Network engineering internship at Algérie Télécom's Complexe Haddadin. Focused on backbone infrastructure (MPLS, BGP), CGNAT operations, IPv6 transition strategies, and Huawei OM network monitoring.</p>
+                    <p class="proj-desc">Network engineering internship at Algérie Télécom's Complexe Haddadin. Focused on backbone infrastructure, CGNAT operations, IPv6 transition strategies, and Huawei OM network monitoring.</p>
+                    <div class="proj-results">
+                        <strong>Results:</strong> Documented the live backbone topology (MPLS/BGP, P and PE routers) and analyzed CGNAT security trade-offs and IPv6 transition strategy for Algeria's national operator.
+                    </div>
                     <p class="proj-stack">MPLS · BGP · CGNAT · IPv6 · Huawei OM · Fortinet</p>
                     <div class="proj-links">
                         <a href="internship.html" class="pl pl-demo">Read More</a>
@@ -857,28 +1180,37 @@
 
         </div>
 
-        <h3 style="font-family:'Orbitron',monospace; font-size:1.1rem; color:var(--rose); margin:3rem 0 1.5rem; letter-spacing:.05em;">Other Projects</h3>
+        <!-- ─── OTHER PROJECTS ─── -->
+        <h3 style="font-family:'Orbitron',monospace; font-size:1.15rem; color:var(--rose); margin:3rem 0 1.5rem; letter-spacing:.05em;">Other Projects</h3>
         <div class="projects-grid">
 
+            <!-- LTE-2G -->
             <div class="proj reveal">
                 <div class="proj-header ph-c5">
                     <span class="proj-label">LTE-2G Downgrade Attack</span>
                 </div>
                 <div class="proj-body">
-                    <p class="proj-desc">Educational simulation of an LTE to 2G downgrade attack demonstrating IMSI catcher vulnerabilities and SS7 protocol weaknesses for security research.</p>
-                    <p class="proj-stack">Network Security · Protocol Analysis · Python</p>
+                    <p class="proj-desc">Educational software simulation of an LTE-to-2G downgrade attack, modeling IMSI exposure and legacy-network security weaknesses. Implemented as a Python event-driven simulator with attacker dashboard and victim phone mockup.</p>
+                    <div class="proj-results">
+                        <strong>Results:</strong> Reproduced the full downgrade + IMSI capture + A5/1 cipher-crack chain in a two-window GUI, demonstrating the security gap between mutual authentication (LTE) and one-way authentication (2G).
+                    </div>
+                    <p class="proj-stack">Network Security · Protocol Analysis · Python · Tkinter</p>
                     <div class="proj-links">
                         <a href="lte-downgrade.html" class="pl pl-demo">Read More</a>
                     </div>
                 </div>
             </div>
 
+            <!-- Pink Diary -->
             <div class="proj reveal">
                 <div class="proj-header ph-c4">
                     <span class="proj-label">Pink Diary</span>
                 </div>
                 <div class="proj-body">
                     <p class="proj-desc">A beautifully designed personal journal app with end-to-end encryption, rich media entries, and a polished UI: built with React, Vite, and Tailwind CSS.</p>
+                    <div class="proj-results">
+                        <strong>Results:</strong> Production-ready journal app implementing password-based client-side encryption, mood tracking, entry templates, statistics dashboard, and export functionality.
+                    </div>
                     <p class="proj-stack">React.js · Vite · Tailwind CSS · Encryption</p>
                     <div class="proj-links">
                         <a href="pink-diary.html" class="pl pl-demo">Read More</a>
@@ -887,12 +1219,16 @@
                 </div>
             </div>
 
+            <!-- Serverless -->
             <div class="proj reveal">
                 <div class="proj-header ph-c3">
                     <span class="proj-label">Serverless Simulator</span>
                 </div>
                 <div class="proj-body">
-                    <p class="proj-desc">Custom Python FaaS runtime with HTTP, SQS, and cron triggers, cold start simulation (350ms), warm container pooling, and full telemetry aggregation.</p>
+                    <p class="proj-desc">Custom Python FaaS runtime with HTTP, SQS, and cron triggers, cold start simulation, warm container pooling, and full telemetry aggregation.</p>
+                    <div class="proj-results">
+                        <strong>Results:</strong> Measured cold start overhead of 350ms vs. 0ms on warm invocations (≈1,000× improvement). Captured p50 latency (161.73ms), memory peak (45.71 MB), and 50% cold start rate across the test run.
+                    </div>
                     <p class="proj-stack">Python · FastAPI · LocalStack · JSON logging</p>
                     <div class="proj-links">
                         <a href="serverless-simulator.html" class="pl pl-demo">Read More</a>
@@ -906,6 +1242,7 @@
 
     <div class="hr"></div>
 
+    <!-- ─── CTF WRITEUPS ─── -->
     <section class="section-wrap" id="writeups">
         <p class="section-label">ctf &amp; research</p>
         <h2 class="section-title">CTF &amp; Security Research</h2>
@@ -938,8 +1275,8 @@
         <p class="section-label">paper reviews &amp; insights</p>
         <h2 class="section-title">Research Notes</h2>
         <p class="notes-intro">
-            Summaries and reflections on research papers I've read at the intersection of AI, security, and human factors.
-            Each note covers the paper's core contributions, my key takeaways, and how it shapes my research direction.
+            For each paper I read, I document the paper's contribution, my own analysis, the limitations I identified,
+            and how it connects to my research direction. These are not summaries, they are working notes from my research process.
         </p>
         <div class="notes-grid">
 
@@ -947,61 +1284,102 @@
                 <span class="note-tag">AI for Cybersecurity</span>
                 <div class="note-title">Humans vs. Machines in Malware Classification</div>
                 <div class="note-paper">Aonzo et al. · USENIX Security 2023 · EURECOM / INRIA</div>
-                <div class="note-desc">An empirical study placing 110 human analysts and two ML models side-by-side in a controlled malware classification task. Reveals that humans and machines extract fundamentally different information from the same data.</div>
+                <div class="note-desc">110 human analysts vs. two ML models in a controlled malware classification game. Humans and machines extract fundamentally different information from the same data.</div>
+                <ul class="note-structure">
+                    <li>Paper Contribution</li>
+                    <li>My Analysis</li>
+                    <li>Limitations</li>
+                    <li>Connection to My Work</li>
+                </ul>
                 <div class="note-meta">
                     <span>Human-AI Teaming · XAI · ML Detection</span>
                     <span class="read-link">Read Note →</span>
                 </div>
             </a>
 
-            
+            <div class="note-card" style="opacity:0.6; pointer-events:none; border-style:dashed;">
+                <span class="note-tag">Coming Soon</span>
+                <div class="note-title">More research notes in progress</div>
+                <div class="note-paper">Papers on adversarial ML, threat intelligence automation, and explainable AI</div>
+                <div class="note-desc">Additional paper notes being added as I continue reading, each structured around contribution, analysis, limitations, and connection to my research.</div>
+                <div class="note-meta">
+                    <span>—</span>
+                    <span>—</span>
+                </div>
+            </div>
 
         </div>
-      
+        <div class="notes-cta">
+            <a href="https://github.com/sarahbrahmi06" class="pl pl-gh" target="_blank">Follow my reading on GitHub →</a>
+        </div>
     </section>
 
     <div class="hr"></div>
 
+    <!-- ─── EXPERIENCE ─── -->
+    <section class="section-wrap" id="experience">
+        <p class="section-label">experience</p>
+        <h2 class="section-title">Experience</h2>
+        <div class="internships-grid">
+            <div class="intern-card reveal">
+                <p class="edu-degree">Network &amp; Security Intern</p>
+                <p class="edu-school">Algérie Télécom: Complexe Haddadin, Oran</p>
+                <p class="edu-meta">September 2025 · 3 weeks</p>
+                <div style="margin-top:0.8rem; font-size:.85rem; color:var(--muted); line-height:1.6;">
+                    <p>Explored backbone infrastructure (MPLS, BGP), CGNAT operations, IPv6 transition strategies, and Huawei OM network monitoring. Gained hands-on exposure to carrier-grade network security and critical infrastructure protection.</p>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="internship.html" style="display: inline-block; padding: 0.5rem 1.5rem; background: linear-gradient(135deg, #9b30ff, #ff2d9b); color: #ffffff; border-radius: 4px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 0 22px rgba(155, 48, 255, 0.45);">Read Full Report →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="hr"></div>
+
+    <!-- ─── SKILLS (organized, deliberate) ─── -->
     <section class="section-wrap" id="skills">
         <p class="section-label">capabilities</p>
         <h2 class="section-title">Skills &amp; Tools</h2>
         <div class="skills-grid">
             <div class="skill-card reveal">
-                <p class="sk-cat">Cybersecurity</p>
+                <p class="sk-cat">Security</p>
                 <div class="tags">
                     <span class="tag">Malware Analysis</span><span class="tag">Digital Forensics</span>
                     <span class="tag">Network Security</span><span class="tag">Threat Intelligence</span>
+                    <span class="tag">Detection Engineering</span>
                 </div>
             </div>
             <div class="skill-card reveal">
-                <p class="sk-cat">Security Tools</p>
+                <p class="sk-cat">AI Security</p>
                 <div class="tags">
-                    <span class="tag">Wireshark</span><span class="tag">Nmap</span><span class="tag">Suricata</span>
-                    <span class="tag">Sysmon</span><span class="tag">Winlogbeat</span><span class="tag">ELK</span><span class="tag">GNS3</span>
+                    <span class="tag">PyTorch</span><span class="tag">Deep Learning</span>
+                    <span class="tag">Reinforcement Learning</span><span class="tag">NLP</span>
                 </div>
             </div>
             <div class="skill-card reveal">
-                <p class="sk-cat">AI / ML</p>
+                <p class="sk-cat">Systems</p>
                 <div class="tags">
-                    <span class="tag">Python</span><span class="tag">PyTorch</span><span class="tag">BERT</span>
-                    <span class="tag">NLP</span><span class="tag">Deep Learning</span><span class="tag">Reinforcement Learning</span>
-                    <span class="tag">OpenCV</span>
+                    <span class="tag">Python</span><span class="tag">Linux</span>
+                    <span class="tag">Docker</span><span class="tag">Ansible</span>
+                    <span class="tag">GNS3</span>
                 </div>
             </div>
             <div class="skill-card reveal">
-                <p class="sk-cat">Infrastructure</p>
+                <p class="sk-cat">Security Tooling</p>
                 <div class="tags">
-                    <span class="tag">Docker</span><span class="tag">Ansible</span><span class="tag">Prometheus</span>
-                    <span class="tag">Grafana</span><span class="tag">ZeroTier</span>
+                    <span class="tag">Sysmon</span><span class="tag">ELK</span>
+                    <span class="tag">Volatility</span><span class="tag">Wireshark</span>
+                    <span class="tag">Nmap</span><span class="tag">Suricata</span>
                 </div>
             </div>
-            
         </div>
     </section>
 
     <div class="hr"></div>
 
-    <section class="section-wrap" id="hackathons">
+    <!-- ─── CERTIFICATES ─── -->
+    <section class="section-wrap" id="certificates">
         <p class="section-label">achievements</p>
         <h2 class="section-title">Hackathons &amp; Certificates</h2>
         <div class="hackathons-grid">
@@ -1024,26 +1402,7 @@
 
     <div class="hr"></div>
 
-    <section class="section-wrap" id="internships">
-        <p class="section-label">experience</p>
-        <h2 class="section-title">Experience</h2>
-        <div class="internships-grid">
-            <div class="intern-card reveal">
-                <p class="edu-degree">Network &amp; Security Intern</p>
-                <p class="edu-school">Algérie Télécom: Complexe Haddadin, Oran</p>
-                <p class="edu-meta">September 2025 · 3 weeks</p>
-                <div style="margin-top:0.8rem; font-size:.85rem; color:var(--muted); line-height:1.6;">
-                    <p>Explored backbone infrastructure (MPLS, BGP), CGNAT operations, IPv6 transition strategies, and Huawei OM network monitoring. Gained hands-on exposure to carrier-grade network security and critical infrastructure protection.</p>
-                </div>
-                <div style="margin-top: 1rem;">
-                    <a href="internship.html" style="display: inline-block; padding: 0.5rem 1.5rem; background: linear-gradient(135deg, #9b30ff, #ff2d9b); color: #ffffff; border-radius: 4px; text-decoration: none; font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; transition: transform 0.15s, box-shadow 0.2s; box-shadow: 0 0 22px rgba(155, 48, 255, 0.45);">Read Full Report →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <div class="hr"></div>
-
+    <!-- ─── CONTACT ─── -->
     <section class="section-wrap" id="contact">
         <p class="section-label">get in touch</p>
         <h2 class="section-title">Contact</h2>
